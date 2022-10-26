@@ -6,12 +6,27 @@ public class FarmSeeds {
     private int waterLimit;
     private int fertilizerNeeds;
     private int fertilizerLimit;
-    private int productsProduced;
+    private int minProductsProduced;
+    private int maxProductsProduced;
     private int seedCost;
     private int sellingPrice;
-    private int expYield;
+    private double expYield;
 
-
+    public FarmSeeds(String name, String cropType, int harvestTime, int waterNeeds, int waterLimit, int fertilizerNeeds, int fertilizerLimit, int minProductsProduced, int maxProductsProduced, int seedCost, int sellingPrice, double expYield) {
+        this.name = name;
+        this.cropType = cropType;
+        this.harvestTime = harvestTime;
+        this.waterNeeds = waterNeeds;
+        this.waterLimit = waterLimit;
+        this.fertilizerNeeds = fertilizerNeeds;
+        this.fertilizerLimit = fertilizerLimit;
+        this.minProductsProduced = minProductsProduced;
+        this.maxProductsProduced = maxProductsProduced;
+        this.seedCost = seedCost;
+        this.sellingPrice = sellingPrice;
+        this.expYield = expYield;
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -52,7 +67,7 @@ public class FarmSeeds {
         return this.sellingPrice;
     }
 
-    public int getExpYield() {
+    public double getExpYield() {
         return this.expYield;
     }
 
