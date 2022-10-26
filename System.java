@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import java.util.ArrayList;
-
 public class System {
     private ArrayList<FarmTools> tools;
     private ArrayList<FarmSeeds> seeds;
