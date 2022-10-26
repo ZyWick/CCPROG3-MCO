@@ -1,8 +1,14 @@
 public class FarmTools {
     private String name;
     private int usageCost;
-    private int expYield;
+    private double expYield;
 
+    public FarmTools(String name, int usageCost, double expYield) {
+        this.name = name;
+        this.usageCost = usageCost;
+        this.expYield = expYield;
+    } 
+    
     public String getName() {
         return this.name;
     }
@@ -11,7 +17,7 @@ public class FarmTools {
         return this.usageCost;
     }
 
-    public int getExpYield() {
+    public double getExpYield() {
         return this.expYield;
     }
 
