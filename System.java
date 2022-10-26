@@ -22,6 +22,10 @@ public class System {
         seeds.add(new FarmSeeds("Sunflower", "Flower", 3, 2, 3, 1, 2, 1, 1, 20, 19, 7.5));
         seeds.add(new FarmSeeds("Mango", "Fruit Tree", 10, 7, 7, 4, 4, 5, 15, 100, 8, 25));
         seeds.add(new FarmSeeds("Apple", "Fruit Tree", 10, 7, 7, 5, 5, 10, 15, 200, 5, 25));
+        type.add(new FarmerType("Farmer", 0, 0, 0, 0, 0, 0));
+        type.add(new FarmerType("Registered Farmer", 5, 1, -1, 0, 0, 200));
+        type.add(new FarmerType("Distinguished Farmer", 10, 2, -2, 1, 0, 300));
+        type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
     
     public ArrayList<FarmTools> getTools() {
