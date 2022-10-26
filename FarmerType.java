@@ -6,7 +6,15 @@ public class FarmerType {
     private int fertilizerBonusIncrease;
     private int registrationFee;
 
-
+    public FarmerType(int levelReq, int bonusEarning, int seedCostReduction, int waterBonusIncrease, int fertilizerBonusIncrease, int registrationFee) {
+        this.levelReq = levelReq;
+        this.bonusEarning = bonusEarning;
+        this.seedCostReduction = seedCostReduction;
+        this.waterBonusIncrease = waterBonusIncrease;
+        this.fertilizerBonusIncrease = fertilizerBonusIncrease;
+        this.registrationFee = registrationFee;
+    }
+    
     public int getLevelReq() {
         return this.levelReq;
     }
