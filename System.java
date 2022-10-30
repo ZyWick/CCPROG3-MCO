@@ -26,6 +26,22 @@ public class System {
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
     
+    public ArrayList<Integer> getToolChoices (MyFarm farm, int tileIndex) {
+        ArrayList<Integer> index = new ArrayList<Integer>();
+        Tile tile = farm.getLot().get(tileIndex);
+
+        if (tile.isPlowed() && tile.getSeeds() != null) {
+            index.add(1);
+            index.add(2);
+        } else if (tile.isPlowed() == false) {
+            index.add(0);
+        } else if (tile.isRock()) {
+            index.add(3);
+        }
+
+        return index;
+    }
+    
     public ArrayList<FarmTools> getTools() {
         return this.tools;
     }
