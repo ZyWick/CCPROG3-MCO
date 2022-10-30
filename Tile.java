@@ -2,15 +2,16 @@ public class Tile {
     private FarmSeeds seeds = null;    
     private boolean rock = false;
     private boolean plowed = false;
-    private coordinates coords;
+    private boolean withered = false;
+    private int waterTimes = 0;
+    private int fertilizerTimes = 0;
+    private int day = 0;
 
-    public Tile(coordinates coords) {
-        this.coords = coords;
+    public Tile() {
     }
 
-    public Tile(boolean rock, coordinates coords) {
+    public Tile(boolean rock) {
         this.rock = rock;
-        this.coords = coords;
     }
 
     public FarmSeeds getSeeds() {
@@ -25,19 +26,35 @@ public class Tile {
         return this.rock;
     }
 
-    public boolean getRock() {
-        return this.rock;
-    }
-
     public void setRock(boolean rock) {
         this.rock = rock;
     }
 
-    public boolean isPlowed() {
-        return this.plowed;
+    public int getWaterTimes() {
+        return this.waterTimes;
     }
 
-    public boolean getPlowed() {
+    public void addWaterTimes() {
+        this.waterTimes += 1;
+    }
+
+    public int getFertilizerTimes() {
+        return this.fertilizerTimes;
+    }
+
+    public void addFertilizerTimes() {
+        this.fertilizerTimes += 1;
+    }
+
+    public int getDay() {
+        return this.day;
+    }
+
+    public void addDay() {
+        this.day += 1;
+    }
+    
+    public boolean isPlowed() {
         return this.plowed;
     }
 
@@ -45,7 +62,12 @@ public class Tile {
         this.plowed = plowed;
     }
 
-    public coordinates getCoords() {
-        return this.coords;
+    public boolean isWithered() {
+        return this.withered;
     }
+
+    public void setWithered(boolean withered) {
+        this.withered = withered;
+    }
+
 }
