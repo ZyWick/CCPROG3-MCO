@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class System {
-    private ArrayList<FarmTools> tools;
-    private ArrayList<FarmSeeds> seeds;
-    private ArrayList<FarmerType> type;
+public class FarmSystem {
+    private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
+    private ArrayList<FarmSeeds> seeds = new ArrayList<FarmSeeds>();
+    private ArrayList<FarmerType> type = new ArrayList<FarmerType>();
     private int day = 1;
 
-    public System () {
+    public FarmSystem () {
         tools.add(new FarmTools("Plow", 0, 0.5));
         tools.add(new FarmTools("Watering Can", 0, 0.5));
         tools.add(new FarmTools("Fertilizer", 10, 4));
@@ -25,23 +25,35 @@ public class System {
         type.add(new FarmerType("Distinguished Farmer", 10, 2, -2, 1, 0, 300));
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
-    
-    public ArrayList<Integer> getToolChoices (MyFarm farm, int tileIndex) {
+
+    public ArrayList<Integer> displayAvailableTileActions (MyFarm farm, int tileIndex) {
         ArrayList<Integer> index = new ArrayList<Integer>();
         Tile tile = farm.getLot().get(tileIndex);
+        int x = 1;
 
-        if (tile.isPlowed() && tile.getSeeds() != null) {
-            index.add(1);
-            index.add(2);
+        if (tile.isPlowed()) {
+            if (tile.getSeeds() != null) {
+                index.add(1);
+                index.add(2);
+            } else
+                index.add(5);
         } else if (tile.isPlowed() == false) {
             index.add(0);
         } else if (tile.isRock()) {
             index.add(3);
         }
 
+        for (int actionIndex: index) {
+            if (actionIndex == 5) {
+                System.out.println(x + " - " + "plant seeds");
+            } else
+                System.out.println(x + " - " + tools.get(actionIndex).getName());
+            x++;
+        }
+
         return index;
     }
-    
+
     public ArrayList<FarmTools> getTools() {
         return this.tools;
     }
@@ -56,6 +68,10 @@ public class System {
 
     public int getDay() {
         return this.day;
+    }
+
+    public void addDay() {
+        this.day += 1;
     }
 
 }
