@@ -3,10 +3,15 @@ public class Player {
     private int objectCoins = 100;
     private double exp = 0.0;
     private int level = 1;
-    private System god = new System();
+    private FarmSystem god = new FarmSystem();
     private FarmerType type = god.getType().get(0);
 
     public Player() {
+    }
+
+    public void levelUp(double exp) {
+        if (this.level < exp / 100)
+            this.level = (int)(exp / 100);
     }
 
     public void useTool (MyFarm farm, int toolIndex, int tileIndex) {
@@ -22,7 +27,8 @@ public class Player {
             }
             
             objectCoins -= tool.getUsageCost();
-            exp += tool.getExpYield();            
+            exp += tool.getExpYield();
+            levelUp(exp);            
         }
     }
 
@@ -42,7 +48,18 @@ public class Player {
         fertilizerBonus = harvestTotal * 0.5 * TheTile.getFertilizerTimes();
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
-        objectCoins += harvestTotal;
+        this.objectCoins += harvestTotal;
+        this.exp += TheSeed.getExpYield();
+        levelUp(exp); 
+    }
+
+    public FarmSystem getFarmSystem() {
+        return this.god;
+    }
+
+    public void advanceDay(MyFarm farm) {
+        god.addDay();
+        farm.addDay();
     }
 
 }
