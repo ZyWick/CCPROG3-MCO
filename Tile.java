@@ -42,8 +42,14 @@ public class Tile {
         return this.fertilizerTimes;
     }
 
-    public void addFertilizerTimes() {
-        this.fertilizerTimes += 1;
+    // returns true if operation succeded else false
+    public boolean addFertilizerTimes() {
+        if(plowed && seeds != null) {
+            this.fertilizerTimes += 1;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getDay() {
@@ -58,7 +64,7 @@ public class Tile {
         return this.plowed;
     }
 
-    public void setPlowed(boolean plowed) {
+    public boolean setPlowed(boolean plowed) {
         this.plowed = plowed;
     }
 
@@ -70,4 +76,26 @@ public class Tile {
         this.withered = withered;
     }
 
+    //
+    public boolean plow() {
+        if(!plowed){
+            plowed = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // always returns true (just to be consistent)
+    public boolean shovel() {
+        // resets fields (except rock and day) of object
+        seeds = null;
+        plowed = false;
+        withered = false;
+
+        waterTimes = 0;
+        fertilizerTimes = 0;
+        
+        return true;
+    }
 }
