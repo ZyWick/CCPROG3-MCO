@@ -6,6 +6,7 @@ public class Tile {
     private int waterTimes = 0;
     private int fertilizerTimes = 0;
     private int day = 0;
+    private int dayPlanted = 0;
 
     public Tile() {
     }
@@ -95,7 +96,7 @@ public class Tile {
 
         waterTimes = 0;
         fertilizerTimes = 0;
-        
+
         return true;
     }
 }
