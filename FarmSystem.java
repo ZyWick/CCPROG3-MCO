@@ -39,7 +39,7 @@ public class FarmSystem {
             else if (selectedTool.getName().equals("Shovel"))
                 return true;
         }       
-            
+
         return false;
     }
     
@@ -88,6 +88,10 @@ public class FarmSystem {
 
     public void throwRegisterError() {
         System.out.println("Error: insufficient level");
+    }
+
+    public void throwPlantError() {
+        System.out.println("Error: tile is unplowed");
     }
 
     public void displayTools (Tile TheTile, int objectCoins) {
@@ -151,12 +155,15 @@ public class FarmSystem {
         return choice;
     }
 
-    public int getSeedChoice(Scanner sc, int objectCoins) {
+    public int getSeedChoice(Scanner sc, Tile TheTile, int objectCoins) {
         int choice;
-        System.out.println("Which seed do you want to plant?");
-        displaySeeds(objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
+        if (TheTile.isPlowed()) {
+            System.out.println("Which seed do you want to plant?");
+            displaySeeds(objectCoins);
+            System.out.print("Choice: ");
+            choice = sc.nextInt();
+        } else 
+            choice = -1;
 
         return choice;
     }

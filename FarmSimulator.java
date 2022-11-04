@@ -26,13 +26,11 @@ public class FarmSimulator {
                         game.displayInteractionChoices ();
                         choice = sc.nextInt();
                         switch (choice) {
-                            case 1: choice = game.getToolChoice(sc, TheTile, x);
+                            case 1: choice = game.getToolChoice(sc, TheTile, p1.getObjectCoins());
                                     FarmTools selectedTool = p1.getFarmSystem().getTools().get(choice);
                                     p1.useTool(farm, selectedTool, TheTile);
                                     break;
-                            case 2: choice = game.getSeedChoice(sc, p1.getObjectCoins()); 
-                                    FarmSeeds selectedSeed = p1.getFarmSystem().getSeeds().get(choice);
-                                    p1.plantCrop(farm, TheTile, selectedSeed);
+                            case 2: p1.plantCrop(farm, TheTile, sc);
                                     break;
                             case 3: p1.harvestCrop(farm, TheTile); 
                                     break;

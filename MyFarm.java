@@ -20,8 +20,8 @@ public class MyFarm {
             if (tile.getSeeds() != null) {
                 int day = tile.getDay();
                 int harvestTime = tile.getSeeds().getHarvestTime();
-
-                if (day == 1)
+    
+                if (day <= 1)
                     return ',';
                 if (day <= harvestTime/3)
                     return 's';
