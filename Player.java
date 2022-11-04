@@ -32,7 +32,7 @@ public class Player {
 
         if (farm.getGame().canUseTool(selectedTool, TheTile, this.objectCoins)) {
             
-            switch (farm.getGame().getTools().indexOf(selectedTool)) {
+            switch (toolIndex) {
                 case 0: farm.plowTile(TheTile); break;
                 case 1: farm.waterTile(TheTile); break;
                 case 2: farm.fertilizeTile(TheTile); break;
@@ -55,7 +55,7 @@ public class Player {
             FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
             if (farm.getGame().canUseSeed(selectedSeed, choice)) {
-                farm.plantCrop(TheTile, selectedSeed);
+                farm.plantCrop(TheTile, choice);
             } else
             farm.getGame().throwSeedError();
         } else
@@ -79,8 +79,10 @@ public class Player {
             this.exp += TheSeed.getExpYield();
             levelUp(exp); 
         }
-        else
-            farm.getGame().throwHarvestError(TheTile);
+        else {
+            int error = farm.identifyHarvestError(TheTile);
+            farm.getGame().throwHarvestError(error);
+        }
     }
 
     public void RegisterUp() {
