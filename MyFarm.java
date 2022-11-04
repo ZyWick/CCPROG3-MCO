@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-
 
 public class MyFarm {
     private ArrayList<Tile> lot = new ArrayList<Tile>();
@@ -73,14 +71,6 @@ public class MyFarm {
         System.out.println('*');
     }
     
-    public int getProductsProduced(FarmSeeds TheSeed) {
-        int productsProduced;
-        
-        productsProduced = ThreadLocalRandom.current().nextInt(TheSeed.getMinProductsProduced(), TheSeed.getMaxProductsProduced() + 1);
-
-        return productsProduced;
-    }
-
     public void ageLot() {    
         game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         for (Tile tile : lot) 
@@ -88,9 +78,40 @@ public class MyFarm {
                 tile.addDay();
     }
 
-    public ArrayList<Tile> getLot() {
-        return this.lot;
+    public void plowTile(Tile TheTile) {
+        TheTile.setPlowed(true);
     }
+
+    public void waterTile(Tile TheTile) {
+        TheTile.addWaterTimes();
+    }
+
+    public void fertilizeTile(Tile TheTile) {
+        TheTile.addFertilizerTimes();   
+    }
+
+    public void removeRock(Tile TheTile) {
+        TheTile.setRock(false);  
+    }
+
+    public void removeWithered (Tile TheTile) {
+
+        if (TheTile.isWithered()) {
+            TheTile = new Tile();
+        } else if (TheTile.isPlowed() && TheTile.getSeeds() != null) {
+            TheTile = new Tile();
+        } else if (TheTile.isPlowed() == false || TheTile.isRock()) {
+
+        }
+    }
+
+    public void plantCrop(Tile TheTile, FarmSeeds selectedSeed) {
+        TheTile.setSeeds(selectedSeed);
+   } 
+
+   public ArrayList<Tile> getLot() {
+        return this.lot;
+   }
 
     public FarmSystem getGame() {
         return this.game;
