@@ -3,8 +3,7 @@ import java.util.Scanner;
 public class Player {
     private int seeds = 0;
     private int objectCoins = 100;
-    private double exp = 0.0;
-    private int level = 1;
+    private Experience experience;
     private MyFarm farm = new MyFarm();
     private FarmerType type = farm.getGame().getType().get(0);
 
@@ -18,9 +17,9 @@ public class Player {
 
     public void displayPlayerStats() {
         System.out.print("ObjectCoins: " + this.objectCoins);
-        System.out.print(" exp: " + this.exp);
-        System.out.print(" level: " + this.level);
-        if (farm.getGame().canRegisterUp(this.type, this.level))
+        System.out.print(" exp: " + this.experience.getExp());
+        System.out.print(" level: " + this.experience.getLevel());
+        if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))
             System.out.println("can register superior farmer type");
         else 
             System.out.println();
@@ -41,8 +40,7 @@ public class Player {
             }
             
             objectCoins -= selectedTool.getUsageCost();
-            exp += selectedTool.getExpYield();
-            levelUp(exp);            
+            experience.addExp(selectedTool.getExpYield());         
         }
         else
             farm.getGame().throwToolError(selectedTool);
@@ -76,8 +74,7 @@ public class Player {
 
             TheTile = new Tile();
             this.objectCoins += harvestTotal;
-            this.exp += TheSeed.getExpYield();
-            levelUp(exp); 
+            experience.addExp(selectedTool.getExpYield()); 
         }
         else {
             int error = farm.identifyHarvestError(TheTile);
@@ -86,7 +83,7 @@ public class Player {
     }
 
     public void RegisterUp() {
-        if (farm.getGame().canRegisterUp(this.type, this.level))
+        if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))
             this.type = farm.getGame().getType().get(farm.getGame().getType().indexOf(this.type) + 1);
         else
             farm.getGame().throwRegisterError();
@@ -105,6 +102,6 @@ public class Player {
     }
 
     public int getLevel() {
-        return this.level;
+        return this.experience.getLevel();
     }
 }
