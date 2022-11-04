@@ -2,7 +2,6 @@ public class Tile {
     private FarmSeeds seeds = null;    
     private boolean rock = false;
     private boolean plowed = false;
-    private boolean withered = false;
     private int waterTimes = 0;
     private int fertilizerTimes = 0;
     private int day = 0;
@@ -70,33 +69,16 @@ public class Tile {
     }
 
     public boolean isWithered() {
-        return this.withered;
-    }
-
-    public void setWithered(boolean withered) {
-        this.withered = withered;
-    }
-
-    //
-    public boolean plow() {
-        if(!plowed){
-            plowed = true;
+        if(this.seeds != null && this.day > this.seeds.getHarvestTime())
             return true;
-        } else {
-            return false;
-        }
+
+        if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getFertilizerTimes() < this.seeds.getFertilizerNeeds())
+            return true;
+
+        if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getWaterTimes() < this.seeds.getWaterNeeds())
+            return true;
+
+        return false;
     }
 
-    // always returns true (just to be consistent)
-    public boolean shovel() {
-        // resets fields (except rock and day) of object
-        seeds = null;
-        plowed = false;
-        withered = false;
-
-        waterTimes = 0;
-        fertilizerTimes = 0;
-
-        return true;
-    }
 }

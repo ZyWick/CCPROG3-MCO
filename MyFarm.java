@@ -116,8 +116,6 @@ public class MyFarm {
         for (Tile tile : lot) 
             if(tile.getSeeds() != null) {
                 tile.addDay();
-                if (tile.getDay() > tile.getSeeds().getHarvestTime())
-                    tile.setWithered(true);
             }
     }
 
