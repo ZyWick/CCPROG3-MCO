@@ -29,7 +29,7 @@ public class FarmSystem {
 
     public boolean canUseTool(FarmTools selectedTool, Tile TheTile, int objectCoins) {
         if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false && TheTile.isRock() == false) 
+            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false) 
                 return true;
             else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
                      && TheTile.isPlowed() == true && TheTile.getSeeds() != null)
@@ -39,7 +39,7 @@ public class FarmSystem {
             else if (selectedTool.getName().equals("Shovel"))
                 return true;
         }       
-
+    
         return false;
     }
     
@@ -59,14 +59,6 @@ public class FarmSystem {
         return false;
     }
 
-    public boolean canHarvest(Tile TheTile) {
-        
-        if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime())
-            return true;
-        
-        return false;
-    }
-
     public void throwToolError(FarmTools selectedTool) {
         switch (tools.indexOf(selectedTool)) {
             case 0: System.out.println("tile is already plowed\n"); break;
@@ -79,11 +71,13 @@ public class FarmSystem {
         System.out.println("Error: not enough objectCoins\n");
     }
 
-    public void throwHarvestError(Tile TheTile) {
-        if (TheTile.isWithered())
-            System.out.print("Error: crop is withered\n");
-        else
-            System.out.print("Error: crop has not met harvest time\n");
+    public void throwHarvestError(int errorType) {
+        switch (errorType) {
+            case 1: System.out.print("Error: crop is withered, it is past its harvest time\n"); break;
+            case 2: System.out.print("Error: crop is withered, it did not meet fertilizer needs\n"); break;
+            case 3: System.out.print("Error: crop is withered, it did not meet water needs\n"); break;
+            case 0: System.out.print("Error: crop has not met harvest time\n"); break;
+        }
     }
 
     public void throwRegisterError() {
@@ -187,5 +181,4 @@ public class FarmSystem {
     public void addDay() {
         this.day += 1;
     }
-
 }
