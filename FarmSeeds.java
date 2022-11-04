@@ -54,9 +54,13 @@ public class FarmSeeds {
     public int getFertilizerLimit() {
         return this.fertilizerLimit;
     }
+    
+    public int getMinProductsProduced() {
+        return this.minProductsProduced;
+    }
 
-    public int getProductsProduced() {
-        return this.productsProduced;
+    public int getMaxProductsProduced() {
+        return this.maxProductsProduced;
     }
 
     public int getSeedCost() {
