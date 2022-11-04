@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FarmSystem {
     private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
@@ -26,32 +27,136 @@ public class FarmSystem {
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
 
-    public ArrayList<Integer> displayAvailableTileActions (MyFarm farm, int tileIndex) {
-        ArrayList<Integer> index = new ArrayList<Integer>();
-        Tile tile = farm.getLot().get(tileIndex);
-        int x = 1;
+    public boolean canUseTool(FarmTools selectedTool, Tile TheTile, int objectCoins) {
+        if (objectCoins >= selectedTool.getUsageCost()) {
+            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false) 
+                return true;
+            else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
+                     && TheTile.isPlowed() == true && TheTile.getSeeds() != null)
+                return true;      
+            else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock())
+                return true;
+        }       
+            
+        return false;
+    }
+    
+    public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins) {
+        if (seed.getSeedCost() <= PlayerObjectCoins)
+            return true;
 
-        if (tile.isPlowed()) {
-            if (tile.getSeeds() != null) {
-                index.add(1);
-                index.add(2);
-            } else
-                index.add(5);
-        } else if (tile.isPlowed() == false) {
-            index.add(0);
-        } else if (tile.isRock()) {
-            index.add(3);
+        return false;
+    }
+
+    public boolean canRegisterUp(FarmerType currentType, int level) {
+        FarmerType zType = type.get(type.indexOf(currentType) + 1);
+
+        if (level >= zType.getLevelReq()) 
+            return true;
+
+        return false;
+    }
+
+    public boolean canHarvest(Tile TheTile) {
+        
+        if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime())
+            return true;
+        
+        return false;
+    }
+
+    public void throwToolError(FarmTools selectedTool) {
+        switch (tools.indexOf(selectedTool)) {
+            case 0: System.out.println("tile is already plowed\n"); break;
+            case 1: case 2: System.out.println("tile does not have a crop\n"); break;
+            case 3: System.out.println("tiles does not have a rock\n"); break;
         }
+    }
 
-        for (int actionIndex: index) {
-            if (actionIndex == 5) {
-                System.out.println(x + " - " + "plant seeds");
-            } else
-                System.out.println(x + " - " + tools.get(actionIndex).getName());
-            x++;
+    public void throwSeedError() {
+        System.out.println("Error: not enough objectCoins\n");
+    }
+
+    public void throwHarvestError(Tile TheTile) {
+        if (TheTile.isWithered())
+            System.out.print("Error: crop is withered\n");
+        else
+            System.out.print("Error: crop has not met harvest time\n");
+    }
+
+    public void throwRegisterError() {
+        System.out.println("Error: insufficient level");
+    }
+
+    public void displayTools (Tile TheTile, int objectCoins) {
+        for (FarmTools tool : tools) {
+            if(canUseTool(tool, TheTile, objectCoins))
+                System.out.print("| / | ");
+            else
+                System.out.print("| x | ");
+
+            System.out.println(tools.indexOf(tool) + " - " + tool.getName());
         }
+    }
 
-        return index;
+    public void displaySeeds (int PlayerObjectCoins) {
+        for (FarmSeeds seed : seeds) {
+            if(canUseSeed(seed, PlayerObjectCoins))
+                System.out.print("| / | ");
+            else
+                System.out.print("| x | ");
+
+            System.out.println(seeds.indexOf(seed) + " - " + seed.getName());
+        }
+    }
+
+    public void displayGameMoves () {
+        System.out.println("What do you want to do?");
+        System.out.println("1 - display farm");
+        System.out.println("2 - Interact with tile");
+        System.out.println("3 - advance day");
+        System.out.println("4 - display player stats");
+        System.out.println("5 - Register superior farmer type");
+    }
+
+    public void displayInteractionChoices () {
+        System.out.println("What do you want to do?");
+        System.out.println("1 - Use Tool");
+        System.out.println("2 - Plant seed");
+        System.out.println("3 - Harvest Crop");
+        System.out.println("x - input any number to return to main");
+        System.out.print("Choice: ");
+    }
+
+    public int getTileIndex (Scanner sc) {
+        int x, y, tileIndex;
+
+        System.out.print("input tile coordinates: ");
+        x = sc.nextInt();
+        y = sc.nextInt();
+        tileIndex = (x - 1) * 10 + (y - 1) ;
+
+        return tileIndex;
+    }
+
+    public int getToolChoice(Scanner sc, Tile TheTile, int objectCoins) {
+        int choice;
+        System.out.println("Which tool do you want to use?");
+        displayTools(TheTile, objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }
+
+    public int getSeedChoice(Scanner sc, int objectCoins) {
+        int choice;
+        System.out.println("Which seed do you want to plant?");
+        displaySeeds(objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
     }
 
     public ArrayList<FarmTools> getTools() {
