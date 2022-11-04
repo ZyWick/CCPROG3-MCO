@@ -36,6 +36,8 @@ public class FarmSystem {
                 return true;      
             else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock())
                 return true;
+            else if (selectedTool.getName().equals("Shovel"))
+                return true;
         }       
             
         return false;
