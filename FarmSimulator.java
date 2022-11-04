@@ -5,15 +5,15 @@ public class FarmSimulator {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
-        Player p1 = new Player();
-        FarmSystem game = p1.getFarmSystem();
+        Player p1 = new Player(farm.getGame().getType().get(0));
+        FarmSystem game = farm.getGame();
         int choice, tileIndex, x = 1;
         Tile TheTile = null;
         farm.display();
 
         while (x != 0) {
 
-            p1.displayPlayerStats();
+            p1.displayPlayerStats(farm);
             game.displayGameMoves();
             System.out.print("Choice: ");
             choice = sc.nextInt();
@@ -27,7 +27,7 @@ public class FarmSimulator {
                         choice = sc.nextInt();
                         switch (choice) {
                             case 1: choice = game.getToolChoice(sc, TheTile, p1.getObjectCoins());
-                                    FarmTools selectedTool = p1.getFarmSystem().getTools().get(choice);
+                                    FarmTools selectedTool = game.getTools().get(choice);
                                     p1.useTool(farm, selectedTool, TheTile);
                                     break;
                             case 2: p1.plantCrop(farm, TheTile, sc);
@@ -41,7 +41,7 @@ public class FarmSimulator {
                         System.out.println("Day: " + game.getDay()); 
                         break;
                 case 4: break;
-                case 5: p1.RegisterUp();
+                case 5: p1.RegisterUp(farm);
                 default: break;
             }
         }
