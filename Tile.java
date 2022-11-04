@@ -5,7 +5,6 @@ public class Tile {
     private int waterTimes = 0;
     private int fertilizerTimes = 0;
     private int day = 0;
-    private int dayPlanted = 0;
 
     public Tile() {
     }
@@ -64,7 +63,7 @@ public class Tile {
         return this.plowed;
     }
 
-    public boolean setPlowed(boolean plowed) {
+    public void setPlowed(boolean plowed) {
         this.plowed = plowed;
     }
 
@@ -78,6 +77,14 @@ public class Tile {
         if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getWaterTimes() < this.seeds.getWaterNeeds())
             return true;
 
+        return false;
+    }
+    
+    public boolean canHarvest() {
+        
+        if (this.day == seeds.getHarvestTime())
+            return true;
+        
         return false;
     }
 
