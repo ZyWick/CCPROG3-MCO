@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Player {
     private int seeds = 0;
     private int objectCoins = 100;
@@ -43,11 +45,17 @@ public class Player {
             game.throwToolError(selectedTool);
     }
 
-    public void plantCrop (MyFarm farm, Tile TheTile, FarmSeeds selectedSeed) {
-        if (game.canUseSeed(selectedSeed, this.objectCoins))        
-            farm.plantCrop(TheTile, selectedSeed);
-        else
+    public void plantCrop (MyFarm farm, Tile TheTile, Scanner sc) {
+        if(TheTile.isPlowed()) {
+            int choice = game.getSeedChoice(sc, TheTile, this.objectCoins); 
+            FarmSeeds selectedSeed = game.getSeeds().get(choice);
+
+            if (game.canUseSeed(selectedSeed, choice)) {
+                farm.plantCrop(TheTile, selectedSeed);
+            } else
             game.throwSeedError();
+        } else
+            game.throwPlantError();
     }
 
     public void harvestCrop (MyFarm farm, Tile TheTile) {
