@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Tile {
     private FarmSeeds seeds = null;    
     private boolean rock = false;
@@ -67,17 +69,17 @@ public class Tile {
         this.plowed = plowed;
     }
 
-    public boolean isWithered() {
+    public int isWithered() {
         if(this.seeds != null && this.day > this.seeds.getHarvestTime())
-            return true;
+            return 1;
 
         if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getFertilizerTimes() < this.seeds.getFertilizerNeeds())
-            return true;
+            return 2;
 
         if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getWaterTimes() < this.seeds.getWaterNeeds())
-            return true;
+            return 3;
 
-        return false;
+        return 0;
     }
     
     public boolean canHarvest() {
@@ -86,6 +88,14 @@ public class Tile {
             return true;
         
         return false;
+    }
+
+    public int getProductsProduced() {
+        int productsProduced;
+        
+        productsProduced = ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+
+        return productsProduced;
     }
 
 }
