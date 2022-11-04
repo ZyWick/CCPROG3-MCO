@@ -9,11 +9,6 @@ public class Player {
 
     public Player() {
     }
-    
-    public void levelUp(double exp) {
-        if (this.level < exp / 100)
-            this.level = (int)(exp / 100);
-    }
 
     public void displayPlayerStats() {
         System.out.print("ObjectCoins: " + this.objectCoins);
@@ -54,6 +49,7 @@ public class Player {
 
             if (farm.getGame().canUseSeed(selectedSeed, choice)) {
                 farm.plantCrop(TheTile, choice);
+                this.objectCoins -= selectedSeed.getSeedCost();
             } else
             farm.getGame().throwSeedError();
         } else
@@ -74,7 +70,7 @@ public class Player {
 
             TheTile = new Tile();
             this.objectCoins += harvestTotal;
-            experience.addExp(selectedTool.getExpYield()); 
+            experience.addExp(TheSeed.getExpYield()); 
         }
         else {
             int error = farm.identifyHarvestError(TheTile);
