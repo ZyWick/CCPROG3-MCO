@@ -15,7 +15,9 @@ public class MyFarm {
             
     }
 
-    public char whatToPrint(Tile tile) {
+    public char whatToPrint(int tileIndex) {
+        Tile tile = lot.get(tileIndex);
+
         if (tile.isPlowed()) {
             if (tile.getSeeds() != null) {
                 int day = tile.getDay();
@@ -55,7 +57,7 @@ public class MyFarm {
                 
             for(y = 0; y < column; y++) {
                 System.out.print("|     ");
-                System.out.print(whatToPrint(lot.get(tileIndex)));
+                System.out.print(whatToPrint(tileIndex));
                 System.out.print("     ");
                 tileIndex = tileIndex + 1;
             }
