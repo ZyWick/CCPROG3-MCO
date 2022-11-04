@@ -59,9 +59,9 @@ public class Player {
     }
 
     public void harvestCrop (MyFarm farm, Tile TheTile) {
-        if (farm.getGame().canHarvest(TheTile)) {
+        if (TheTile.canHarvest()) {
             FarmSeeds TheSeed = TheTile.getSeeds();
-            int productsProduced = farm.getProductsProduced(TheSeed);
+            int productsProduced = TheTile.getProductsProduced();
             double harvestTotal, waterBonus, fertilizerBonus;      
             
             harvestTotal = productsProduced * (TheSeed.getSellingPrice() + type.getBonusEarning());
@@ -83,7 +83,6 @@ public class Player {
         else
             farm.getGame().throwRegisterError();
     }
-
 
     public void advanceDay(MyFarm farm) {
         farm.ageLot();
