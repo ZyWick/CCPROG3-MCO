@@ -29,7 +29,7 @@ public class MyFarm {
                     return 'S'; 
                 if (day == harvestTime)
                     return '$'; 
-                if (TheTile.isWithered() || day > harvestTime)
+                if (TheTile.isWithered() != 0 || day > harvestTime)
                 return 'X';        
             }
             return '#';
@@ -94,7 +94,7 @@ public class MyFarm {
 
     public void removeWithered (Tile TheTile) {
 
-        if (TheTile.isWithered()) {
+        if (TheTile.isWithered() != 0) {
             TheTile = new Tile();
         } else if (TheTile.isPlowed() && TheTile.getSeeds() != null) {
             TheTile = new Tile();
@@ -103,9 +103,13 @@ public class MyFarm {
         }
     }
 
-    public void plantCrop(Tile TheTile, FarmSeeds selectedSeed) {
-        TheTile.setSeeds(selectedSeed);
+    public void plantCrop(Tile TheTile, int seedIndex) {
+        TheTile.setSeeds(game.getSeeds().get(seedIndex));
    } 
+
+   public int identifyHarvestError(Tile TheTile) {
+        return TheTile.isWithered();
+   }
 
    public ArrayList<Tile> getLot() {
         return this.lot;
