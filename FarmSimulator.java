@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class FarmSimulator {
  
@@ -7,31 +6,45 @@ public class FarmSimulator {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
         Player p1 = new Player();
-        int choice, x = 1, tileIndex;
-        ArrayList<Integer> actions = new ArrayList<Integer>();
+        FarmSystem game = p1.getFarmSystem();
+        int choice, tileIndex, x = 1;
+        Tile TheTile = null;
         farm.display();
 
         while (x != 0) {
-            //p1.displayStats();
-            System.out.println("What do you want to do?");
-            System.out.println("1 - display farm");
-            System.out.println("2 - Interact with tile");
-            System.out.println("3 - advance day");
+
+            p1.displayPlayerStats();
+            game.displayGameMoves();
             System.out.print("Choice: ");
             choice = sc.nextInt();
 
             switch (choice) {
-                case 1: farm.display(); break;
-                case 2: tileIndex = farm.getTileIndex(sc);
-                        actions = p1.getFarmSystem().displayAvailableTileActions(farm, tileIndex);
-                        System.out.print("Choice: ");
+                case 1: farm.display(); 
+                        break;
+                case 2: tileIndex = game.getTileIndex(sc);
+                        TheTile = farm.getLot().get(tileIndex);
+                        game.displayInteractionChoices ();
                         choice = sc.nextInt();
-                        switch (actions.get(choice - 1)) {
-                            case 5: p1.plantCrop(farm, tileIndex, x); break;
-                            default: p1.useTool(farm, actions.get(choice - 1), tileIndex);
+                        switch (choice) {
+                            case 1: choice = game.getToolChoice(sc, TheTile, x);
+                                    FarmTools selectedTool = p1.getFarmSystem().getTools().get(choice);
+                                    p1.useTool(farm, selectedTool, TheTile);
+                                    break;
+                            case 2: choice = game.getSeedChoice(sc, p1.getObjectCoins()); 
+                                    FarmSeeds selectedSeed = p1.getFarmSystem().getSeeds().get(choice);
+                                    p1.plantCrop(farm, TheTile, selectedSeed);
+                                    break;
+                            case 3: p1.harvestCrop(farm, TheTile); 
+                                    break;
+                            default: break;
                         }
                         break;
-                case 3: p1.advanceDay(farm); break;
+                case 3: p1.advanceDay(farm); 
+                        System.out.println("Day: " + game.getDay()); 
+                        break;
+                case 4: break;
+                case 5: p1.RegisterUp();
+                default: break;
             }
         }
         sc.close();
