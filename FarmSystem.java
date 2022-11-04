@@ -29,7 +29,7 @@ public class FarmSystem {
 
     public boolean canUseTool(FarmTools selectedTool, Tile TheTile, int objectCoins) {
         if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false) 
+            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false && TheTile.isRock() == false) 
                 return true;
             else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
                      && TheTile.isPlowed() == true && TheTile.getSeeds() != null)
