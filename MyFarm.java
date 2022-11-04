@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MyFarm {
     private ArrayList<Tile> lot = new ArrayList<Tile>();
+    private FarmSystem game = new FarmSystem();
 
     public MyFarm() {
         int x;
@@ -80,16 +81,19 @@ public class MyFarm {
         return productsProduced;
     }
 
-    public void ageLot() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    public void ageLot() {    
+        game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         for (Tile tile : lot) 
-            if(tile.getSeeds() != null) {
+            if(tile.getSeeds() != null) 
                 tile.addDay();
-            }
     }
 
     public ArrayList<Tile> getLot() {
         return this.lot;
     }
 
+    public FarmSystem getGame() {
+        return this.game;
+    }
     
 }

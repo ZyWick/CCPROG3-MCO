@@ -5,10 +5,10 @@ public class Player {
     private int objectCoins = 100;
     private double exp = 0.0;
     private int level = 1;
-    private FarmSystem game = new FarmSystem();
-    private FarmerType type = game.getType().get(0);
+    private FarmerType type;
 
-    public Player() {
+    public Player(FarmerType type) {
+        this.type = type;
     }
     
     public void levelUp(double exp) {
@@ -16,20 +16,20 @@ public class Player {
             this.level = (int)(exp / 100);
     }
 
-    public void displayPlayerStats() {
+    public void displayPlayerStats(MyFarm farm) {
         System.out.print("ObjectCoins: " + this.objectCoins);
         System.out.print(" exp: " + this.exp);
         System.out.print(" level: " + this.level);
-        if (game.canRegisterUp(this.type, this.level))
+        if (farm.getGame().canRegisterUp(this.type, this.level))
             System.out.println("can register superior farmer type");
         else 
             System.out.println();
     }
 
     public void useTool (MyFarm farm, FarmTools selectedTool, Tile TheTile) {
-        if (game.canUseTool(selectedTool, TheTile, this.objectCoins)) {
+        if (farm.getGame().canUseTool(selectedTool, TheTile, this.objectCoins)) {
             
-            switch (game.getTools().indexOf(selectedTool)) {
+            switch (farm.getGame().getTools().indexOf(selectedTool)) {
                 case 0: TheTile.setPlowed(true); break;
                 case 1: TheTile.addWaterTimes(); break;
                 case 2: TheTile.addFertilizerTimes(); break;
@@ -49,24 +49,24 @@ public class Player {
             levelUp(exp);            
         }
         else
-            game.throwToolError(selectedTool);
+            farm.getGame().throwToolError(selectedTool);
     }
 
     public void plantCrop (MyFarm farm, Tile TheTile, Scanner sc) {
         if(TheTile.isPlowed()) {
-            int choice = game.getSeedChoice(sc, TheTile, this.objectCoins); 
-            FarmSeeds selectedSeed = game.getSeeds().get(choice);
+            int choice = farm.getGame().getSeedChoice(sc, TheTile, this.objectCoins); 
+            FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
-            if (game.canUseSeed(selectedSeed, choice)) {
+            if (farm.getGame().canUseSeed(selectedSeed, choice)) {
                 TheTile.setSeeds(selectedSeed);
             } else
-            game.throwSeedError();
+            farm.getGame().throwSeedError();
         } else
-            game.throwPlantError();
+            farm.getGame().throwPlantError();
     }
 
     public void harvestCrop (MyFarm farm, Tile TheTile) {
-        if (game.canHarvest(TheTile)) {
+        if (farm.getGame().canHarvest(TheTile)) {
             FarmSeeds TheSeed = TheTile.getSeeds();
             int productsProduced = farm.getProductsProduced(TheSeed);
             double harvestTotal, waterBonus, fertilizerBonus;      
@@ -82,22 +82,18 @@ public class Player {
             levelUp(exp); 
         }
         else
-            game.throwHarvestError(TheTile);
+            farm.getGame().throwHarvestError(TheTile);
     }
 
-    public void RegisterUp() {
-        if (game.canRegisterUp(this.type, this.level))
-            this.type = game.getType().get(game.getType().indexOf(this.type) + 1);
+    public void RegisterUp(MyFarm farm) {
+        if (farm.getGame().canRegisterUp(this.type, this.level))
+            this.type = farm.getGame().getType().get(farm.getGame().getType().indexOf(this.type) + 1);
         else
-            game.throwRegisterError();
+            farm.getGame().throwRegisterError();
     }
 
-    public FarmSystem getFarmSystem() {
-        return this.game;
-    }
 
     public void advanceDay(MyFarm farm) {
-        game.addDay();
         farm.ageLot();
     }
 
