@@ -30,11 +30,18 @@ public class Player {
         if (game.canUseTool(selectedTool, TheTile, this.objectCoins)) {
             
             switch (game.getTools().indexOf(selectedTool)) {
-                case 0: farm.plowTile(TheTile); break;
-                case 1: farm.waterTile(TheTile); break;
-                case 2: farm.fertilizeTile(TheTile); break;
-                case 3: farm.removeRock(TheTile); break;
-                case 4: farm.removeWithered(TheTile); break;
+                case 0: TheTile.setPlowed(true); break;
+                case 1: TheTile.addWaterTimes(); break;
+                case 2: TheTile.addFertilizerTimes(); break;
+                case 3: TheTile.setRock(false);  break;
+                case 4: if (TheTile.isWithered()) {
+                            TheTile = new Tile();
+                        } else if (TheTile.isPlowed() && TheTile.getSeeds() != null) {
+                            TheTile = new Tile();
+                        } else if (TheTile.isPlowed() == false || TheTile.isRock()) {
+        
+                        }
+                        break;
             }
             
             objectCoins -= selectedTool.getUsageCost();
@@ -51,7 +58,7 @@ public class Player {
             FarmSeeds selectedSeed = game.getSeeds().get(choice);
 
             if (game.canUseSeed(selectedSeed, choice)) {
-                farm.plantCrop(TheTile, selectedSeed);
+                TheTile.setSeeds(selectedSeed);
             } else
             game.throwSeedError();
         } else
@@ -61,7 +68,7 @@ public class Player {
     public void harvestCrop (MyFarm farm, Tile TheTile) {
         if (game.canHarvest(TheTile)) {
             FarmSeeds TheSeed = TheTile.getSeeds();
-            int productsProduced = farm.getProductsProduced(TheTile);
+            int productsProduced = farm.getProductsProduced(TheSeed);
             double harvestTotal, waterBonus, fertilizerBonus;      
             
             harvestTotal = productsProduced * (TheSeed.getSellingPrice() + type.getBonusEarning());
@@ -69,6 +76,7 @@ public class Player {
             fertilizerBonus = harvestTotal * 0.5 * TheTile.getFertilizerTimes();
             harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
+            TheTile = new Tile();
             this.objectCoins += harvestTotal;
             this.exp += TheSeed.getExpYield();
             levelUp(exp); 
