@@ -70,45 +70,11 @@ public class MyFarm {
         System.out.println('*');
     }
     
-    public void plowTile(Tile TheTile) {
-        TheTile.setPlowed(true);
-    }
-
-    public void waterTile(Tile TheTile) {
-        TheTile.addWaterTimes();
-    }
-
-    public void fertilizeTile(Tile TheTile) {
-        TheTile.addFertilizerTimes();   
-    }
-
-    public void removeRock(Tile TheTile) {
-        TheTile.setRock(false);  
-    }
-
-    public void removeWithered (Tile TheTile) {
-
-        if (TheTile.isWithered()) {
-            TheTile = new Tile();
-        } else if (TheTile.isPlowed() && TheTile.getSeeds() != null) {
-            TheTile = new Tile();
-        } else if (TheTile.isPlowed() == false || TheTile.isRock()) {
-
-        }
-
-    }
-
-    public void plantCrop(Tile TheTile, FarmSeeds selectedSeed) {
-        TheTile.setSeeds(selectedSeed);
-   } 
-
-    public int getProductsProduced(Tile TheTile) {
-        FarmSeeds TheSeed = TheTile.getSeeds();
+    public int getProductsProduced(FarmSeeds TheSeed) {
         int productsProduced;
         
         productsProduced = ThreadLocalRandom.current().nextInt(TheSeed.getMinProductsProduced(), TheSeed.getMaxProductsProduced() + 1);
 
-        TheTile = new Tile();
         return productsProduced;
     }
 
