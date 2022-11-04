@@ -14,13 +14,12 @@ public class MyFarm {
             
     }
 
-    public char whatToPrint(int tileIndex) {
-        Tile tile = lot.get(tileIndex);
+    public char whatToPrint(Tile TheTile) {
 
-        if (tile.isPlowed()) {
-            if (tile.getSeeds() != null) {
-                int day = tile.getDay();
-                int harvestTime = tile.getSeeds().getHarvestTime();
+        if (TheTile.isPlowed()) {
+            if (TheTile.getSeeds() != null) {
+                int day = TheTile.getDay();
+                int harvestTime = TheTile.getSeeds().getHarvestTime();
     
                 if (day <= 1)
                     return ',';
@@ -30,11 +29,11 @@ public class MyFarm {
                     return 'S'; 
                 if (day == harvestTime)
                     return '$'; 
-                if (tile.isWithered() || day > harvestTime)
+                if (TheTile.isWithered() || day > harvestTime)
                 return 'X';        
             }
             return '#';
-        } else if (tile.isRock()) {
+        } else if (TheTile.isRock()) {
             return '*';
         } else {
             return '=';
@@ -43,7 +42,6 @@ public class MyFarm {
 
     public void display () {
         int x, y, row = 1, column = 1, tileIndex = 0;
-
 
         for(x = 0; x < row; x++) {
             for(y = 0; y < column; y++) 
@@ -56,7 +54,7 @@ public class MyFarm {
                 
             for(y = 0; y < column; y++) {
                 System.out.print("|     ");
-                System.out.print(whatToPrint(tileIndex));
+                System.out.print(whatToPrint(lot.get(tileIndex)));
                 System.out.print("     ");
                 tileIndex = tileIndex + 1;
             }
@@ -73,9 +71,9 @@ public class MyFarm {
     
     public void ageLot() {    
         game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-        for (Tile tile : lot) 
-            if(tile.getSeeds() != null) 
-                tile.addDay();
+        for (Tile TheTile : lot) 
+            if(TheTile.getSeeds() != null) 
+                TheTile.addDay();
     }
 
     public void plowTile(Tile TheTile) {
