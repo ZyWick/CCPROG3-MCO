@@ -110,7 +110,10 @@ public class MyFarm {
     }
 
     public boolean canHarvest(int tileIndex) {
-        if (lot.get(tileIndex).getDay() == lot.get(tileIndex).getSeeds().getHarvestTime())
+        Tile TheTile = lot.get(tileIndex);
+        if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime() &&
+                TheTile.getWaterTimes() >= TheTile.getSeeds().getWaterNeeds() &&
+                TheTile.getFertilizerTimes() >= TheTile.getSeeds().getFertilizerNeeds())
             return true;
         
         return false;
