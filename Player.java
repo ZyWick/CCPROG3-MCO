@@ -117,8 +117,4 @@ public class Player {
     public int getLevel() {
         return this.experience.getLevel();
     }
-
-    public MyFarm getFarm() {
-        return this.farm;
-    }
 }
