@@ -235,5 +235,6 @@ public class FarmSystem {
 
     public void addDay() {
         this.day += 1;
+        System.out.println("Day: " + this.day); 
     }
 }
