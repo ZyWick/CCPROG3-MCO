@@ -44,7 +44,8 @@ public class Player {
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
-        if(farm.canPlantSeed(tileIndex)) {
+        int canPlant = farm.canPlantSeed(tileIndex);
+        if(canPlant == 1) {
             int choice = farm.getSeedChoice(sc, tileIndex, this.objectCoins); 
             FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
@@ -54,7 +55,7 @@ public class Player {
             } else
                 farm.getGame().throwSeedError();
         } else
-            farm.getGame().throwPlantError();
+            farm.getGame().throwPlantError(canPlant);
     }
 
     public void harvestCrop (int tileIndex) {

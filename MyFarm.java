@@ -93,11 +93,13 @@ public class MyFarm {
         return false;
     }
 
-    public boolean canPlantSeed (int tileIndex) {
+    public int canPlantSeed (int tileIndex) {
         if (lot.get(tileIndex).isPlowed()) 
-            return true;
+            return 2;
+        if (lot.get(tileIndex).getSeeds() == null)
+            return 3;
 
-        return false;
+        return 1;
     }
 
     public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins) {
@@ -108,7 +110,7 @@ public class MyFarm {
     }
 
     public boolean canHarvest(int tileIndex) {
-        if (lot.get(tileIndex).getDay() == lot.get(tileIndex).getSeed().getHarvestTime())
+        if (lot.get(tileIndex).getDay() == lot.get(tileIndex).getSeeds().getHarvestTime())
             return true;
         
         return false;
@@ -150,7 +152,7 @@ public class MyFarm {
 
     public int getProductsProduced(int tileIndex) {
         int productsProduced;
-        FarmSeeds seeds = lot.get(tileIndex).getSeed();
+        FarmSeeds seeds = lot.get(tileIndex).getSeeds();
         
         productsProduced = ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
 

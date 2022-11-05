@@ -63,12 +63,14 @@ public class FarmSystem {
         System.out.println("Error: insufficient level");
     }
 
-    public void throwPlantError() {
-        System.out.println("Error: tile is unplowed");
+    public void throwPlantError(int error) {
+        switch (error) {
+            case 2: System.out.println("Error: tile is unplowed"); break;
+            case 3: System.out.println("Error: tile has a crop already"); break;
+        }
     }
 
     public char whatToPrint(Tile TheTile) {
-
         if (TheTile.isPlowed()) {
             if (TheTile.getSeeds() != null) {
                 int day = TheTile.getDay();
@@ -94,7 +96,7 @@ public class FarmSystem {
     }
 
     public void displayGameMoves () {
-        System.out.println("What do you want to do?");
+        System.out.println("\nWhat do you want to do?");
         System.out.println("1 - display farm");
         System.out.println("2 - Interact with tile");
         System.out.println("3 - advance day");
@@ -103,7 +105,7 @@ public class FarmSystem {
     }
 
     public void displayInteractionChoices () {
-        System.out.println("What do you want to do?");
+        System.out.println("\nWhat do you want to do?");
         System.out.println("1 - Use Tool");
         System.out.println("2 - Plant seed");
         System.out.println("3 - Harvest Crop");
