@@ -80,7 +80,7 @@ public class Tile {
         return 0;
     }
 
-    public void removeWithered() {
+    public void reset() {
         // reset all except for rock
         seeds = null;
         plowed = false;
