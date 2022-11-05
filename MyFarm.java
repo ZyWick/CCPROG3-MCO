@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static java.lang.Math.min;
+
 public class MyFarm {
     private ArrayList<Tile> lot = new ArrayList<Tile>();
     private FarmSystem game = new FarmSystem();
@@ -164,8 +166,8 @@ public class MyFarm {
         double harvestTotal, waterBonus, fertilizerBonus;      
             
         harvestTotal = productsProduced * (TheSeed.getSellingPrice() + game.getType().get(farmerTypeIndex).getBonusEarning());
-        waterBonus = harvestTotal * 0.2 * (TheTile.getWaterTimes() - 1);
-        fertilizerBonus = harvestTotal * 0.5 * TheTile.getFertilizerTimes();
+        waterBonus = harvestTotal * 0.2 * (min(TheTile.getWaterTimes(), TheSeed.getWaterLimit()) - 1);
+        fertilizerBonus = harvestTotal * 0.5 * min(TheTile.getFertilizerTimes(), TheSeed.getFertilizerLimit());
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
         TheTile = new Tile();
