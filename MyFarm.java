@@ -96,7 +96,7 @@ public class MyFarm {
     public int canPlantSeed (int tileIndex) {
         if (lot.get(tileIndex).isPlowed() == false) 
             return 2;
-        if (lot.get(tileIndex).getSeeds() == null)
+        if (lot.get(tileIndex).getSeeds() != null)
             return 3;
 
         return 1;
