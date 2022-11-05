@@ -112,12 +112,12 @@ public class Tile {
 
     public void reset() {
         // reset all except for rock
-        seeds = null;
-        plowed = false;
+        this.seeds = null;
+        this.plowed = false;
 
-        waterTimes = 0;
-        fertilizerTimes = 0;
-        day = 0;
+        this.waterTimes = 0;
+        this.fertilizerTimes = 0;
+        this.day = 0;
     }
 
 }
