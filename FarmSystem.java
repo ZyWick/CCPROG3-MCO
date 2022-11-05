@@ -25,30 +25,7 @@ public class FarmSystem {
         type.add(new FarmerType("Distinguished Farmer", 10, 2, -2, 1, 0, 300));
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
-
-    public boolean canUseTool(FarmTools selectedTool, Tile TheTile, int objectCoins) {
-        if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false && TheTile.isRock() == false) 
-                return true;
-            else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
-                     && TheTile.isPlowed() == true && TheTile.getSeeds() != null)
-                return true;      
-            else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock())
-                return true;
-            else if (selectedTool.getName().equals("Shovel"))
-                return true;
-        }       
     
-        return false;
-    }
-    
-    public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins) {
-        if (seed.getSeedCost() <= PlayerObjectCoins)
-            return true;
-
-        return false;
-    }
-
     public boolean canRegisterUp(FarmerType currentType, int level) {
         FarmerType zType = type.get(type.indexOf(currentType) + 1);
 
@@ -110,28 +87,6 @@ public class FarmSystem {
             return '*';
         } else {
             return '=';
-        }
-    }
-
-    public void displayTools (Tile TheTile, int objectCoins) {
-        for (FarmTools tool : tools) {
-            if(canUseTool(tool, TheTile, objectCoins))
-                System.out.print("| / | ");
-            else
-                System.out.print("| x | ");
-
-            System.out.println(tools.indexOf(tool) + " - " + tool.getName());
-        }
-    }
-
-    public void displaySeeds (int PlayerObjectCoins) {
-        for (FarmSeeds seed : seeds) {
-            if(canUseSeed(seed, PlayerObjectCoins))
-                System.out.print("| / | ");
-            else
-                System.out.print("| x | ");
-
-            System.out.println(seeds.indexOf(seed) + " - " + seed.getName());
         }
     }
 

@@ -48,7 +48,7 @@ public class Player {
             int choice = farm.getSeedChoice(sc, tileIndex, this.objectCoins); 
             FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
-            if (farm.getGame().canUseSeed(selectedSeed, choice)) {
+            if (farm.canUseSeed(selectedSeed, choice)) {
                 farm.plantCrop(tileIndex, choice);
                 this.objectCoins -= selectedSeed.getSeedCost();
             } else

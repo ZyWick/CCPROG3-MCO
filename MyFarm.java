@@ -44,6 +44,28 @@ public class MyFarm {
             System.out.print("* - - - - - ");
         System.out.println('*');
     }
+
+    public void displayTools (int tileIndex, int objectCoins) {
+        for (FarmTools tool : game.getTools()) {
+            if(canUseTool(tool, tileIndex, objectCoins))
+                System.out.print("| / | ");
+            else
+                System.out.print("| x | ");
+
+            System.out.println(game.getTools().indexOf(tool) + " - " + tool.getName());
+        }
+    }
+
+    public void displaySeeds (int PlayerObjectCoins) {
+        for (FarmSeeds seed : game.getSeeds()) {
+            if(canUseSeed(seed, PlayerObjectCoins))
+                System.out.print("| / | ");
+            else
+                System.out.print("| x | ");
+
+            System.out.println(game.getSeeds().indexOf(seed) + " - " + seed.getName());
+        }
+    }
     
     public void ageLot() {    
         game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
@@ -105,7 +127,7 @@ public class MyFarm {
         int choice;
         if (lot.get(tileIndex).isPlowed()) {
             System.out.println("Which seed do you want to plant?");
-            game.displaySeeds(objectCoins);
+            displaySeeds(objectCoins);
             System.out.print("Choice: ");
             choice = sc.nextInt();
         } else 
@@ -117,7 +139,7 @@ public class MyFarm {
     public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
         System.out.println("Which tool do you want to use?");
-        game.displayTools(lot.get(tileIndex), objectCoins);
+        displayTools(tileIndex, objectCoins);
         System.out.print("Choice: ");
         choice = sc.nextInt();
 
