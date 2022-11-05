@@ -58,7 +58,7 @@ public class Player {
 
                 if (farm.canUseSeed(selectedSeed, this.objectCoins, this.type)) {
                     farm.plantCrop(tileIndex, choice);
-                    this.objectCoins -= selectedSeed.getSeedCost();
+                    this.objectCoins -= selectedSeed.getSeedCost() + this.type.getSeedCostReduction();
                 } else
                     farm.getGame().throwSeedError();
             } else
