@@ -29,7 +29,7 @@ public class FarmSimulator {
                 default: break;
             }
 
-            if (farm.endGame(p1.getObjectCoins())) {
+            if (farm.endGame(p1.getObjectCoins(), p1.getType())) {
                 System.out.print("\n| input 1 to play again: ");
                 if(sc.nextInt() == 1) {
 

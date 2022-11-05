@@ -40,8 +40,8 @@ public class Player {
                     case 4: farm.useShovel(tileIndex); break;
                 }
                 
-                objectCoins -= selectedTool.getUsageCost();
-                experience.addExp(selectedTool.getExpYield());         
+                this.objectCoins -= selectedTool.getUsageCost();
+                this.experience.addExp(selectedTool.getExpYield());         
             } else 
                 farm.getGame().throwToolError(error);
         } else
@@ -57,7 +57,7 @@ public class Player {
             if (choice >= 0 && choice < farm.getGame().getSeeds().size()) {
                 FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
-                if (farm.canUseSeed(selectedSeed, this.objectCoins, this.type)) {
+                if (farm.canAffordSeed(selectedSeed, this.objectCoins, this.type)) {
                     farm.plantCrop(tileIndex, choice);
                     this.objectCoins -= selectedSeed.getSeedCost() + this.type.getSeedCostReduction();
                 } else

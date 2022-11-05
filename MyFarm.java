@@ -84,7 +84,7 @@ public class MyFarm {
 
     public void displaySeeds (int PlayerObjectCoins, FarmerType farmerType) {
         for (FarmSeeds seed : game.getSeeds()) {
-            if(canUseSeed(seed, PlayerObjectCoins, farmerType))
+            if(canAffordSeed(seed, PlayerObjectCoins, farmerType))
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
@@ -127,7 +127,7 @@ public class MyFarm {
         return 1;
     }
 
-    public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins, FarmerType farmerType) {
+    public boolean canAffordSeed(FarmSeeds seed, int PlayerObjectCoins, FarmerType farmerType) {
         if (PlayerObjectCoins >= seed.getSeedCost() + farmerType.getSeedCostReduction())
             return true;
 
@@ -220,11 +220,11 @@ public class MyFarm {
         return yield;
    }
 
-   public boolean endGame(int objectCoins) {
+   public boolean endGame(int objectCoins, FarmerType farmerType) {
         boolean eventA = true;
         boolean eventB = true;
 
-        if (objectCoins < 5) {
+        if (canAffordSeed(game.getSeeds().get(0), objectCoins, farmerType)) {
             for (Tile TheTile : lot) {
                 if (TheTile.getSeeds() != null) {
                     eventA = false;
