@@ -7,6 +7,7 @@ public class Player {
     private FarmerType type;
 
     public Player(MyFarm farm) {
+        this.experience = new Experience();
         this.farm = farm;
         this.type  = farm.getGame().getType().get(0);
     }
