@@ -27,8 +27,8 @@ public class Tile {
         return this.rock;
     }
 
-    public void setRock(boolean rock) {
-        this.rock = rock;
+    public void removeRock() {
+        this.rock = false;
     }
 
     public int getWaterTimes() {

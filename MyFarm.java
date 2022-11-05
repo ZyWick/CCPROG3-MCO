@@ -34,7 +34,7 @@ public class MyFarm {
     }
 
     public void removeRock(Tile TheTile) {
-        TheTile.setRock(false);  
+        TheTile.removeRock();
     }
 
     public void removeWithered (Tile TheTile) {
