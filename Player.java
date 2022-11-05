@@ -56,7 +56,7 @@ public class Player {
             if (choice >= 0 && choice < farm.getGame().getSeeds().size()) {
                 FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
-                if (farm.canUseSeed(selectedSeed, this.objectCoins)) {
+                if (farm.canUseSeed(selectedSeed, this.objectCoins, this.type)) {
                     farm.plantCrop(tileIndex, choice);
                     this.objectCoins -= selectedSeed.getSeedCost();
                 } else
@@ -69,7 +69,7 @@ public class Player {
 
     public void harvestCrop (int tileIndex) {
         if (farm.canHarvest(tileIndex)) {
-            double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(type));
+            double[] yield = farm.harvestCrop(tileIndex, this.type);
             this.objectCoins += yield[0];
             this.experience.addExp(yield[1]);
         }
@@ -126,7 +126,7 @@ public class Player {
     public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
         System.out.println("\nWhich seed do you want to plant?");
-        farm.displaySeeds(this.objectCoins);
+        farm.displaySeeds(this.objectCoins, this.type);
         System.out.print("Choice: ");
         choice = sc.nextInt();
 

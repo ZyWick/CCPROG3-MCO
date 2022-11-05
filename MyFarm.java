@@ -81,9 +81,9 @@ public class MyFarm {
         }
     }
 
-    public void displaySeeds (int PlayerObjectCoins) {
+    public void displaySeeds (int PlayerObjectCoins, FarmerType farmerType) {
         for (FarmSeeds seed : game.getSeeds()) {
-            if(canUseSeed(seed, PlayerObjectCoins))
+            if(canUseSeed(seed, PlayerObjectCoins, farmerType))
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
@@ -122,8 +122,8 @@ public class MyFarm {
         return 1;
     }
 
-    public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins) {
-        if (PlayerObjectCoins >= seed.getSeedCost())
+    public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins, FarmerType farmerType) {
+        if (PlayerObjectCoins >= seed.getSeedCost() + farmerType.getSeedCostReduction())
             return true;
 
         return false;
@@ -187,15 +187,21 @@ public class MyFarm {
         return productsProduced;
     }
 
-   public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
+   public double[] harvestCrop(int tileIndex, FarmerType farmerType){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
         int productsProduced = getProductsProduced(tileIndex);
         double harvestTotal, waterBonus, fertilizerBonus;      
-            
-        harvestTotal = productsProduced * (TheSeed.getSellingPrice() + game.getType().get(farmerTypeIndex).getBonusEarning());
-        waterBonus = harvestTotal * 0.2 * (min(TheTile.getWaterTimes(), TheSeed.getWaterLimit()) - 1);
-        fertilizerBonus = harvestTotal * 0.5 * min(TheTile.getFertilizerTimes(), TheSeed.getFertilizerLimit());
+
+        int waterTimesCapped = min(TheTile.getWaterTimes(),
+                                   TheSeed.getWaterLimit() + farmerType.getWaterBonusIncrease());
+
+        int fertilizerTimesCapped = min(TheTile.getFertilizerTimes(),
+                                        TheSeed.getFertilizerLimit() + farmerType.getFertilizerBonusIncrease());
+
+        harvestTotal = productsProduced * (TheSeed.getSellingPrice() + farmerType.getBonusEarning());
+        waterBonus = harvestTotal * 0.2 * (waterTimesCapped - 1);
+        fertilizerBonus = harvestTotal * 0.5 * fertilizerTimesCapped;
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
         TheTile.reset();
