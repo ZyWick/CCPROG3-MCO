@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
 public class Player {
-    private int seeds = 0;
     private int objectCoins = 100;
     private Experience experience;
-    private MyFarm farm = new MyFarm();
-    private FarmerType type = farm.getGame().getType().get(0);
+    private MyFarm farm;
+    private FarmerType type;
 
-    public Player() {
+    public Player(MyFarm farm) {
+        this.farm = farm;
+        this.type  = farm.getGame().getType().get(0);
     }
 
     public void displayPlayerStats() {
@@ -20,13 +21,14 @@ public class Player {
             System.out.println();
     }
 
-    public void useTool (int toolIndex, int tileIndex) {
+    public void useTool (int tileIndex, Scanner sc) {
         Tile TheTile = farm.getLot().get(tileIndex);
-        FarmTools selectedTool = farm.getGame().getTools().get(toolIndex);
+        int choice = farm.getGame().getToolChoice(sc, TheTile, this.objectCoins);
+        FarmTools selectedTool = farm.getGame().getTools().get(choice);
 
         if (farm.getGame().canUseTool(selectedTool, TheTile, this.objectCoins)) {
             
-            switch (toolIndex) {
+            switch (choice) {
                 case 0: farm.plowTile(TheTile); break;
                 case 1: farm.waterTile(TheTile); break;
                 case 2: farm.fertilizeTile(TheTile); break;
@@ -78,6 +80,21 @@ public class Player {
         }
     }
 
+    public void interactTile(Scanner sc) {
+        int tileIndex = farm.getGame().getTileIndex(sc);
+        farm.getGame().displayInteractionChoices ();
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1: useTool(tileIndex, sc);
+                    break;
+            case 2: plantCrop(tileIndex, sc);
+                    break;
+            case 3: harvestCrop(tileIndex); 
+                    break;
+            default: break;
+            }
+    }
+
     public void RegisterUp() {
         if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))
             this.type = farm.getGame().getType().get(farm.getGame().getType().indexOf(this.type) + 1);
@@ -99,5 +116,9 @@ public class Player {
 
     public int getLevel() {
         return this.experience.getLevel();
+    }
+
+    public MyFarm getFarm() {
+        return this.farm;
     }
 }
