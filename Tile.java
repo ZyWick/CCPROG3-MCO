@@ -13,6 +13,18 @@ public class Tile {
         this.rock = rock;
     }
 
+    public void displayTileStatus() {
+        System.out.println("\nAbout tile:");
+        System.out.println("rock: " + this.rock);
+        System.out.println("plowed: " + this.plowed);
+        System.out.println("crop: " + this.seeds.getName());
+        if (this.seeds != null) {
+            System.out.println("Times Watered: " + this.waterTimes);
+            System.out.println("Times Fertilized: " + this.fertilizerTimes);
+            System.out.println("Age: " + this.day +" days");
+        }
+    }
+
     public void reset() {
         // reset all except for rock
         this.seeds = null;
@@ -21,10 +33,11 @@ public class Tile {
         this.waterTimes = 0;
         this.fertilizerTimes = 0;
         this.day = 0;
+        displayTileStatus();
     }
 
     public boolean canPlow() {
-        return !this.isPlowed() && !this.isRock();
+        return (this.isPlowed() == false && this.isRock() == false);
     }
 
     private boolean canPlant() {
@@ -36,25 +49,29 @@ public class Tile {
     }
     
     public void addWaterTimes() {
-        if(this.canWaterOrFertilize())
+        if(this.canWaterOrFertilize()) {
             this.waterTimes += 1;
+            System.out.println("Times Watered: " + this.waterTimes);
+        }
     }
 
     public void addFertilizerTimes() {
-        if(this.canWaterOrFertilize())
+        if(this.canWaterOrFertilize()) {
             this.fertilizerTimes += 1;
+            System.out.println("Times Fertilized: " + this.fertilizerTimes);
+        }
     }
 
     public void addDay() {
         this.day += 1;
     }
 
-    public void setPlowed(boolean plowed) {
+    public void plowTile() {
         // do not plow if plowing is not allowed
-        if(plowed && !this.canPlow())
-            return;
-
-        this.plowed = plowed;
+        if(canPlow()) {
+            this.plowed = true;
+            System.out.println("...tile successfully plowed");
+        }
     }
 
     public void setSeeds(FarmSeeds seeds) {
@@ -64,11 +81,13 @@ public class Tile {
             waterTimes = 0;
             fertilizerTimes = 0;
             day = 0;
+            System.out.println("..." + seeds.getName() +" successfully planted");
         }
     }
 
     public void removeRock() {
         this.rock = false;
+        System.out.println("...rock removed from tile");
     }
 
     public int isWithered() {

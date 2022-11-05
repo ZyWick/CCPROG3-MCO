@@ -84,6 +84,7 @@ public class FarmSystem {
         System.out.println("1 - Use Tool");
         System.out.println("2 - Plant seed");
         System.out.println("3 - Harvest Crop");
+        System.out.println("4 - display tile status");
         System.out.println("x - input any number to return to main");
         System.out.print("Choice: ");
     }

@@ -187,7 +187,7 @@ public class MyFarm {
     }
 
     public void plowTile(int tileIndex) {
-        lot.get(tileIndex).setPlowed(true);
+        lot.get(tileIndex).plowTile();
     }
 
     public void waterTile(int tileIndex) {
@@ -227,6 +227,10 @@ public class MyFarm {
         yield[1] = TheSeed.getExpYield();
         
         return yield;
+   }
+
+   public void displayTileStatus(int tileIndex) {
+        lot.get(tileIndex).displayTileStatus();
    }
 
    public int identifyHarvestError(int tileIndex) {

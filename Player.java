@@ -81,6 +81,7 @@ public class Player {
                     break;
             case 3: harvestCrop(tileIndex); 
                     break;
+            case 4: farm.dispayTileStatus(tileIndex);
             default: break;
             }
     }
