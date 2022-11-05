@@ -99,8 +99,4 @@ public class Tile {
         day = 0;
     }
 
-    public FarmSeeds getSeed() {
-        return this.seeds;
-    }
-
 }
