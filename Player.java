@@ -13,13 +13,15 @@ public class Player {
     }
 
     public void displayPlayerStats() {
-        System.out.print("\nObjectCoins: " + this.objectCoins);
-        System.out.print(" exp: " + this.experience.getExp());
-        System.out.print(" level: " + this.experience.getLevel());
-        if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))
-            System.out.println("can register superior farmer type");
+        System.out.print("| " + type.getName());
+        System.out.print(" | ObjectCoins: " + this.objectCoins);
+        System.out.print(" | exp: " + this.experience.getExp());
+        System.out.print(" | level: " + this.experience.getLevel());
+        FarmerType zType = canRegisterUp();
+        if (zType != null)
+            System.out.println(" | can register to " + zType.getName());
         else 
-            System.out.println();
+            System.out.println(" |");
     }
 
     public void useTool (int tileIndex, Scanner sc) {
@@ -93,9 +95,25 @@ public class Player {
             }
     }
 
+    public FarmerType canRegisterUp() {
+        int nextLevelIndex = farm.getGame().getType().indexOf(this.type) + 1;
+
+        if (nextLevelIndex < farm.getGame().getType().size()) {
+            FarmerType zType = farm.getGame().getType().get(nextLevelIndex);
+
+            if (this.experience.getLevel() >= zType.getLevelReq()) 
+                return zType;
+        }
+
+        return null;
+    }
+
     public void RegisterUp() {
-        if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))
-            this.type = farm.getGame().getType().get(farm.getGame().getType().indexOf(this.type) + 1);
+        FarmerType zType = canRegisterUp();
+        if (zType != null)
+            this.type = zType;
+        else if (farm.getGame().getType().indexOf(this.type) + 1 >=  farm.getGame().getType().size())
+            farm.getGame().throwMaxFarmerTypeError();
         else
             farm.getGame().throwRegisterError();
     }

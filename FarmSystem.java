@@ -26,15 +26,6 @@ public class FarmSystem {
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
     
-    public boolean canRegisterUp(FarmerType currentType, int level) {
-        FarmerType zType = type.get(type.indexOf(currentType) + 1);
-
-        if (level >= zType.getLevelReq()) 
-            return true;
-
-        return false;
-    }
-
     public void throwToolError(FarmTools selectedTool, int objectCoins) {
         if (selectedTool.getUsageCost() > objectCoins)
             System.out.println("Error: not enough objectCoins\n");
@@ -58,6 +49,10 @@ public class FarmSystem {
             case 4: System.out.print("Error: tile has no crop\n"); break;
             case 0: System.out.print("Error: crop has not met harvest time\n"); break;
         }
+    }
+
+    public void throwMaxFarmerTypeError() {
+        System.out.println("Error: you. are. already. legendary.");
     }
 
     public void throwRegisterError() {
