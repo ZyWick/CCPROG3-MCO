@@ -18,7 +18,17 @@ public class Tile {
     }
 
     public void setSeeds(FarmSeeds seeds) {
-        this.seeds = seeds;
+        if(this.canPlant()) {
+            this.seeds = seeds;
+
+            waterTimes = 0;
+            fertilizerTimes = 0;
+            day = 0;
+        }
+    }
+
+    public boolean canPlant() {
+        return this.isPlowed() && this.seeds == null;
     }
 
     public boolean canHarvest() {
