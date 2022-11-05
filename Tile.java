@@ -30,7 +30,7 @@ public class Tile {
     }
 
     public boolean canWaterOrFertilize() {
-        return this.isPlowed() && this.seeds != null;
+        return (this.isPlowed() && this.seeds != null);
     }
 
     public int getWaterTimes() {

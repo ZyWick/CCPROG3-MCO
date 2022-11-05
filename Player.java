@@ -40,7 +40,7 @@ public class Player {
             experience.addExp(selectedTool.getExpYield());         
         }
         else
-            farm.getGame().throwToolError(selectedTool);
+            farm.getGame().throwToolError(selectedTool, this.objectCoins);
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
