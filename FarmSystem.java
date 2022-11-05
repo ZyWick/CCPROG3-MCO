@@ -33,25 +33,25 @@ public class FarmSystem {
     
     public void throwToolError(int error) {
         switch (error) {
-            case 1: System.out.println("Error: tile is already plowed\n"); break;
-            case 2: System.out.println("Error: can't plow tile with rock\n"); break;
-            case 3: case 4: System.out.println("Error: tile does not have a crop\n"); break;
-            case 5: System.out.println("Error: tile does not have a rock\n"); break;
+            case 1: System.out.println("Error: tile is already plowed"); break;
+            case 2: System.out.println("Error: can't plow tile with rock"); break;
+            case 3: case 4: System.out.println("Error: tile does not have a crop"); break;
+            case 5: System.out.println("Error: tile does not have a rock"); break;
             case 6: throwInsufficientObjectCoins();
         }
     }
 
     public void throwInsufficientObjectCoins() {
-        System.out.println("Error: not enough objectCoins\n");
+        System.out.println("Error: not enough objectCoins");
     }
 
     public void throwHarvestError(int error) {
         switch (error) {
-            case 1: System.out.print("Error: crop is withered, it is past its harvest time\n"); break;
-            case 2: System.out.print("Error: crop is withered, it did not meet fertilizer needs\n"); break;
-            case 3: System.out.print("Error: crop is withered, it did not meet water needs\n"); break;
-            case 4: System.out.print("Error: crop has not met harvest time\n"); break;
-            case 5: System.out.print("Error: tile has no crop\n"); break;
+            case 1: System.out.println("Error: crop is withered, it is past its harvest time"); break;
+            case 2: System.out.println("Error: crop is withered, it did not meet fertilizer needs"); break;
+            case 3: System.out.println("Error: crop is withered, it did not meet water needs"); break;
+            case 4: System.out.println("Error: crop has not met harvest time"); break;
+            case 5: System.out.println("Error: tile has no crop"); break;
         }
     }
 

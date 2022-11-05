@@ -140,7 +140,7 @@ public class MyFarm {
 
         if (TheTile.getSeeds() == null)
             result = 5;
-        if (TheTile.getSeeds() != null && TheTile.getDay() < TheTile.getSeeds().getHarvestTime())
+        else if (TheTile.getSeeds() != null && TheTile.getDay() < TheTile.getSeeds().getHarvestTime())
             result = 4;
         else
             result = TheTile.isWithered();
