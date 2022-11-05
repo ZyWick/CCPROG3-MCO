@@ -206,6 +206,24 @@ public class MyFarm {
         return yield;
    }
 
+   public boolean endGame(int objectCoins) {
+        boolean eventA = true;
+        boolean eventB = true;
+
+        if (objectCoins < 5) {
+            for (Tile TheTile : lot) 
+                if (TheTile.getSeeds() != null)
+                    eventA = false;
+        } else
+            eventA = false;
+
+        for (Tile TheTile : lot)
+            if (TheTile.isWithered() == 0)
+                eventB = false;
+
+        return (eventA || eventB);
+   }
+
     public FarmSystem getGame() {
         return this.game;
     }

@@ -7,10 +7,10 @@ public class FarmSimulator {
         MyFarm farm = new MyFarm();
         FarmSystem game = farm.getGame();
         Player p1 = new Player(farm);
-        int choice, x = 1;
+        int choice;
 
         farm.display();
-        while (x != 0) {
+        while (true) {
 
             p1.displayPlayerStats();
             game.displayGameMoves();
@@ -27,6 +27,14 @@ public class FarmSimulator {
                 case 5: p1.RegisterUp(); break;
                 case 6: game.displayLotLegend(); break;
                 default: break;
+            }
+
+            if (farm.endGame(p1.getObjectCoins())) {
+                System.out.print("\n| input 1 to play again: ");
+                if(sc.nextInt() == 1) {
+
+                } else
+                    break;
             }
         }
         sc.close();
