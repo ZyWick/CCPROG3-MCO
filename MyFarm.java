@@ -101,7 +101,7 @@ public class MyFarm {
     }
 
     public boolean canUseSeed(FarmSeeds seed, int PlayerObjectCoins) {
-        if (seed.getSeedCost() <= PlayerObjectCoins)
+        if (PlayerObjectCoins >= seed.getSeedCost())
             return true;
 
         return false;
