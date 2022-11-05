@@ -31,18 +31,17 @@ public class FarmSystem {
         System.out.println("Day: " + this.day); 
     }
     
-    public void throwToolError(FarmTools selectedTool, int objectCoins) {
-        if (selectedTool.getUsageCost() > objectCoins)
-            System.out.println("Error: not enough objectCoins\n");
-        else
-            switch (tools.indexOf(selectedTool)) {
-                case 0: System.out.println("Error: tile is already plowed\n"); break;
-                case 1: case 2: System.out.println("Error: tile does not have a crop\n"); break;
-                case 3: System.out.println("Error: tile does not have a rock\n"); break;
-            }
+    public void throwToolError(int error) {
+        switch (error) {
+            case 1: System.out.println("Error: tile is already plowed\n"); break;
+            case 2: System.out.println("Error: can't plow tile with rock\n"); break;
+            case 3: case 4: System.out.println("Error: tile does not have a crop\n"); break;
+            case 5: System.out.println("Error: tile does not have a rock\n"); break;
+            case 6: throwInsufficientObjectCoins();
+        }
     }
 
-    public void throwSeedError() {
+    public void throwInsufficientObjectCoins() {
         System.out.println("Error: not enough objectCoins\n");
     }
 

@@ -73,7 +73,7 @@ public class MyFarm {
 
     public void displayTools (int tileIndex, int objectCoins) {
         for (FarmTools tool : game.getTools()) {
-            if(canUseTool(tool, tileIndex, objectCoins))
+            if(canUseTool(tool, tileIndex, objectCoins) == 0)
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
@@ -97,21 +97,25 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    public boolean canUseTool(FarmTools selectedTool, int tileIndex, int objectCoins) {
+    public int canUseTool(FarmTools selectedTool, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
+        int error = 0;
+
         if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.canPlow())
-                return true;
-            else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
-                     && TheTile.canWaterOrFertilize())
-                return true;      
-            else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock())
-                return true;
+            if (selectedTool.getName().equals("Plow"))
+                error = TheTile.canPlow();
+            else if (selectedTool.getName().equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
+                error = 3;
+            else if (selectedTool.getName().equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
+                error = 4;
+            else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock() == false)
+                error = 5;
             else if (selectedTool.getName().equals("Shovel"))
-                return true;
-        }       
+                error = 0;
+        } else
+            error = 6;      
     
-        return false;
+        return error;
     }
 
     public int canPlantSeed (int tileIndex) {
@@ -161,7 +165,7 @@ public class MyFarm {
         lot.get(tileIndex).removeRock();
     }
 
-    public void removeWithered (int tileIndex) {
+    public void useShovel (int tileIndex) {
         lot.get(tileIndex).reset();
     }
 

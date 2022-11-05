@@ -28,21 +28,22 @@ public class Player {
         int choice = getToolChoice(sc, tileIndex, this.objectCoins);
         if (choice >= 0 && choice < farm.getGame().getTools().size()) {
             FarmTools selectedTool = farm.getGame().getTools().get(choice);
+            int error = farm.canUseTool(selectedTool, tileIndex, this.objectCoins);
 
-            if (farm.canUseTool(selectedTool, tileIndex, this.objectCoins)) {
+            if (error == 0) {
                 
                 switch (choice) {
                     case 0: farm.plowTile(tileIndex); break;
                     case 1: farm.waterTile(tileIndex); break;
                     case 2: farm.fertilizeTile(tileIndex); break;
                     case 3: farm.removeRock(tileIndex); break;
-                    case 4: farm.removeWithered(tileIndex); break;
+                    case 4: farm.useShovel(tileIndex); break;
                 }
                 
                 objectCoins -= selectedTool.getUsageCost();
                 experience.addExp(selectedTool.getExpYield());         
-            } else
-                farm.getGame().throwToolError(selectedTool, this.objectCoins);
+            } else 
+                farm.getGame().throwToolError(error);
         } else
             farm.getGame().throwOutOfBoundsError();
     }
@@ -60,7 +61,7 @@ public class Player {
                     farm.plantCrop(tileIndex, choice);
                     this.objectCoins -= selectedSeed.getSeedCost() + this.type.getSeedCostReduction();
                 } else
-                    farm.getGame().throwSeedError();
+                    farm.getGame().throwInsufficientObjectCoins();
             } else
                 farm.getGame().throwOutOfBoundsError();
         } else
@@ -91,6 +92,7 @@ public class Player {
             case 3: harvestCrop(tileIndex); 
                     break;
             case 4: farm.displayTileStatus(tileIndex);
+                    break;
             default: break;
             }
     }
@@ -121,7 +123,7 @@ public class Player {
                 this.objectCoins -= zType.getRegistrationFee();
             } else {
                 // maybe rename to more generic like notenoughobjectcoinserror
-                farm.getGame().throwSeedError();
+                farm.getGame().throwInsufficientObjectCoins();
             }
         }
         else if (farm.getGame().getType().indexOf(this.type) + 1 >=  farm.getGame().getType().size())

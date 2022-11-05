@@ -34,11 +34,15 @@ public class Tile {
         this.waterTimes = 0;
         this.fertilizerTimes = 0;
         this.day = 0;
-        displayTileStatus();
     }
 
-    public boolean canPlow() {
-        return (this.isPlowed() == false && this.isRock() == false);
+    public int canPlow() {
+        if  (this.isPlowed() == true)
+            return 1;
+        if (this.isRock() == true)
+            return 2;
+        
+        return 0;
     }
 
     private boolean canPlant() {
@@ -47,6 +51,14 @@ public class Tile {
 
     public boolean canWaterOrFertilize() {
         return (this.isPlowed() && this.seeds != null);
+    }
+
+    public void plowTile() {
+        // do not plow if plowing is not allowed
+        if(canPlow() == 0) {
+            this.plowed = true;
+            System.out.println("...tile successfully plowed");
+        }
     }
     
     public void addWaterTimes() {
@@ -63,16 +75,13 @@ public class Tile {
         }
     }
 
-    public void addDay() {
-        this.day += 1;
+    public void removeRock() {
+        this.rock = false;
+        System.out.println("...rock removed from tile");
     }
 
-    public void plowTile() {
-        // do not plow if plowing is not allowed
-        if(canPlow()) {
-            this.plowed = true;
-            System.out.println("...tile successfully plowed");
-        }
+    public void addDay() {
+        this.day += 1;
     }
 
     public void setSeeds(FarmSeeds seeds) {
@@ -84,11 +93,6 @@ public class Tile {
             day = 0;
             System.out.println("..." + seeds.getName() +" successfully planted");
         }
-    }
-
-    public void removeRock() {
-        this.rock = false;
-        System.out.println("...rock removed from tile");
     }
 
     public int isWithered() {
