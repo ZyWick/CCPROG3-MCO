@@ -68,15 +68,14 @@ public class Player {
     }
 
     public void harvestCrop (int tileIndex) {
-        if (farm.canHarvest(tileIndex)) {
+        int result = farm.canHarvest(tileIndex);
+        if (result == 0) {
             double[] yield = farm.harvestCrop(tileIndex, this.type);
             this.objectCoins += yield[0];
             this.experience.addExp(yield[1]);
         }
-        else {
-            int error = farm.identifyHarvestError(tileIndex);
-            farm.getGame().throwHarvestError(error);
-        }
+        else 
+            farm.getGame().throwHarvestError(result);
     }
 
     public void interactTile(Scanner sc) {
