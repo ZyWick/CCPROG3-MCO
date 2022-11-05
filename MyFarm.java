@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Math.min;
@@ -142,37 +141,6 @@ public class MyFarm {
                 return true;
         
         return false;
-    }
-
-    public int getTileIndex (Scanner sc) {
-        int x, y, tileIndex;
-
-        System.out.print("\ninput tile coordinates: ");
-        x = sc.nextInt();
-        y = sc.nextInt();
-        tileIndex = (x - 1) * 10 + (y - 1) ;
-
-        return tileIndex;
-    }
-
-    public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
-        int choice;
-        System.out.println("\nWhich seed do you want to plant?");
-        displaySeeds(objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
-        int choice;
-        System.out.println("\nWhich tool do you want to use?");
-        displayTools(tileIndex, objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
     }
 
     public int getProductsProduced(int tileIndex) {

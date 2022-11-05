@@ -70,6 +70,10 @@ public class FarmSystem {
             case 3: System.out.println("Error: tile has a crop already"); break;
         }
     }
+    
+    public void throwOutOfBoundsError() {
+        System.out.println("Error: no such choice");
+    }
 
     public void displayGameMoves () {
         System.out.println("What do you want to do?");

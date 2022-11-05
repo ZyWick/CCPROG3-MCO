@@ -23,37 +23,44 @@ public class Player {
     }
 
     public void useTool (int tileIndex, Scanner sc) {
-        int choice = farm.getToolChoice(sc, tileIndex, this.objectCoins);
-        FarmTools selectedTool = farm.getGame().getTools().get(choice);
+        int choice = getToolChoice(sc, tileIndex, this.objectCoins);
+        if (choice >= 0 && choice < farm.getGame().getTools().size()) {
+            FarmTools selectedTool = farm.getGame().getTools().get(choice);
 
-        if (farm.canUseTool(selectedTool, tileIndex, this.objectCoins)) {
-            
-            switch (choice) {
-                case 0: farm.plowTile(tileIndex); break;
-                case 1: farm.waterTile(tileIndex); break;
-                case 2: farm.fertilizeTile(tileIndex); break;
-                case 3: farm.removeRock(tileIndex); break;
-                case 4: farm.removeWithered(tileIndex); break;
-            }
-            
-            objectCoins -= selectedTool.getUsageCost();
-            experience.addExp(selectedTool.getExpYield());         
-        }
-        else
-            farm.getGame().throwToolError(selectedTool, this.objectCoins);
+            if (farm.canUseTool(selectedTool, tileIndex, this.objectCoins)) {
+                
+                switch (choice) {
+                    case 0: farm.plowTile(tileIndex); break;
+                    case 1: farm.waterTile(tileIndex); break;
+                    case 2: farm.fertilizeTile(tileIndex); break;
+                    case 3: farm.removeRock(tileIndex); break;
+                    case 4: farm.removeWithered(tileIndex); break;
+                }
+                
+                objectCoins -= selectedTool.getUsageCost();
+                experience.addExp(selectedTool.getExpYield());         
+            } else
+                farm.getGame().throwToolError(selectedTool, this.objectCoins);
+        } else
+            farm.getGame().throwOutOfBoundsError();
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
         int canPlant = farm.canPlantSeed(tileIndex);
-        if(canPlant == 1) {
-            int choice = farm.getSeedChoice(sc, tileIndex, this.objectCoins); 
-            FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
-            if (farm.canUseSeed(selectedSeed, this.objectCoins)) {
-                farm.plantCrop(tileIndex, choice);
-                this.objectCoins -= selectedSeed.getSeedCost();
+        if(canPlant == 1) {
+            int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
+
+            if (choice >= 0 && choice < farm.getGame().getSeeds().size()) {
+                FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
+
+                if (farm.canUseSeed(selectedSeed, this.objectCoins)) {
+                    farm.plantCrop(tileIndex, choice);
+                    this.objectCoins -= selectedSeed.getSeedCost();
+                } else
+                    farm.getGame().throwSeedError();
             } else
-                farm.getGame().throwSeedError();
+                farm.getGame().throwOutOfBoundsError();
         } else
             farm.getGame().throwPlantError(canPlant);
     }
@@ -71,7 +78,7 @@ public class Player {
     }
 
     public void interactTile(Scanner sc) {
-        int tileIndex = farm.getTileIndex(sc);
+        int tileIndex = getTileIndex(sc);
         farm.getGame().displayInteractionChoices ();
         int choice = sc.nextInt();
         switch (choice) {
@@ -95,6 +102,37 @@ public class Player {
 
     public void advanceDay() {
         farm.ageLot();
+    }
+
+    public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
+        int choice;
+        System.out.println("\nWhich seed do you want to plant?");
+        farm.displaySeeds(this.objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }
+
+    public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
+        int choice;
+        System.out.println("\nWhich tool do you want to use?");
+        farm.displayTools(tileIndex, this.objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }    
+
+    public int getTileIndex (Scanner sc) {
+        int x, y, tileIndex;
+
+        System.out.print("\ninput tile coordinates: ");
+        x = sc.nextInt();
+        y = sc.nextInt();
+        tileIndex = (x - 1) * 10 + (y - 1) ;
+
+        return tileIndex;
     }
 
     public int getObjectCoins() {
