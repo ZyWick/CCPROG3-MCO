@@ -13,7 +13,7 @@ public class Player {
     }
 
     public void displayPlayerStats() {
-        System.out.print("| " + type.getName());
+        System.out.print("\n| " + type.getName());
         System.out.print(" | ObjectCoins: " + this.objectCoins);
         System.out.print(" | exp: " + this.experience.getExp());
         System.out.print(" | level: " + this.experience.getLevel());
@@ -80,7 +80,8 @@ public class Player {
     }
 
     public void interactTile(Scanner sc) {
-        int tileIndex = getTileIndex(sc);
+        // int tileIndex = getTileIndex(sc);
+        int tileIndex = 0;
         farm.getGame().displayInteractionChoices ();
         int choice = sc.nextInt();
         switch (choice) {
