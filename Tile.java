@@ -21,6 +21,17 @@ public class Tile {
         this.seeds = seeds;
     }
 
+    public boolean canHarvest() {
+        if(this.seeds != null) {
+            if (this.getDay() == this.seeds.getHarvestTime() &&
+                this.getWaterTimes() >= this.seeds.getWaterNeeds() &&
+                this.getFertilizerTimes() >= this.seeds.getFertilizerNeeds())
+                return true;
+        }
+
+        return false;
+    }
+
     public boolean isRock() {
         return this.rock;
     }
