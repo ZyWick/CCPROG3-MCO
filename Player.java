@@ -39,9 +39,11 @@ public class Player {
                     case 3: farm.removeRock(tileIndex); break;
                     case 4: farm.useShovel(tileIndex); break;
                 }
-                
+
                 this.objectCoins -= selectedTool.getUsageCost();
-                this.experience.addExp(selectedTool.getExpYield());         
+                this.experience.addExp(selectedTool.getExpYield());
+                System.out.println("\n| ObjectCoins expended: " + selectedTool.getUsageCost());
+                System.out.println("| Experience gained: " + selectedTool.getExpYield());    
             } else 
                 farm.getGame().throwToolError(error);
         } else
@@ -59,7 +61,10 @@ public class Player {
 
                 if (farm.canAffordSeed(this.objectCoins, selectedSeed.getSeedCost(), this.type.getSeedCostReduction())) {
                     farm.plantCrop(tileIndex, choice);
+
                     this.objectCoins -= selectedSeed.getSeedCost() + this.type.getSeedCostReduction();
+                    System.out.println("\n| ObjectCoins expended: " + (selectedSeed.getSeedCost() + this.type.getSeedCostReduction()));
+
                 } else
                     farm.getGame().throwInsufficientObjectCoins();
             } else
@@ -72,8 +77,10 @@ public class Player {
         int error = farm.canHarvest(tileIndex);
         if (error == 0) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
-            this.objectCoins += yield[0];
+            this.objectCoins += (int)yield[0];
             this.experience.addExp(yield[1]);
+            System.out.println("| ObjectCoins gained: " + (int)yield[0]);
+            System.out.println("| Experience gained: " + yield[1]);
         }
         else 
             farm.getGame().throwHarvestError(error);
@@ -121,8 +128,9 @@ public class Player {
             if (this.objectCoins >= zType.getRegistrationFee()) {
                 this.type = zType;
                 this.objectCoins -= zType.getRegistrationFee();
+                System.out.println("\n| ObjectCoins expended: " + zType.getRegistrationFee());
+                System.out.println("...you are now a " + this.type.getName());
             } else {
-                // maybe rename to more generic like notenoughobjectcoinserror
                 farm.getGame().throwInsufficientObjectCoins();
             }
         }
@@ -133,7 +141,7 @@ public class Player {
     }
 
     public int end(Scanner sc) {
-        if(farm.endGame(this.getObjectCoins(), this.type.getSeedCostReduction())) {
+        if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
             System.out.print("\n| input 1 to play again: "); 
             return sc.nextInt();
         }

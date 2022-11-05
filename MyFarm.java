@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static java.lang.Math.min;
 
 public class MyFarm {
     private ArrayList<Tile> lot = new ArrayList<Tile>();
@@ -170,7 +167,13 @@ public class MyFarm {
     }
 
     public void useShovel (int tileIndex) {
-        lot.get(tileIndex).reset();
+        Tile TheTile = lot.get(tileIndex);
+        if (TheTile.isPlowed() == false || TheTile.isRock() == true)
+            System.out.println("\n...nothing happened");
+        else
+            System.out.println("\n...tile has been reset");
+        
+        TheTile.reset();        
     }
 
     public void plantCrop(int tileIndex, int seedIndex) {
@@ -187,40 +190,31 @@ public class MyFarm {
         }
     }
 
-    public int getProductsProduced(int tileIndex) {
-        int productsProduced;
-        FarmSeeds seeds = lot.get(tileIndex).getSeeds();
-        
-        productsProduced = ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
-
-        return productsProduced;
-    }
-
    public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
         FarmerType TheType = game.getType().get(farmerTypeIndex);
-        int productsProduced = getProductsProduced(tileIndex);
         double harvestTotal, waterBonus, fertilizerBonus;      
 
-        int waterTimesCapped = min(TheTile.getWaterTimes(),
-                                   TheSeed.getWaterLimit() + TheType.getWaterBonusIncrease());
-
-        int fertilizerTimesCapped = min(TheTile.getFertilizerTimes(),
-                                        TheSeed.getFertilizerLimit() + TheType.getFertilizerBonusIncrease());
+        int productsProduced = TheTile.getProductsProduced();
+        int waterTimesCapped = TheTile.getWaterTimesCapped(TheType.getWaterBonusIncrease());
+        int fertilizerTimesCapped = TheTile.getFertilizerTimesCapped(TheType.getFertilizerBonusIncrease());
 
         harvestTotal = productsProduced * (TheSeed.getSellingPrice() + TheType.getBonusEarning());
         waterBonus = harvestTotal * 0.2 * (waterTimesCapped - 1);
         fertilizerBonus = harvestTotal * 0.5 * fertilizerTimesCapped;
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
+        if(TheSeed.getCropType().equals("Flower"))
+            harvestTotal *= 1.1;
+
         TheTile.reset();
         double[] yield = new double[2];
         yield[0] = harvestTotal;
         yield[1] = TheSeed.getExpYield();
         
-        System.out.println("\n" + TheSeed.getName() + " products produced: " + productsProduced);
-        System.out.println("ObjectCoins gained: " + harvestTotal);
+        System.out.println("\n...tile has been reset");
+        System.out.println("| " + TheSeed.getName() + " products produced: " + productsProduced);
 
         return yield;
    }
@@ -229,7 +223,7 @@ public class MyFarm {
         boolean eventA = true;
         boolean eventB = true;
 
-        if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerTypeSeedReduction)) {
+        if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerTypeSeedReduction) == false) {
             for (Tile TheTile : lot) {
                 if (TheTile.getSeeds() != null) {
                     eventA = false;

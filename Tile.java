@@ -1,3 +1,6 @@
+import java.util.concurrent.ThreadLocalRandom;
+import static java.lang.Math.min;
+
 public class Tile {
     private FarmSeeds seeds = null;    
     private boolean rock = false;
@@ -108,6 +111,26 @@ public class Tile {
         return 0;
     }
 
+    public int getProductsProduced() {
+        return ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+    }
+
+    public int getWaterTimesCapped(int typeWaterBonus) {
+        return min(this.waterTimes, seeds.getWaterLimit() + typeWaterBonus);
+    }
+
+    public int getFertilizerTimesCapped(int typeFertilizerBonus) {
+        return min(this.fertilizerTimes, seeds.getFertilizerLimit() + typeFertilizerBonus);
+    }
+
+    public int getWaterTimes() {
+        return this.waterTimes;
+    }
+
+    public int getFertilizerTimes() {
+        return this.fertilizerTimes;
+    }
+
     public boolean isRock() {
         return this.rock;
     }
@@ -118,14 +141,6 @@ public class Tile {
 
     public FarmSeeds getSeeds() {
         return this.seeds;
-    }
-
-    public int getWaterTimes() {
-        return this.waterTimes;
-    }
-
-    public int getFertilizerTimes() {
-        return this.fertilizerTimes;
     }
 
     public int getDay() {
