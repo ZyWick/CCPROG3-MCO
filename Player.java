@@ -132,6 +132,15 @@ public class Player {
             farm.getGame().throwRegisterError();
     }
 
+    public int end(Scanner sc) {
+        if(farm.endGame(this.getObjectCoins(), this.type.getSeedCostReduction())) {
+            System.out.print("\n| input 1 to play again: "); 
+            return sc.nextInt();
+        }
+            
+        return 0;
+    }
+
     public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
         System.out.println("\nWhich seed do you want to plant?");

@@ -29,14 +29,14 @@ public class FarmSimulator {
                 default: break;
             }
 
-            if (farm.endGame(p1.getObjectCoins(), p1.getType().getSeedCostReduction())) {
-                System.out.print("\n| input 1 to play again: ");
-                if(sc.nextInt() == 1) {
-
-                } else
-                    break;
+            switch (p1.end(sc)) {
+                case 0: break;
+                case 1: //play again
+                        break;
+                default: sc.close();
+                         System.exit(0);
+                         break;
             }
         }
-        sc.close();
     }
 }
