@@ -14,7 +14,6 @@ public class FarmSimulator {
 
             p1.displayPlayerStats();
             game.displayGameMoves();
-            System.out.print("Choice: ");
             choice = sc.nextInt();
 
             switch (choice) {
@@ -25,7 +24,8 @@ public class FarmSimulator {
                 case 3: p1.advanceDay(); 
                         break;
                 case 4: break;
-                case 5: p1.RegisterUp();
+                case 5: p1.RegisterUp(); break;
+                case 6: game.displayLotLegend(); break;
                 default: break;
             }
         }

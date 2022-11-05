@@ -71,22 +71,35 @@ public class FarmSystem {
     }
 
     public void displayGameMoves () {
-        System.out.println("What do you want to do?");
-        System.out.println("1 - display farm");
-        System.out.println("2 - Interact with tile");
-        System.out.println("3 - advance day");
-        System.out.println("4 - display player stats");
-        System.out.println("5 - Register superior farmer type");
+        System.out.println("\nWhat do you want to do?");
+        System.out.println("| 1 - display farm");
+        System.out.println("| 2 - Interact with tile");
+        System.out.println("| 3 - advance day");
+        System.out.println("| 4 - display player stats");
+        System.out.println("| 5 - Register superior farmer type");
+        System.out.println("| 6 - display farm legend");
+        System.out.println("| ...input any number to return to main");
+        System.out.print("Choice: ");
     }
 
     public void displayInteractionChoices () {
         System.out.println("\nWhat do you want to do?");
-        System.out.println("1 - Use Tool");
-        System.out.println("2 - Plant seed");
-        System.out.println("3 - Harvest Crop");
-        System.out.println("4 - display tile status");
-        System.out.println("x - input any number to return to main");
+        System.out.println("| 1 - Use Tool");
+        System.out.println("| 2 - Plant seed");
+        System.out.println("| 3 - Harvest Crop");
+        System.out.println("| 4 - display tile status");
+        System.out.println("| ...input any number to return to main");
         System.out.print("Choice: ");
+    }
+
+    public void displayLotLegend () {
+        System.out.println("\nLegend:");
+        System.out.println("| ( = ) unplowed tile ");
+        System.out.println("| ( # ) plowed tile ");
+        System.out.println("| ( * ) rock ");
+        System.out.println("| ( , )( s )( S ) crop ");
+        System.out.println("| ( $ ) Harvestable crop ");
+        System.out.println("| ( X ) Withered crop ");
     }
 
     public ArrayList<FarmTools> getTools() {
