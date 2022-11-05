@@ -135,10 +135,11 @@ public class MyFarm {
 
     public boolean canHarvest(int tileIndex) {
         Tile TheTile = lot.get(tileIndex);
-        if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime() &&
-                TheTile.getWaterTimes() >= TheTile.getSeeds().getWaterNeeds() &&
-                TheTile.getFertilizerTimes() >= TheTile.getSeeds().getFertilizerNeeds())
-            return true;
+        if (TheTile.getSeeds() != null)
+            if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime() &&
+                    TheTile.getWaterTimes() >= TheTile.getSeeds().getWaterNeeds() &&
+                    TheTile.getFertilizerTimes() >= TheTile.getSeeds().getFertilizerNeeds())
+                return true;
         
         return false;
     }
@@ -156,13 +157,10 @@ public class MyFarm {
 
     public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
-        if (lot.get(tileIndex).isPlowed()) {
-            System.out.println("\nWhich seed do you want to plant?");
-            displaySeeds(objectCoins);
-            System.out.print("Choice: ");
-            choice = sc.nextInt();
-        } else 
-            choice = -1;
+        System.out.println("\nWhich seed do you want to plant?");
+        displaySeeds(objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
 
         return choice;
     }
@@ -234,6 +232,9 @@ public class MyFarm {
    }
 
    public int identifyHarvestError(int tileIndex) {
+        if (lot.get(tileIndex).getSeeds() == null)
+            return 4;
+
         return lot.get(tileIndex).isWithered();
    }
 

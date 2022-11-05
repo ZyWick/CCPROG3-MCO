@@ -55,6 +55,7 @@ public class FarmSystem {
             case 1: System.out.print("Error: crop is withered, it is past its harvest time\n"); break;
             case 2: System.out.print("Error: crop is withered, it did not meet fertilizer needs\n"); break;
             case 3: System.out.print("Error: crop is withered, it did not meet water needs\n"); break;
+            case 4: System.out.print("Error: tile has no crop\n"); break;
             case 0: System.out.print("Error: crop has not met harvest time\n"); break;
         }
     }
@@ -71,7 +72,7 @@ public class FarmSystem {
     }
 
     public void displayGameMoves () {
-        System.out.println("\nWhat do you want to do?");
+        System.out.println("What do you want to do?");
         System.out.println("1 - display farm");
         System.out.println("2 - Interact with tile");
         System.out.println("3 - advance day");

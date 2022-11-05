@@ -13,7 +13,7 @@ public class Player {
     }
 
     public void displayPlayerStats() {
-        System.out.print("ObjectCoins: " + this.objectCoins);
+        System.out.print("\nObjectCoins: " + this.objectCoins);
         System.out.print(" exp: " + this.experience.getExp());
         System.out.print(" level: " + this.experience.getLevel());
         if (farm.getGame().canRegisterUp(this.type, this.experience.getLevel()))

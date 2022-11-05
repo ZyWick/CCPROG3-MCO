@@ -17,12 +17,13 @@ public class Tile {
         System.out.println("\nAbout tile:");
         System.out.println("rock: " + this.rock);
         System.out.println("plowed: " + this.plowed);
-        System.out.println("crop: " + this.seeds.getName());
         if (this.seeds != null) {
+            System.out.println("crop: " + this.seeds.getName());
             System.out.println("Times Watered: " + this.waterTimes);
             System.out.println("Times Fertilized: " + this.fertilizerTimes);
             System.out.println("Age: " + this.day +" days");
-        }
+        } else
+            System.out.println("...no crop planted");
     }
 
     public void reset() {
