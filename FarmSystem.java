@@ -25,6 +25,11 @@ public class FarmSystem {
         type.add(new FarmerType("Distinguished Farmer", 10, 2, -2, 1, 0, 300));
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
+
+    public void addDay() {
+        this.day += 1;
+        System.out.println("Day: " + this.day); 
+    }
     
     public void throwToolError(FarmTools selectedTool, int objectCoins) {
         if (selectedTool.getUsageCost() > objectCoins)
@@ -116,10 +121,5 @@ public class FarmSystem {
 
     public int getDay() {
         return this.day;
-    }
-
-    public void addDay() {
-        this.day += 1;
-        System.out.println("Day: " + this.day); 
     }
 }

@@ -96,6 +96,10 @@ public class Player {
             }
     }
 
+    public void advanceDay() {
+        farm.ageLot();
+    }
+
     public FarmerType canRegisterUp() {
         int nextLevelIndex = farm.getGame().getType().indexOf(this.type) + 1;
 
@@ -117,10 +121,6 @@ public class Player {
             farm.getGame().throwMaxFarmerTypeError();
         else
             farm.getGame().throwRegisterError();
-    }
-
-    public void advanceDay() {
-        farm.ageLot();
     }
 
     public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {

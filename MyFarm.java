@@ -91,13 +91,10 @@ public class MyFarm {
             System.out.println(game.getSeeds().indexOf(seed) + " - " + seed.getName());
         }
     }
-    
-    public void ageLot() {    
-        game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-        for (Tile TheTile : lot) 
-            if(TheTile.getSeeds() != null) 
-                TheTile.addDay();
-    }
+
+    public void displayTileStatus(int tileIndex) {
+        lot.get(tileIndex).displayTileStatus();
+   }
 
     public boolean canUseTool(FarmTools selectedTool, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
@@ -143,14 +140,12 @@ public class MyFarm {
         return false;
     }
 
-    public int getProductsProduced(int tileIndex) {
-        int productsProduced;
-        FarmSeeds seeds = lot.get(tileIndex).getSeeds();
-        
-        productsProduced = ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+    public int identifyHarvestError(int tileIndex) {
+        if (lot.get(tileIndex).getSeeds() == null)
+            return 4;
 
-        return productsProduced;
-    }
+        return lot.get(tileIndex).isWithered();
+   }
 
     public void plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();
@@ -176,6 +171,22 @@ public class MyFarm {
         lot.get(tileIndex).setSeeds(game.getSeeds().get(seedIndex));
    } 
 
+   public void ageLot() {    
+    game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    for (Tile TheTile : lot) 
+        if(TheTile.getSeeds() != null) 
+            TheTile.addDay();
+    }
+
+    public int getProductsProduced(int tileIndex) {
+        int productsProduced;
+        FarmSeeds seeds = lot.get(tileIndex).getSeeds();
+        
+        productsProduced = ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+
+        return productsProduced;
+    }
+
    public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
@@ -193,17 +204,6 @@ public class MyFarm {
         yield[1] = TheSeed.getExpYield();
         
         return yield;
-   }
-
-   public void displayTileStatus(int tileIndex) {
-        lot.get(tileIndex).displayTileStatus();
-   }
-
-   public int identifyHarvestError(int tileIndex) {
-        if (lot.get(tileIndex).getSeeds() == null)
-            return 4;
-
-        return lot.get(tileIndex).isWithered();
    }
 
     public FarmSystem getGame() {
