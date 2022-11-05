@@ -23,7 +23,6 @@ public class FarmSimulator {
                 case 2: p1.interactTile(sc);
                         break;
                 case 3: p1.advanceDay(); 
-                        System.out.println("Day: " + game.getDay()); 
                         break;
                 case 4: break;
                 case 5: p1.RegisterUp();
