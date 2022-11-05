@@ -43,6 +43,7 @@ public class MyFarm {
 
     public void display () {
         int x, y, row = 1, column = 1, tileIndex = 0;
+        System.out.println();
 
         for(x = 0; x < row; x++) {
             for(y = 0; y < column; y++) 
@@ -129,23 +130,20 @@ public class MyFarm {
         return false;
     }
 
-    public boolean canHarvest(int tileIndex) {
+    public int canHarvest(int tileIndex) {
+        int result;
         Tile TheTile = lot.get(tileIndex);
-        if (TheTile.getSeeds() != null)
-            if (TheTile.getDay() == TheTile.getSeeds().getHarvestTime() &&
-                    TheTile.getWaterTimes() >= TheTile.getSeeds().getWaterNeeds() &&
-                    TheTile.getFertilizerTimes() >= TheTile.getSeeds().getFertilizerNeeds())
-                return true;
+
+        if (TheTile.getSeeds() == null)
+            result = 5;
+        if (TheTile.getSeeds() != null && TheTile.getDay() < TheTile.getSeeds().getHarvestTime())
+            result = 4;
+        else
+            result = TheTile.isWithered();
         
-        return false;
+        return result;
     }
 
-    public int identifyHarvestError(int tileIndex) {
-        if (lot.get(tileIndex).getSeeds() == null)
-            return 4;
-
-        return lot.get(tileIndex).isWithered();
-   }
 
     public void plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();
@@ -174,8 +172,11 @@ public class MyFarm {
    public void ageLot() {    
     game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
     for (Tile TheTile : lot) 
-        if(TheTile.getSeeds() != null) 
+        if(TheTile.getSeeds() != null) {
             TheTile.addDay();
+            if (TheTile.isWithered() != 0)
+                System.out.println("..." + TheTile.getSeeds().getName() + "crop has withered");
+        }
     }
 
     public int getProductsProduced(int tileIndex) {
@@ -203,6 +204,9 @@ public class MyFarm {
         yield[0] = harvestTotal;
         yield[1] = TheSeed.getExpYield();
         
+        System.out.println("\n" + TheSeed.getName() + " products produced: " + productsProduced);
+        System.out.println("ObjectCoins gained: " + harvestTotal);
+
         return yield;
    }
 
@@ -211,15 +215,23 @@ public class MyFarm {
         boolean eventB = true;
 
         if (objectCoins < 5) {
-            for (Tile TheTile : lot) 
-                if (TheTile.getSeeds() != null)
+            for (Tile TheTile : lot) {
+                if (TheTile.getSeeds() != null) {
                     eventA = false;
+                }
+            }
         } else
             eventA = false;
 
-        for (Tile TheTile : lot)
+        for (Tile TheTile : lot) {
             if (TheTile.isWithered() == 0)
                 eventB = false;
+        }
+
+        if (eventA) 
+            System.out.println("...you don't have enough objectCoins to continue");
+        if (eventB) 
+            System.out.println("...all tiles have a withered crop");
 
         return (eventA || eventB);
    }

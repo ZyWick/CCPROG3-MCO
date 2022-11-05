@@ -46,13 +46,13 @@ public class FarmSystem {
         System.out.println("Error: not enough objectCoins\n");
     }
 
-    public void throwHarvestError(int errorType) {
-        switch (errorType) {
+    public void throwHarvestError(int error) {
+        switch (error) {
             case 1: System.out.print("Error: crop is withered, it is past its harvest time\n"); break;
             case 2: System.out.print("Error: crop is withered, it did not meet fertilizer needs\n"); break;
             case 3: System.out.print("Error: crop is withered, it did not meet water needs\n"); break;
-            case 4: System.out.print("Error: tile has no crop\n"); break;
-            case 0: System.out.print("Error: crop has not met harvest time\n"); break;
+            case 4: System.out.print("Error: crop has not met harvest time\n"); break;
+            case 5: System.out.print("Error: tile has no crop\n"); break;
         }
     }
 
