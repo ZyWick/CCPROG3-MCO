@@ -94,7 +94,7 @@ public class MyFarm {
     }
 
     public int canPlantSeed (int tileIndex) {
-        if (lot.get(tileIndex).isPlowed()) 
+        if (lot.get(tileIndex).isPlowed() == false) 
             return 2;
         if (lot.get(tileIndex).getSeeds() == null)
             return 3;
@@ -122,7 +122,7 @@ public class MyFarm {
     public int getTileIndex (Scanner sc) {
         int x, y, tileIndex;
 
-        System.out.print("input tile coordinates: ");
+        System.out.print("\ninput tile coordinates: ");
         x = sc.nextInt();
         y = sc.nextInt();
         tileIndex = (x - 1) * 10 + (y - 1) ;
@@ -133,7 +133,7 @@ public class MyFarm {
     public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
         if (lot.get(tileIndex).isPlowed()) {
-            System.out.println("Which seed do you want to plant?");
+            System.out.println("\nWhich seed do you want to plant?");
             displaySeeds(objectCoins);
             System.out.print("Choice: ");
             choice = sc.nextInt();
@@ -145,7 +145,7 @@ public class MyFarm {
 
     public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
         int choice;
-        System.out.println("Which tool do you want to use?");
+        System.out.println("\nWhich tool do you want to use?");
         displayTools(tileIndex, objectCoins);
         System.out.print("Choice: ");
         choice = sc.nextInt();
