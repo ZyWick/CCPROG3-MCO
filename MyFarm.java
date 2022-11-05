@@ -38,14 +38,7 @@ public class MyFarm {
     }
 
     public void removeWithered (Tile TheTile) {
-
-        if (TheTile.isWithered() != 0) {
-            TheTile = new Tile();
-        } else if (TheTile.isPlowed() && TheTile.getSeeds() != null) {
-            TheTile = new Tile();
-        } else if (TheTile.isPlowed() == false || TheTile.isRock()) {
-
-        }
+        TheTile.removeWithered();
     }
 
     public void plantCrop(Tile TheTile, int seedIndex) {

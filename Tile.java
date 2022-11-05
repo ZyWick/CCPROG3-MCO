@@ -98,4 +98,14 @@ public class Tile {
         return productsProduced;
     }
 
+    public void removeWithered() {
+        // reset all except for rock
+        seeds = null;
+        plowed = false;
+
+        waterTimes = 0;
+        fertilizerTimes = 0;
+        day = 0;
+    }
+
 }
