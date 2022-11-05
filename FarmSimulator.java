@@ -9,7 +9,7 @@ public class FarmSimulator {
         Player p1 = new Player(farm);
         int choice, x = 1;
 
-        game.display(farm.getLot());
+        farm.display();
         while (x != 0) {
 
             p1.displayPlayerStats();
@@ -18,7 +18,7 @@ public class FarmSimulator {
             choice = sc.nextInt();
 
             switch (choice) {
-                case 1: game.display(farm.getLot()); 
+                case 1: farm.display(); 
                         break;
                 case 2: p1.interactTile(sc);
                         break;

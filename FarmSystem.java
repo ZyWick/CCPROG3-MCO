@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FarmSystem {
     private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
@@ -114,35 +113,6 @@ public class FarmSystem {
         }
     }
 
-    public void display (ArrayList<Tile> lot) {
-        int x, y, row = 1, column = 1, tileIndex = 0;
-
-        for(x = 0; x < row; x++) {
-            for(y = 0; y < column; y++) 
-                System.out.print("* - - - - - ");
-            System.out.println('*');
-
-            for(y = 0; y < column; y++)
-                System.out.print("|           ");
-            System.out.println('|');
-                
-            for(y = 0; y < column; y++) {
-                System.out.print("|     ");
-                System.out.print(whatToPrint(lot.get(tileIndex)));
-                System.out.print("     ");
-                tileIndex = tileIndex + 1;
-            }
-            System.out.println('|');
-
-            for(y = 0; y < column; y++)
-                System.out.print("|           ");
-            System.out.println('|');
-        }        
-        for(y = 0; y < column; y++) 
-            System.out.print("* - - - - - ");
-        System.out.println('*');
-    }
-
     public void displayTools (Tile TheTile, int objectCoins) {
         for (FarmTools tool : tools) {
             if(canUseTool(tool, TheTile, objectCoins))
@@ -181,40 +151,6 @@ public class FarmSystem {
         System.out.println("3 - Harvest Crop");
         System.out.println("x - input any number to return to main");
         System.out.print("Choice: ");
-    }
-
-    public int getTileIndex (Scanner sc) {
-        int x, y, tileIndex;
-
-        System.out.print("input tile coordinates: ");
-        x = sc.nextInt();
-        y = sc.nextInt();
-        tileIndex = (x - 1) * 10 + (y - 1) ;
-
-        return tileIndex;
-    }
-
-    public int getToolChoice(Scanner sc, Tile TheTile, int objectCoins) {
-        int choice;
-        System.out.println("Which tool do you want to use?");
-        displayTools(TheTile, objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    public int getSeedChoice(Scanner sc, Tile TheTile, int objectCoins) {
-        int choice;
-        if (TheTile.isPlowed()) {
-            System.out.println("Which seed do you want to plant?");
-            displaySeeds(objectCoins);
-            System.out.print("Choice: ");
-            choice = sc.nextInt();
-        } else 
-            choice = -1;
-
-        return choice;
     }
 
     public ArrayList<FarmTools> getTools() {

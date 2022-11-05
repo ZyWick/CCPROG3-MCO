@@ -23,18 +23,17 @@ public class Player {
     }
 
     public void useTool (int tileIndex, Scanner sc) {
-        Tile TheTile = farm.getLot().get(tileIndex);
-        int choice = farm.getGame().getToolChoice(sc, TheTile, this.objectCoins);
+        int choice = farm.getToolChoice(sc, tileIndex, this.objectCoins);
         FarmTools selectedTool = farm.getGame().getTools().get(choice);
 
-        if (farm.getGame().canUseTool(selectedTool, TheTile, this.objectCoins)) {
+        if (farm.canUseTool(selectedTool, tileIndex, this.objectCoins)) {
             
             switch (choice) {
-                case 0: farm.plowTile(TheTile); break;
-                case 1: farm.waterTile(TheTile); break;
-                case 2: farm.fertilizeTile(TheTile); break;
-                case 3: farm.removeRock(TheTile); break;
-                case 4: farm.removeWithered(TheTile); break;
+                case 0: farm.plowTile(tileIndex); break;
+                case 1: farm.waterTile(tileIndex); break;
+                case 2: farm.fertilizeTile(tileIndex); break;
+                case 3: farm.removeRock(tileIndex); break;
+                case 4: farm.removeWithered(tileIndex); break;
             }
             
             objectCoins -= selectedTool.getUsageCost();
@@ -45,13 +44,12 @@ public class Player {
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
-        Tile TheTile = farm.getLot().get(tileIndex);
-        if(TheTile.isPlowed()) {
-            int choice = farm.getGame().getSeedChoice(sc, TheTile, this.objectCoins); 
+        if(farm.canPlantSeed(tileIndex)) {
+            int choice = farm.getSeedChoice(sc, tileIndex, this.objectCoins); 
             FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
 
             if (farm.getGame().canUseSeed(selectedSeed, choice)) {
-                farm.plantCrop(TheTile, choice);
+                farm.plantCrop(tileIndex, choice);
                 this.objectCoins -= selectedSeed.getSeedCost();
             } else
             farm.getGame().throwSeedError();
@@ -60,29 +58,19 @@ public class Player {
     }
 
     public void harvestCrop (int tileIndex) {
-        Tile TheTile = farm.getLot().get(tileIndex);
-        if (TheTile.canHarvest()) {
-            FarmSeeds TheSeed = TheTile.getSeeds();
-            int productsProduced = TheTile.getProductsProduced();
-            double harvestTotal, waterBonus, fertilizerBonus;      
-            
-            harvestTotal = productsProduced * (TheSeed.getSellingPrice() + type.getBonusEarning());
-            waterBonus = harvestTotal * 0.2 * (TheTile.getWaterTimes() - 1);
-            fertilizerBonus = harvestTotal * 0.5 * TheTile.getFertilizerTimes();
-            harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
-
-            TheTile = new Tile();
-            this.objectCoins += harvestTotal;
-            experience.addExp(TheSeed.getExpYield()); 
+        if (farm.canHarvest(tileIndex)) {
+            double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(type));
+            this.objectCoins += yield[0];
+            this.experience.addExp(yield[1]);
         }
         else {
-            int error = farm.identifyHarvestError(TheTile);
+            int error = farm.identifyHarvestError(tileIndex);
             farm.getGame().throwHarvestError(error);
         }
     }
 
     public void interactTile(Scanner sc) {
-        int tileIndex = farm.getGame().getTileIndex(sc);
+        int tileIndex = farm.getTileIndex(sc);
         farm.getGame().displayInteractionChoices ();
         int choice = sc.nextInt();
         switch (choice) {
