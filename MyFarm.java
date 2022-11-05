@@ -152,7 +152,7 @@ public class MyFarm {
     }
 
     public void removeWithered (int tileIndex) {
-        lot.get(tileIndex).removeWithered();
+        lot.get(tileIndex).reset();
     }
 
     public void plantCrop(int tileIndex, int seedIndex) {
@@ -170,7 +170,7 @@ public class MyFarm {
         fertilizerBonus = harvestTotal * 0.5 * min(TheTile.getFertilizerTimes(), TheSeed.getFertilizerLimit());
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
-        TheTile = new Tile();
+        TheTile.reset();
         double[] yield = new double[2];
         yield[0] = harvestTotal;
         yield[1] = TheSeed.getExpYield();
