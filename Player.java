@@ -49,9 +49,9 @@ public class Player {
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
-        int canPlant = farm.canPlantSeed(tileIndex);
+        int error = farm.canPlantSeed(tileIndex);
 
-        if(canPlant == 1) {
+        if(error == 0) {
             int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
 
             if (choice >= 0 && choice < farm.getGame().getSeeds().size()) {
@@ -65,18 +65,18 @@ public class Player {
             } else
                 farm.getGame().throwOutOfBoundsError();
         } else
-            farm.getGame().throwPlantError(canPlant);
+            farm.getGame().throwPlantError(error);
     }
 
     public void harvestCrop (int tileIndex) {
-        int result = farm.canHarvest(tileIndex);
-        if (result == 0) {
+        int error = farm.canHarvest(tileIndex);
+        if (error == 0) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += yield[0];
             this.experience.addExp(yield[1]);
         }
         else 
-            farm.getGame().throwHarvestError(result);
+            farm.getGame().throwHarvestError(error);
     }
 
     public void interactTile(Scanner sc) {

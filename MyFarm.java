@@ -124,11 +124,11 @@ public class MyFarm {
 
     public int canPlantSeed (int tileIndex) {
         if (lot.get(tileIndex).isPlowed() == false) 
-            return 2;
+            return 1;
         if (lot.get(tileIndex).getSeeds() != null)
-            return 3;
+            return 2;
 
-        return 1;
+        return 0;
     }
 
     public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {

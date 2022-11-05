@@ -65,8 +65,8 @@ public class FarmSystem {
 
     public void throwPlantError(int error) {
         switch (error) {
-            case 2: System.out.println("Error: tile is unplowed"); break;
-            case 3: System.out.println("Error: tile has a crop already"); break;
+            case 1: System.out.println("Error: tile is unplowed"); break;
+            case 2: System.out.println("Error: tile has a crop already"); break;
         }
     }
     
