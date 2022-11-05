@@ -19,7 +19,7 @@ public class Player {
         System.out.print(" | level: " + this.experience.getLevel());
         FarmerType zType = canRegisterUp();
         if (zType != null)
-            System.out.println(" | can register to " + zType.getName());
+            System.out.println(" | can register to " + zType.getName() + " (cost: " + zType.getRegistrationFee() + " ObjectCoins)");
         else 
             System.out.println(" |");
     }
@@ -106,7 +106,7 @@ public class Player {
         if (nextLevelIndex < farm.getGame().getType().size()) {
             FarmerType zType = farm.getGame().getType().get(nextLevelIndex);
 
-            if (this.experience.getLevel() >= zType.getLevelReq()) 
+            if (this.experience.getLevel() >= zType.getLevelReq())
                 return zType;
         }
 
@@ -115,8 +115,16 @@ public class Player {
 
     public void RegisterUp() {
         FarmerType zType = canRegisterUp();
-        if (zType != null)
-            this.type = zType;
+
+        if (zType != null) {
+            if (this.objectCoins >= zType.getRegistrationFee()) {
+                this.type = zType;
+                this.objectCoins -= zType.getRegistrationFee();
+            } else {
+                // maybe rename to more generic like notenoughobjectcoinserror
+                farm.getGame().throwSeedError();
+            }
+        }
         else if (farm.getGame().getType().indexOf(this.type) + 1 >=  farm.getGame().getType().size())
             farm.getGame().throwMaxFarmerTypeError();
         else
