@@ -17,7 +17,8 @@ public class MyFarm {
             
     }
 
-    public char whatToPrint(Tile TheTile) {
+    public char whatToPrint(int tileIndex) {
+        Tile TheTile = lot.get(tileIndex);
         if (TheTile.isPlowed()) {
             if (TheTile.getSeeds() != null) {
                 int day = TheTile.getDay();
@@ -56,7 +57,7 @@ public class MyFarm {
                 
             for(y = 0; y < column; y++) {
                 System.out.print("|     ");
-                System.out.print(whatToPrint(lot.get(tileIndex)));
+                System.out.print(whatToPrint(tileIndex));
                 System.out.print("     ");
                 tileIndex = tileIndex + 1;
             }
@@ -73,18 +74,20 @@ public class MyFarm {
 
     public void displayTools (int tileIndex, int objectCoins) {
         for (FarmTools tool : game.getTools()) {
-            if(canUseTool(tool, tileIndex, objectCoins) == 0)
+            int toolIndex = game.getTools().indexOf(tool);
+
+            if(canUseTool(toolIndex, tileIndex, objectCoins) == 0)
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
 
-            System.out.println(game.getTools().indexOf(tool) + " - " + tool.getName());
+            System.out.println(toolIndex + " - " + tool.getName());
         }
     }
 
-    public void displaySeeds (int PlayerObjectCoins, FarmerType farmerType) {
+    public void displaySeeds (int PlayerObjectCoins, int farmerTypeSeedCostReduction) {
         for (FarmSeeds seed : game.getSeeds()) {
-            if(canAffordSeed(seed, PlayerObjectCoins, farmerType))
+            if(canAffordSeed(PlayerObjectCoins, seed.getSeedCost(), farmerTypeSeedCostReduction))
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
@@ -97,8 +100,9 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    public int canUseTool(FarmTools selectedTool, int tileIndex, int objectCoins) {
+    public int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
+        FarmTools selectedTool = game.getTools().get(toolIndex);
         int error = 0;
 
         if (objectCoins >= selectedTool.getUsageCost()) {
@@ -127,8 +131,8 @@ public class MyFarm {
         return 1;
     }
 
-    public boolean canAffordSeed(FarmSeeds seed, int PlayerObjectCoins, FarmerType farmerType) {
-        if (PlayerObjectCoins >= seed.getSeedCost() + farmerType.getSeedCostReduction())
+    public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
+        if (PlayerObjectCoins >= seedCost + farmerTypeSeedReduction)
             return true;
 
         return false;
@@ -192,19 +196,20 @@ public class MyFarm {
         return productsProduced;
     }
 
-   public double[] harvestCrop(int tileIndex, FarmerType farmerType){
+   public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
+        FarmerType TheType = game.getType().get(farmerTypeIndex);
         int productsProduced = getProductsProduced(tileIndex);
         double harvestTotal, waterBonus, fertilizerBonus;      
 
         int waterTimesCapped = min(TheTile.getWaterTimes(),
-                                   TheSeed.getWaterLimit() + farmerType.getWaterBonusIncrease());
+                                   TheSeed.getWaterLimit() + TheType.getWaterBonusIncrease());
 
         int fertilizerTimesCapped = min(TheTile.getFertilizerTimes(),
-                                        TheSeed.getFertilizerLimit() + farmerType.getFertilizerBonusIncrease());
+                                        TheSeed.getFertilizerLimit() + TheType.getFertilizerBonusIncrease());
 
-        harvestTotal = productsProduced * (TheSeed.getSellingPrice() + farmerType.getBonusEarning());
+        harvestTotal = productsProduced * (TheSeed.getSellingPrice() + TheType.getBonusEarning());
         waterBonus = harvestTotal * 0.2 * (waterTimesCapped - 1);
         fertilizerBonus = harvestTotal * 0.5 * fertilizerTimesCapped;
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
@@ -220,11 +225,11 @@ public class MyFarm {
         return yield;
    }
 
-   public boolean endGame(int objectCoins, FarmerType farmerType) {
+   public boolean endGame(int objectCoins, int farmerTypeSeedReduction) {
         boolean eventA = true;
         boolean eventB = true;
 
-        if (canAffordSeed(game.getSeeds().get(0), objectCoins, farmerType)) {
+        if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerTypeSeedReduction)) {
             for (Tile TheTile : lot) {
                 if (TheTile.getSeeds() != null) {
                     eventA = false;
