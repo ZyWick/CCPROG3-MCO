@@ -29,12 +29,17 @@ public class Tile {
         this.rock = false;
     }
 
+    public boolean canWaterOrFertilize() {
+        return this.isPlowed() && this.seeds != null;
+    }
+
     public int getWaterTimes() {
         return this.waterTimes;
     }
 
     public void addWaterTimes() {
-        this.waterTimes += 1;
+        if(this.canWaterOrFertilize())
+            this.waterTimes += 1;
     }
 
     public int getFertilizerTimes() {
@@ -42,13 +47,9 @@ public class Tile {
     }
 
     // returns true if operation succeded else false
-    public boolean addFertilizerTimes() {
-        if(plowed && seeds != null) {
+    public void addFertilizerTimes() {
+        if(this.canWaterOrFertilize())
             this.fertilizerTimes += 1;
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public int getDay() {
@@ -63,7 +64,15 @@ public class Tile {
         return this.plowed;
     }
 
+    public boolean canPlow() {
+        return !this.isPlowed() && !this.isRock();
+    }
+
     public void setPlowed(boolean plowed) {
+        // do not plow if plowing is not allowed
+        if(plowed && !this.canPlow())
+            return;
+
         this.plowed = plowed;
     }
 

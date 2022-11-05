@@ -57,10 +57,10 @@ public class MyFarm {
     public boolean canUseTool(FarmTools selectedTool, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.isPlowed() == false && TheTile.isRock() == false) 
+            if (selectedTool.getName().equals("Plow") && TheTile.canPlow())
                 return true;
             else if ((selectedTool.getName().equals("Watering Can") || selectedTool.getName().equals("Fertilizer"))
-                     && TheTile.isPlowed() == true && TheTile.getSeeds() != null)
+                     && TheTile.canWaterOrFertilize())
                 return true;      
             else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock())
                 return true;
