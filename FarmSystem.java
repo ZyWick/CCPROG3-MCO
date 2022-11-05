@@ -35,12 +35,15 @@ public class FarmSystem {
         return false;
     }
 
-    public void throwToolError(FarmTools selectedTool) {
-        switch (tools.indexOf(selectedTool)) {
-            case 0: System.out.println("tile is already plowed\n"); break;
-            case 1: case 2: System.out.println("tile does not have a crop\n"); break;
-            case 3: System.out.println("tiles does not have a rock\n"); break;
-        }
+    public void throwToolError(FarmTools selectedTool, int objectCoins) {
+        if (selectedTool.getUsageCost() > objectCoins)
+            System.out.println("Error: not enough objectCoins\n");
+        else
+            switch (tools.indexOf(selectedTool)) {
+                case 0: System.out.println("Error: tile is already plowed\n"); break;
+                case 1: case 2: System.out.println("Error: tile does not have a crop\n"); break;
+                case 3: System.out.println("Error: tile does not have a rock\n"); break;
+            }
     }
 
     public void throwSeedError() {
@@ -80,7 +83,7 @@ public class FarmSystem {
                 if (day == harvestTime)
                     return '$'; 
                 if (TheTile.isWithered() != 0 || day > harvestTime)
-                return 'X';        
+                    return 'X';        
             }
             return '#';
         } else if (TheTile.isRock()) {
