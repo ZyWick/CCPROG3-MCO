@@ -18,6 +18,30 @@ public class MyFarm {
             
     }
 
+    public char whatToPrint(Tile TheTile) {
+        if (TheTile.isPlowed()) {
+            if (TheTile.getSeeds() != null) {
+                int day = TheTile.getDay();
+                int harvestTime = TheTile.getSeeds().getHarvestTime();
+    
+                if (day <= 1)
+                    return ',';
+                if (day <= harvestTime/3)
+                    return 's';
+                if (day < harvestTime)
+                    return 'S'; 
+                if (day == harvestTime)
+                    return '$'; 
+                if (TheTile.isWithered() != 0 || day > harvestTime)
+                    return 'X';        
+            } else
+                return '#';
+        } else if (TheTile.isRock()) 
+            return '*';
+      
+        return '=';
+    }
+
     public void display () {
         int x, y, row = 1, column = 1, tileIndex = 0;
 
@@ -32,7 +56,7 @@ public class MyFarm {
                 
             for(y = 0; y < column; y++) {
                 System.out.print("|     ");
-                System.out.print(game.whatToPrint(lot.get(tileIndex)));
+                System.out.print(whatToPrint(lot.get(tileIndex)));
                 System.out.print("     ");
                 tileIndex = tileIndex + 1;
             }

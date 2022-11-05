@@ -70,31 +70,6 @@ public class FarmSystem {
         }
     }
 
-    public char whatToPrint(Tile TheTile) {
-        if (TheTile.isPlowed()) {
-            if (TheTile.getSeeds() != null) {
-                int day = TheTile.getDay();
-                int harvestTime = TheTile.getSeeds().getHarvestTime();
-    
-                if (day <= 1)
-                    return ',';
-                if (day <= harvestTime/3)
-                    return 's';
-                if (day <= harvestTime/1.5)
-                    return 'S'; 
-                if (day == harvestTime)
-                    return '$'; 
-                if (TheTile.isWithered() != 0 || day > harvestTime)
-                    return 'X';        
-            }
-            return '#';
-        } else if (TheTile.isRock()) {
-            return '*';
-        } else {
-            return '=';
-        }
-    }
-
     public void displayGameMoves () {
         System.out.println("\nWhat do you want to do?");
         System.out.println("1 - display farm");
