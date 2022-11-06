@@ -82,9 +82,9 @@ public class MyFarm {
         }
     }
 
-    public void displaySeeds (int PlayerObjectCoins, int farmerTypeSeedCostReduction) {
+    public void displaySeeds (int objectCoins, int farmerTypeSeedCostReduction) {
         for (FarmSeeds seed : game.getSeeds()) {
-            if(canAffordSeed(PlayerObjectCoins, seed.getSeedCost(), farmerTypeSeedCostReduction))
+            if(canAffordSeed(objectCoins, seed.getSeedCost(), farmerTypeSeedCostReduction))
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
