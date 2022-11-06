@@ -97,6 +97,14 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
+   public void display(int which) {
+        switch(which) {
+            case 1: game.displayGameMoves(); break;
+            case 2: game.displayLotLegend(); break;
+            case 3: game.displayInteractionChoices(); break;
+        }
+   }
+
     public int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
@@ -119,13 +127,51 @@ public class MyFarm {
         return error;
     }
 
-    public int canPlantSeed (int tileIndex) {
-        if (lot.get(tileIndex).isPlowed() == false) 
-            return 1;
-        if (lot.get(tileIndex).getSeeds() != null)
-            return 2;
+    public boolean useTool (int tileIndex, int choice, int objectCoins) {
+        boolean result = false;
 
-        return 0;
+        if (choice >= 0 && choice < game.getTools().size()) {
+            int error = canUseTool(choice, tileIndex, objectCoins);
+
+            if (error == 0) {
+                result = true;   
+            } else 
+                game.throwToolError(error);
+        } else
+            game.throwOutOfBoundsError();
+        
+        return result;
+    }
+
+    public boolean canPlantCrop (int tileIndex, int farmerSeedCostReduction, int choice, int objectCoins) {
+        boolean result = false;
+
+        if (choice >= 0 && choice < game.getSeeds().size()) {
+
+            if (canAffordSeed(objectCoins, game.getSeeds().get(choice).getSeedCost(), farmerSeedCostReduction)) {
+                result = true;
+            } else
+                game.throwInsufficientObjectCoins();
+        } else
+            game.throwOutOfBoundsError();
+
+        return result;
+    }
+
+    public boolean canPlantSeed (int tileIndex) {
+        boolean result = true;
+
+        if (lot.get(tileIndex).isPlowed() == false) {
+            result = false;
+            game.throwPlantError(1);
+        }
+
+        if (lot.get(tileIndex).getSeeds() != null) {
+            result = false;
+            game.throwPlantError(2);
+        }
+
+        return result;
     }
 
     public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
@@ -135,49 +181,87 @@ public class MyFarm {
         return false;
     }
 
-    public int canHarvest(int tileIndex) {
-        int result;
+    public boolean canHarvest(int tileIndex) {
+        boolean result = true;
+        int error;
         Tile TheTile = lot.get(tileIndex);
 
-        if (TheTile.getSeeds() == null)
-            result = 5;
+        if (TheTile.getSeeds() == null) 
+            error = 5;
         else if (TheTile.getSeeds() != null && TheTile.getDay() < TheTile.getSeeds().getHarvestTime())
-            result = 4;
+            error = 4;
         else
-            result = TheTile.isWithered();
+            error = TheTile.isWithered();
         
+        if (error != 0) {
+            game.throwHarvestError(error);
+            result = false;
+        }
+
         return result;
     }
 
+    public FarmerType canRegisterUp(String FarmerTypeName, int playerLevel, int objectCoins) {
+        ArrayList<FarmerType> Types = game.getType();
+        FarmerType TheType = Types.get(0);
 
-    public void plowTile(int tileIndex) {
+        for (FarmerType type: Types)
+            if (type.getName().equals(FarmerTypeName))
+                TheType = type;
+
+        int nextLevelIndex = Types.indexOf(TheType) + 1;
+        FarmerType zType = null;
+
+        if (nextLevelIndex < Types.size()) {
+            zType = Types.get(nextLevelIndex);
+            if (playerLevel >= zType.getLevelReq())
+                if (objectCoins >= zType.getRegistrationFee())
+                    return zType;
+                else
+                    game.throwInsufficientObjectCoins();
+            else
+                game.throwRegisterError();
+        } else
+            game.throwMaxFarmerTypeError();
+
+        return zType;
+    }
+
+    public double[] plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();
+        return game.getToolYield(0);
     }
 
-    public void waterTile(int tileIndex) {
+    public double[] waterTile(int tileIndex) {
         lot.get(tileIndex).addWaterTimes();
+        return game.getToolYield(1);
     }
 
-    public void fertilizeTile(int tileIndex) {
+    public double[] fertilizeTile(int tileIndex) {
         lot.get(tileIndex).addFertilizerTimes();   
+        return game.getToolYield(2);
     }
 
-    public void removeRock(int tileIndex) {
+    public double[] removeRock(int tileIndex) {
         lot.get(tileIndex).removeRock();
+        return game.getToolYield(3);
     }
 
-    public void useShovel (int tileIndex) {
+    public double[] useShovel (int tileIndex) {
         Tile TheTile = lot.get(tileIndex);
+        
         if (TheTile.isPlowed() == false || TheTile.isRock() == true)
             System.out.println("\n...nothing happened");
         else
             System.out.println("\n...tile has been reset");
         
-        TheTile.reset();        
+        TheTile.reset();
+        return game.getToolYield(4);  
     }
 
-    public void plantCrop(int tileIndex, int seedIndex) {
+    public int plantCrop(int tileIndex, int seedIndex) {
         lot.get(tileIndex).setSeeds(game.getSeeds().get(seedIndex));
+        return game.getSeeds().get(seedIndex).getSeedCost();
    } 
 
    public void ageLot() {    
@@ -190,11 +274,15 @@ public class MyFarm {
         }
     }
 
-   public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
+   public double[] harvestCrop(int tileIndex, String farmerName){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
-        FarmerType TheType = game.getType().get(farmerTypeIndex);
         double harvestTotal, waterBonus, fertilizerBonus;      
+        FarmerType TheType = game.getType().get(0);
+
+        for (FarmerType type : game.getType())
+            if (type.getName().equals(farmerName))
+                TheType = type;
 
         int productsProduced = TheTile.getProductsProduced();
         int waterTimesCapped = TheTile.getWaterTimesCapped(TheType.getWaterBonusIncrease());
@@ -206,7 +294,7 @@ public class MyFarm {
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
         if(TheSeed.getCropType().equals("Flower"))
-            harvestTotal *= 1.1;
+            harvestTotal *= 1.1;   
 
         TheTile.reset();
         double[] yield = new double[2];
@@ -244,9 +332,5 @@ public class MyFarm {
 
         return (eventA || eventB);
    }
-
-    public FarmSystem getGame() {
-        return this.game;
-    }
     
 }

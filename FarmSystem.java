@@ -121,4 +121,12 @@ public class FarmSystem {
     public int getDay() {
         return this.day;
     }
+
+    public double[] getToolYield(int toolIndex) {
+        double[] yield = new double[2]; 
+        yield [0] = tools.get(toolIndex).getUsageCost();
+        yield [1] = tools.get(toolIndex).getExpYield();
+
+        return yield;
+    }
 }

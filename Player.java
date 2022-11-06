@@ -6,10 +6,10 @@ public class Player {
     private MyFarm farm;
     private FarmerType type;
 
-    public Player(MyFarm farm) {
+    public Player(MyFarm farm, FarmerType type) {
         this.experience = new Experience();
         this.farm = farm;
-        this.type  = farm.getGame().getType().get(0);
+        this.type  = type;
     }
 
     public void displayPlayerStats() {
@@ -17,7 +17,7 @@ public class Player {
         System.out.print(" | ObjectCoins: " + this.objectCoins);
         System.out.print(" | exp: " + this.experience.getExp());
         System.out.print(" | level: " + this.experience.getLevel());
-        FarmerType zType = canRegisterUp();
+        FarmerType zType = farm.canRegisterUp(this.type.getName(), this.experience.getLevel(), this.objectCoins);
         if (zType != null)
             System.out.println(" | can register to " + zType.getName() + " (cost: " + zType.getRegistrationFee() + " ObjectCoins)");
         else 
@@ -26,70 +26,51 @@ public class Player {
 
     public void useTool (int tileIndex, Scanner sc) {
         int choice = getToolChoice(sc, tileIndex, this.objectCoins);
-        if (choice >= 0 && choice < farm.getGame().getTools().size()) {
-            FarmTools selectedTool = farm.getGame().getTools().get(choice);
-            int error = farm.canUseTool(choice, tileIndex, this.objectCoins);
+        if (farm.useTool(tileIndex, choice, this.objectCoins)) {
+            double[] yield = new double[2];
 
-            if (error == 0) {
-                
-                switch (choice) {
-                    case 0: farm.plowTile(tileIndex); break;
-                    case 1: farm.waterTile(tileIndex); break;
-                    case 2: farm.fertilizeTile(tileIndex); break;
-                    case 3: farm.removeRock(tileIndex); break;
-                    case 4: farm.useShovel(tileIndex); break;
-                }
+            switch (choice) {
+                case 0: yield = farm.plowTile(tileIndex); break;
+                case 1: yield = farm.waterTile(tileIndex); break;
+                case 2: yield = farm.fertilizeTile(tileIndex); break;
+                case 3: yield = farm.removeRock(tileIndex); break;
+                case 4: yield = farm.useShovel(tileIndex); break;
+            }
 
-                this.objectCoins -= selectedTool.getUsageCost();
-                this.experience.addExp(selectedTool.getExpYield());
-                System.out.println("\n| ObjectCoins expended: " + selectedTool.getUsageCost());
-                System.out.println("| Experience gained: " + selectedTool.getExpYield());    
-            } else 
-                farm.getGame().throwToolError(error);
-        } else
-            farm.getGame().throwOutOfBoundsError();
+            this.objectCoins -= yield[0];
+            this.experience.addExp(yield[1]); 
+            System.out.println("\n| ObjectCoins expended: " + yield[0]);
+            System.out.println("| Experience gained: " + yield[2]); 
+        }
     }
 
     public void plantCrop (int tileIndex, Scanner sc) {
-        int error = farm.canPlantSeed(tileIndex);
-
-        if(error == 0) {
+        if(farm.canPlantSeed(tileIndex)) {
             int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
 
-            if (choice >= 0 && choice < farm.getGame().getSeeds().size()) {
-                FarmSeeds selectedSeed = farm.getGame().getSeeds().get(choice);
+            if (farm.canPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
+                int cost = farm.plantCrop(tileIndex, choice);
 
-                if (farm.canAffordSeed(this.objectCoins, selectedSeed.getSeedCost(), this.type.getSeedCostReduction())) {
-                    farm.plantCrop(tileIndex, choice);
-
-                    this.objectCoins -= selectedSeed.getSeedCost() + this.type.getSeedCostReduction();
-                    System.out.println("\n| ObjectCoins expended: " + (selectedSeed.getSeedCost() + this.type.getSeedCostReduction()));
-
-                } else
-                    farm.getGame().throwInsufficientObjectCoins();
-            } else
-                farm.getGame().throwOutOfBoundsError();
-        } else
-            farm.getGame().throwPlantError(error);
+                this.objectCoins -= cost + this.type.getSeedCostReduction();
+                System.out.println("\n| ObjectCoins expended: " + (cost + this.type.getSeedCostReduction()));
+            }
+        } 
     }
 
     public void harvestCrop (int tileIndex) {
-        int error = farm.canHarvest(tileIndex);
-        if (error == 0) {
-            double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
+        if (farm.canHarvest(tileIndex)) {
+            double[] yield = farm.harvestCrop(tileIndex, this.type.getName());
             this.objectCoins += (int)yield[0];
             this.experience.addExp(yield[1]);
             System.out.println("| ObjectCoins gained: " + (int)yield[0]);
             System.out.println("| Experience gained: " + yield[1]);
         }
-        else 
-            farm.getGame().throwHarvestError(error);
     }
 
     public void interactTile(Scanner sc) {
         // int tileIndex = getTileIndex(sc);
         int tileIndex = 0;
-        farm.getGame().displayInteractionChoices ();
+        farm.display(3);
         int choice = sc.nextInt();
         switch (choice) {
             case 1: useTool(tileIndex, sc);
@@ -108,36 +89,15 @@ public class Player {
         farm.ageLot();
     }
 
-    public FarmerType canRegisterUp() {
-        int nextLevelIndex = farm.getGame().getType().indexOf(this.type) + 1;
-
-        if (nextLevelIndex < farm.getGame().getType().size()) {
-            FarmerType zType = farm.getGame().getType().get(nextLevelIndex);
-
-            if (this.experience.getLevel() >= zType.getLevelReq())
-                return zType;
-        }
-
-        return null;
-    }
-
     public void RegisterUp() {
-        FarmerType zType = canRegisterUp();
+        FarmerType zType = farm.canRegisterUp(this.type.getName(), this.experience.getLevel(), this.objectCoins);
 
         if (zType != null) {
-            if (this.objectCoins >= zType.getRegistrationFee()) {
-                this.type = zType;
-                this.objectCoins -= zType.getRegistrationFee();
-                System.out.println("\n| ObjectCoins expended: " + zType.getRegistrationFee());
-                System.out.println("...you are now a " + this.type.getName());
-            } else {
-                farm.getGame().throwInsufficientObjectCoins();
-            }
+            this.type = zType;
+            this.objectCoins -= zType.getRegistrationFee();
+            System.out.println("\n| ObjectCoins expended: " + zType.getRegistrationFee());
+            System.out.println("...you are now a " + this.type.getName());
         }
-        else if (farm.getGame().getType().indexOf(this.type) + 1 >=  farm.getGame().getType().size())
-            farm.getGame().throwMaxFarmerTypeError();
-        else
-            farm.getGame().throwRegisterError();
     }
 
     public int end(Scanner sc) {
