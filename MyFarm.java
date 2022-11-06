@@ -158,12 +158,12 @@ public class MyFarm {
         return result;
     }
 
-    public boolean checkPlantCrop (int tileIndex, int farmerSeedCostReduction, int choice, int objectCoins) {
+    public boolean checkPlantCrop (int tileIndex, int farmerSeedCostReduction, int seedIndex, int objectCoins) {
         boolean result = false;
 
-        if (choice >= 0 && choice < game.getSeeds().size()) {
+        if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
 
-            if (canAffordSeed(objectCoins, game.getSeeds().get(choice).getSeedCost(), farmerSeedCostReduction)) {
+            if (canAffordSeed(objectCoins, game.getSeeds().get(seedIndex).getSeedCost(), farmerSeedCostReduction)) {
                 result = true;
             } else
                 game.throwInsufficientObjectCoins();
