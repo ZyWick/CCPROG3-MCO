@@ -193,26 +193,24 @@ public class MyFarm {
         return result;
     }
 
-
-
     public double[] plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();
-        return game.getToolYield(0);
+        return game.getTools().get(0).getToolYield();
     }
 
     public double[] waterTile(int tileIndex) {
         lot.get(tileIndex).addWaterTimes();
-        return game.getToolYield(1);
+        return game.getTools().get(1).getToolYield();
     }
 
     public double[] fertilizeTile(int tileIndex) {
         lot.get(tileIndex).addFertilizerTimes();   
-        return game.getToolYield(2);
+        return game.getTools().get(2).getToolYield();
     }
 
     public double[] removeRock(int tileIndex) {
         lot.get(tileIndex).removeRock();
-        return game.getToolYield(3);
+        return game.getTools().get(3).getToolYield();
     }
 
     public double[] useShovel (int tileIndex) {
@@ -224,7 +222,7 @@ public class MyFarm {
             System.out.println("\n...tile has been reset");
         
         TheTile.reset();
-        return game.getToolYield(4);  
+        return game.getTools().get(4).getToolYield();  
     }
 
     public int plantCrop(int tileIndex, int seedIndex) {
