@@ -269,11 +269,11 @@ public class MyFarm {
         }
     }
 
-   public boolean endGame(int objectCoins, int farmerTypeSeedReduction) {
+   public boolean endGame(int objectCoins, int farmerSeedCostReduction) {
         boolean eventA = true;
         boolean eventB = true;
 
-        if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerTypeSeedReduction) == false) {
+        if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerSeedCostReduction) == false) {
             for (Tile TheTile : lot) {
                 if (TheTile.getSeeds() != null) {
                     eventA = false;
