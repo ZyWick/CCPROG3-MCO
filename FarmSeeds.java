@@ -21,9 +21,9 @@ public class FarmSeeds {
      * @param name                the name
      * @param cropType            the crop type
      * @param harvestTime         the harvest time
-     * @param waterNeeds          the water needs
+     * @param waterNeeds          the minimum amount water needed
      * @param waterLimit          the water bonus limit
-     * @param fertilizerNeeds     the fertilizer needs
+     * @param fertilizerNeeds     the minimum amount of fertilizer needed
      * @param fertilizerLimit     the fertilizer bonus limit
      * @param minProductsProduced the minimum amount of products produced
      * @param maxProductsProduced the maximum amount of products produced
