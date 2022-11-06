@@ -176,8 +176,13 @@ public class Player {
 
     public int end(Scanner sc) {
         if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
-            System.out.print("\n| input 1 to play again: "); 
-            return sc.nextInt();
+            int ENDD = 0;
+
+            while (ENDD == 0) {
+                System.out.print("\n| input 1 to play again: ");
+                ENDD = sc.nextInt();
+            }
+            return ENDD;
         }
             
         return 0;
