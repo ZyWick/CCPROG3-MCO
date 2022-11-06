@@ -2,6 +2,10 @@ public class Experience {
     private double exp = 0.0;
     private int level = 0;
 
+    /**
+     *
+     * Initializes an experience counter
+     */
     public Experience() {
     }
 
