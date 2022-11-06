@@ -183,16 +183,4 @@ public class Player {
         return 0;
     }
 
-    public int getObjectCoins() {
-        return this.objectCoins;
-    }
-
-    public FarmerType getType() {
-        return this.type;
-    }
-
-    public int getLevel() {
-        return this.experience.getLevel();
-    }
-
 }
