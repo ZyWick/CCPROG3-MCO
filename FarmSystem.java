@@ -152,7 +152,7 @@ public class FarmSystem {
     }
 
     /**
-     * Gets the list of tools that are available in the game
+     * Returns the list of tools that are available in the game
      *
      * @return the list of available tools
      */
@@ -161,7 +161,7 @@ public class FarmSystem {
     }
 
     /**
-     * Gets the list of seeds that are available in the game
+     * Returns the list of seeds that are available in the game
      *
      * @return the list of available seeds
      */
@@ -170,7 +170,7 @@ public class FarmSystem {
     }
 
     /**
-     * Gets the list of farmer types that are available in the game
+     * Returns the list of farmer types that are available in the game
      *
      * @return the list of available farmer types
      */
@@ -179,7 +179,7 @@ public class FarmSystem {
     }
 
     /**
-     * Gets the next available farmer type. Returns null if there is no such farmer type
+     * Returns the next available farmer type. Returns null if there is no such farmer type
      *
      * @param TheType the current farmer type
      * @return the next farmer type, can be null
@@ -194,7 +194,7 @@ public class FarmSystem {
     }
 
     /**
-     * Gets the current day
+     * Returns the current day
      *
      * @return the day
      */

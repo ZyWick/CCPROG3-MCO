@@ -32,7 +32,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the name of the Farmer Type
+     * Returns the name of the Farmer Type
      *
      * @return the name
      */
@@ -41,7 +41,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the level requirement for the Farmer Type
+     * Returns the level requirement for the Farmer Type
      *
      * @return the level requirement
      */
@@ -50,7 +50,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the amount of bonus earnings per produce for the Farmer Type
+     * Returns the amount of bonus earnings per produce for the Farmer Type
      *
      * @return the amount of bonus earnings
      */
@@ -59,7 +59,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the amount of seed cost reduction bonus for the Farmer Type
+     * Returns the amount of seed cost reduction bonus for the Farmer Type
      *
      * @return the amount of seed cost reduction bonus
      */
@@ -68,7 +68,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the amount of water bonus limit increase for the Farmer Type
+     * Returns the amount of water bonus limit increase for the Farmer Type
      *
      * @return the amount of water bonus limit increase
      */
@@ -77,7 +77,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the amount of fertilizer bonus limit increase for the Farmer Type
+     * Returns the amount of fertilizer bonus limit increase for the Farmer Type
      *
      * @return the amount of fertilizer bonus limit increase
      */
@@ -86,7 +86,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets the registration fee for the Farmer Type
+     * Returns the registration fee for the Farmer Type
      *
      * @return the registration fee
      */
