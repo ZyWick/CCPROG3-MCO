@@ -190,7 +190,7 @@ public class MyFarm {
      * @param tileIndex   the index of the tile
      * @return true if a new seed can be planted, otherwise false
      */
-    public boolean checkPlantSeed (int tileIndex) {
+    public boolean checkPlantInTile (int tileIndex) {
         boolean result = true;
 
         if (lot.get(tileIndex).isPlowed() == false) {
