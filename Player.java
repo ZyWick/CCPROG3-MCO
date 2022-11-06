@@ -30,6 +30,63 @@ public class Player {
         }
     }
 
+    public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
+        int choice;
+        System.out.println("\nWhich seed do you want to plant?");
+        farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }
+
+    public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
+        int choice;
+        System.out.println("\nWhich tool do you want to use?");
+        farm.displayTools(tileIndex, this.objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }    
+
+    public int getTileIndex (Scanner sc) {
+        int x, y, tileIndex;
+
+        System.out.print("\ninput tile coordinates: ");
+        x = sc.nextInt();
+        y = sc.nextInt();
+        tileIndex = (x - 1) * 10 + (y - 1) ;
+
+        return tileIndex;
+    }
+
+    public void interactTile(Scanner sc) {
+        // int tileIndex = getTileIndex(sc);
+        int tileIndex = 0;
+        farm.getGame().displayInteractionChoices();;
+        int choice = sc.nextInt();
+        switch (choice) {
+            case 1: useTool(tileIndex, sc);
+                    break;
+            case 2: plantCrop(tileIndex, sc);
+                    break;
+            case 3: harvestCrop(tileIndex); 
+                    break;
+            case 4: farm.displayTileStatus(tileIndex);
+                    break;
+            default: break;
+            }
+    }
+
+    private void addExp(double d) {
+        int prev = this.experience.getLevel();
+
+        this.experience.addExp(d);
+        if (prev < this.experience.getLevel())
+            System.out.println("\n...player leveled up!");
+    }
+
     public void useTool (int tileIndex, Scanner sc) {
         int choice = getToolChoice(sc, tileIndex, this.objectCoins);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
@@ -73,27 +130,29 @@ public class Player {
         }
     }
 
-    public void interactTile(Scanner sc) {
-        // int tileIndex = getTileIndex(sc);
-        int tileIndex = 0;
-        farm.getGame().displayInteractionChoices();;
-        int choice = sc.nextInt();
-        switch (choice) {
-            case 1: useTool(tileIndex, sc);
-                    break;
-            case 2: plantCrop(tileIndex, sc);
-                    break;
-            case 3: harvestCrop(tileIndex); 
-                    break;
-            case 4: farm.displayTileStatus(tileIndex);
-                    break;
-            default: break;
-            }
-    }
-
     public void advanceDay() {
         farm.ageLot();
     }
+
+    private static final int REGISTER_UP_OK = 0;
+    private static final int REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS = 1;
+    private static final int REGISTER_UP_ERR_INSUFFICIENT_LEVEL = 2;
+    private static final int REGISTER_UP_ERR_MAX_LEVEL = 3;
+
+    private int canRegisterUp(FarmerType currentFarmerType) {
+        FarmerType zType = this.farm.getGame().getNextFarmerType(currentFarmerType);
+
+        if(zType != null)
+            if (experience.getLevel() >= zType.getLevelReq())
+                if(objectCoins >= zType.getRegistrationFee())
+                    return REGISTER_UP_OK;
+                else
+                    return REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS;
+            else
+                return REGISTER_UP_ERR_INSUFFICIENT_LEVEL;
+        else
+            return REGISTER_UP_ERR_MAX_LEVEL;
+    }    
 
     public void RegisterUp() {
         switch (canRegisterUp(this.type)) {
@@ -124,37 +183,6 @@ public class Player {
         return 0;
     }
 
-    public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
-        int choice;
-        System.out.println("\nWhich seed do you want to plant?");
-        farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
-        int choice;
-        System.out.println("\nWhich tool do you want to use?");
-        farm.displayTools(tileIndex, this.objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }    
-
-    public int getTileIndex (Scanner sc) {
-        int x, y, tileIndex;
-
-        System.out.print("\ninput tile coordinates: ");
-        x = sc.nextInt();
-        y = sc.nextInt();
-        tileIndex = (x - 1) * 10 + (y - 1) ;
-
-        return tileIndex;
-    }
-
     public int getObjectCoins() {
         return this.objectCoins;
     }
@@ -167,31 +195,4 @@ public class Player {
         return this.experience.getLevel();
     }
 
-    private void addExp(double d) {
-        int prev = this.experience.getLevel();
-
-        this.experience.addExp(d);
-        if (prev < this.experience.getLevel())
-            System.out.println("\n...player leveled up!");
-    }
-
-    private static final int REGISTER_UP_OK = 0;
-    private static final int REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS = 1;
-    private static final int REGISTER_UP_ERR_INSUFFICIENT_LEVEL = 2;
-    private static final int REGISTER_UP_ERR_MAX_LEVEL = 3;
-
-    private int canRegisterUp(FarmerType currentFarmerType) {
-        FarmerType zType = this.farm.getGame().getNextFarmerType(currentFarmerType);
-
-        if(zType != null)
-            if (experience.getLevel() >= zType.getLevelReq())
-                if(objectCoins >= zType.getRegistrationFee())
-                    return REGISTER_UP_OK;
-                else
-                    return REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS;
-            else
-                return REGISTER_UP_ERR_INSUFFICIENT_LEVEL;
-        else
-            return REGISTER_UP_ERR_MAX_LEVEL;
-    }
 }
