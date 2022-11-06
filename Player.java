@@ -30,7 +30,7 @@ public class Player {
         }
     }
 
-    public int getSeedChoice(Scanner sc, int tileIndex) {
+    private int getSeedChoice(Scanner sc, int tileIndex) {
         int choice;
         System.out.println("\nWhich seed do you want to plant?");
         farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
@@ -40,7 +40,7 @@ public class Player {
         return choice;
     }
 
-    public int getToolChoice(Scanner sc, int tileIndex) {
+    private int getToolChoice(Scanner sc, int tileIndex) {
         int choice;
         System.out.println("\nWhich tool do you want to use?");
         farm.displayTools(tileIndex, this.objectCoins);
