@@ -87,7 +87,7 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
-    public void useTool (int tileIndex, Scanner sc) {
+    private void useTool (int tileIndex, Scanner sc) {
         int choice = getToolChoice(sc, tileIndex, this.objectCoins);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
@@ -107,7 +107,7 @@ public class Player {
         }
     }
 
-    public void plantCrop (int tileIndex, Scanner sc) {
+    private void plantCrop (int tileIndex, Scanner sc) {
         if(farm.canPlantSeed(tileIndex)) {
             int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
 
@@ -120,7 +120,7 @@ public class Player {
         } 
     }
 
-    public void harvestCrop (int tileIndex) {
+    private void harvestCrop (int tileIndex) {
         if (farm.checkHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += (int)yield[0];
