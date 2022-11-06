@@ -152,7 +152,7 @@ public class Player {
      * @param tileIndex the tile index
      */
     private void plantCrop (Scanner sc, int tileIndex) {
-        if(farm.canPlantSeed(tileIndex)) {
+        if(farm.checkPlantSeed(tileIndex)) {
             int choice = getSeedChoice(sc);
 
             if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {

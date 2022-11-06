@@ -119,7 +119,7 @@ public class MyFarm {
         return error;
     }
 
-    public boolean canPlantSeed (int tileIndex) {
+    public boolean checkPlantSeed (int tileIndex) {
         boolean result = true;
 
         if (lot.get(tileIndex).isPlowed() == false) {
