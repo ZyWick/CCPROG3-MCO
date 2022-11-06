@@ -22,14 +22,14 @@ public class FarmSeeds {
      * @param cropType            the crop type
      * @param harvestTime         the harvest time
      * @param waterNeeds          the water needs
-     * @param waterLimit          the water limit
+     * @param waterLimit          the water bonus limit
      * @param fertilizerNeeds     the fertilizer needs
-     * @param fertilizerLimit     the fertilizer limit
-     * @param minProductsProduced the min products produced
-     * @param maxProductsProduced the max products produced
+     * @param fertilizerLimit     the fertilizer bonus limit
+     * @param minProductsProduced the minimum amount of products produced
+     * @param maxProductsProduced the maximum amount of products produced
      * @param seedCost            the seed cost
      * @param sellingPrice        the selling price
-     * @param expYield            the exp yield
+     * @param expYield            the experience gained by harvesting
      */
     public FarmSeeds(String name, String cropType, int harvestTime, int waterNeeds, int waterLimit, int fertilizerNeeds, int fertilizerLimit, int minProductsProduced, int maxProductsProduced, int seedCost, int sellingPrice, double expYield) {
         this.name = name;
@@ -47,16 +47,16 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the name of the crop.
+     * Gets the name of the seed
      *
-     * @return the name of the crop
+     * @return the name of the seed
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Gets crop type.
+     * Gets the type of the seed. The type can affect the needs and earnings of the crop
      *
      * @return the crop type
      */
@@ -65,7 +65,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets harvest time.
+     * Gets the harvest time of the seed
      *
      * @return the harvest time
      */
@@ -74,61 +74,61 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets water needs.
+     * Gets the minimum amount of water the crop needs to become harvestable
      *
-     * @return the water needs
+     * @return the amount of water the crop needs
      */
     public int getWaterNeeds() {
         return this.waterNeeds;
     }
 
     /**
-     * Gets water limit.
+     * Gets the maximum amount of times a crop can be watered for additional earnings
      *
-     * @return the water limit
+     * @return the water bonus limit
      */
     public int getWaterLimit() {
         return this.waterLimit;
     }
 
     /**
-     * Gets fertilizer needs.
+     * Gets the minimum amount of fertilizer the crop needs to become harvestable
      *
-     * @return the fertilizer needs
+     * @return the amount of fertilizer the crop needs
      */
     public int getFertilizerNeeds() {
         return this.fertilizerNeeds;
     }
 
     /**
-     * Gets fertilizer limit.
+     * Gets the maximum amount of times a crop can be fertilized for additional earnings
      *
-     * @return the fertilizer limit
+     * @return the fertilizer bonus limit
      */
     public int getFertilizerLimit() {
         return this.fertilizerLimit;
     }
 
     /**
-     * Gets min products produced.
+     * Gets minimum amount of products produced when harvesting the crop
      *
-     * @return the min products produced
+     * @return the minimum amount of products produced
      */
     public int getMinProductsProduced() {
         return this.minProductsProduced;
     }
 
     /**
-     * Gets max products produced.
+     * Gets maximum amount of products produced when harvesting the crop
      *
-     * @return the max products produced
+     * @return the maximum amount of products produced
      */
     public int getMaxProductsProduced() {
         return this.maxProductsProduced;
     }
 
     /**
-     * Gets seed cost.
+     * Gets the cost of the seed
      *
      * @return the seed cost
      */
@@ -137,7 +137,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets selling price.
+     * Gets the base selling price of each piece produced
      *
      * @return the selling price
      */
@@ -146,7 +146,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the experience yield.
+     * Gets the amount of experience gained from harvesting the crop
      *
      * @return the experience yield
      */
