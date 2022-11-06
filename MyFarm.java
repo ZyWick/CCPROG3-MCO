@@ -73,7 +73,7 @@ public class MyFarm {
         for (FarmTools tool : game.getTools()) {
             int toolIndex = game.getTools().indexOf(tool);
 
-            if(canUseTool(toolIndex, tileIndex, objectCoins) == 0)
+            if(canUseTool(tileIndex, toolIndex, objectCoins) == 0)
                 System.out.print("| / | ");
             else
                 System.out.print("| x | ");
@@ -97,7 +97,7 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    private int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
+    private int canUseTool(int tileIndex, int toolIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
         int error = 0;
@@ -130,7 +130,7 @@ public class MyFarm {
         boolean result = false;
 
         if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
-            int error = canUseTool(toolIndex, tileIndex, objectCoins);
+            int error = canUseTool(tileIndex, toolIndex, objectCoins);
 
             if (error == 0) {
                 result = true;   
