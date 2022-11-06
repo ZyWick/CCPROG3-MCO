@@ -5,14 +5,15 @@ public class FarmSimulator {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
-        Player p1 = new Player(farm, );
+        FarmSystem game = farm.getGame();
+        Player p1 = new Player(farm, game.getType().get(0));
         int choice;
 
         farm.display();
         while (true) {
 
             p1.displayPlayerStats();
-            farm.display(0);
+            game.displayGameMoves();
             choice = sc.nextInt();
 
             switch (choice) {
@@ -24,7 +25,7 @@ public class FarmSimulator {
                         break;
                 case 4: break;
                 case 5: p1.RegisterUp(); break;
-                case 6: farm.display(1);; break;
+                case 6: game.displayLotLegend(); break;
                 default: break;
             }
 

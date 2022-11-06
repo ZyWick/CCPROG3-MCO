@@ -17,7 +17,7 @@ public class Player {
         System.out.print(" | ObjectCoins: " + this.objectCoins);
         System.out.print(" | exp: " + this.experience.getExp());
         System.out.print(" | level: " + this.experience.getLevel());
-        FarmerType zType = farm.canRegisterUp(this.type.getName(), this.experience.getLevel(), this.objectCoins);
+        FarmerType zType = farm.canRegisterUp(farm.getGame().getType().indexOf(this.type), this.experience.getLevel(), this.objectCoins);
         if (zType != null)
             System.out.println(" | can register to " + zType.getName() + " (cost: " + zType.getRegistrationFee() + " ObjectCoins)");
         else 
@@ -59,7 +59,7 @@ public class Player {
 
     public void harvestCrop (int tileIndex) {
         if (farm.canHarvest(tileIndex)) {
-            double[] yield = farm.harvestCrop(tileIndex, this.type.getName());
+            double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += (int)yield[0];
             this.experience.addExp(yield[1]);
             System.out.println("| ObjectCoins gained: " + (int)yield[0]);
@@ -70,7 +70,7 @@ public class Player {
     public void interactTile(Scanner sc) {
         // int tileIndex = getTileIndex(sc);
         int tileIndex = 0;
-        farm.display(3);
+        farm.getGame().displayInteractionChoices();;
         int choice = sc.nextInt();
         switch (choice) {
             case 1: useTool(tileIndex, sc);
@@ -90,7 +90,7 @@ public class Player {
     }
 
     public void RegisterUp() {
-        FarmerType zType = farm.canRegisterUp(this.type.getName(), this.experience.getLevel(), this.objectCoins);
+        FarmerType zType = farm.canRegisterUp(farm.getGame().getType().indexOf(this.type), this.experience.getLevel(), this.objectCoins);
 
         if (zType != null) {
             this.type = zType;

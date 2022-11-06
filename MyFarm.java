@@ -97,14 +97,6 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-   public void display(int which) {
-        switch(which) {
-            case 1: game.displayGameMoves(); break;
-            case 2: game.displayLotLegend(); break;
-            case 3: game.displayInteractionChoices(); break;
-        }
-   }
-
     public int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
@@ -201,13 +193,9 @@ public class MyFarm {
         return result;
     }
 
-    public FarmerType canRegisterUp(String FarmerTypeName, int playerLevel, int objectCoins) {
+    public FarmerType canRegisterUp(int farmerTypeIndex, int playerLevel, int objectCoins) {
         ArrayList<FarmerType> Types = game.getType();
-        FarmerType TheType = Types.get(0);
-
-        for (FarmerType type: Types)
-            if (type.getName().equals(FarmerTypeName))
-                TheType = type;
+        FarmerType TheType = Types.get(farmerTypeIndex);
 
         int nextLevelIndex = Types.indexOf(TheType) + 1;
         FarmerType zType = null;
@@ -274,15 +262,11 @@ public class MyFarm {
         }
     }
 
-   public double[] harvestCrop(int tileIndex, String farmerName){
+   public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
         double harvestTotal, waterBonus, fertilizerBonus;      
-        FarmerType TheType = game.getType().get(0);
-
-        for (FarmerType type : game.getType())
-            if (type.getName().equals(farmerName))
-                TheType = type;
+        FarmerType TheType = game.getType().get(farmerTypeIndex);
 
         int productsProduced = TheTile.getProductsProduced();
         int waterTimesCapped = TheTile.getWaterTimesCapped(TheType.getWaterBonusIncrease());
@@ -331,6 +315,10 @@ public class MyFarm {
             System.out.println("...all tiles have a withered crop");
 
         return (eventA || eventB);
+   }
+
+   public FarmSystem getGame () {
+        return this.game;
    }
     
 }
