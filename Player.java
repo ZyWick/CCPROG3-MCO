@@ -152,7 +152,7 @@ public class Player {
      * @param tileIndex the tile index
      */
     private void plantCrop (Scanner sc, int tileIndex) {
-        if(farm.checkPlantSeed(tileIndex)) {
+        if(farm.checkPlantInTile(tileIndex)) {
             int choice = getSeedChoice(sc);
 
             if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
@@ -165,7 +165,7 @@ public class Player {
     }
 
     /**
-     * Attempt to harvest a crop at a specific tile index
+     * Attempts to harvest a crop at a specific tile index
      * @param tileIndex the tile index
      */
     private void harvestCrop (int tileIndex) {
@@ -191,7 +191,7 @@ public class Player {
     private static final int REGISTER_UP_ERR_MAX_LEVEL = 3;
 
     /**
-     * Check if the player can register to a higher farmer type
+     * Checks if the player can register to a higher farmer type
      *
      * @return 0 if the player can register. Otherwise, a positive number representing an error code
      */
@@ -211,7 +211,7 @@ public class Player {
     }
 
     /**
-     * Attempt to register up.
+     * Attempts to register up.
      */
     public void registerUp() {
         switch (canRegisterUp()) {
