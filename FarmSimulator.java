@@ -32,6 +32,11 @@ public class FarmSimulator {
             switch (p1.end(sc)) {
                 case 0: break;
                 case 1: //play again
+
+                        // reinitialize everything
+                        farm = new MyFarm();
+                        game = farm.getGame();
+                        p1 = new Player(farm, game.getType().get(0));
                         break;
                 default: sc.close();
                          System.exit(0);
