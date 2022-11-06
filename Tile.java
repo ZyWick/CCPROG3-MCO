@@ -87,6 +87,18 @@ public class Tile {
         this.age += 1;
     }
 
+    public int computeProductsProduced() {
+        return ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+    }
+
+    public int computeWaterTimesCapped(int typeWaterBonus) {
+        return min(this.waterTimes, seeds.getWaterLimit() + typeWaterBonus);
+    }
+
+    public int computeFertilizerTimesCapped(int typeFertilizerBonus) {
+        return min(this.fertilizerTimes, seeds.getFertilizerLimit() + typeFertilizerBonus);
+    }
+
     public void setSeeds(FarmSeeds seeds) {
         if(this.canPlant()) {
             this.seeds = seeds;
@@ -96,6 +108,14 @@ public class Tile {
             age = 0;
             System.out.println("..." + seeds.getName() +" successfully planted");
         }
+    }
+
+    public boolean isRock() {
+        return this.rock;
+    }
+
+    public boolean isPlowed() {
+        return this.plowed;
     }
 
     public int isWithered() {
@@ -111,16 +131,8 @@ public class Tile {
         return 0;
     }
 
-    public int getProductsProduced() {
-        return ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
-    }
-
-    public int getWaterTimesCapped(int typeWaterBonus) {
-        return min(this.waterTimes, seeds.getWaterLimit() + typeWaterBonus);
-    }
-
-    public int getFertilizerTimesCapped(int typeFertilizerBonus) {
-        return min(this.fertilizerTimes, seeds.getFertilizerLimit() + typeFertilizerBonus);
+    public FarmSeeds getSeeds() {
+        return this.seeds;
     }
 
     public int getWaterTimes() {
@@ -131,20 +143,7 @@ public class Tile {
         return this.fertilizerTimes;
     }
 
-    public boolean isRock() {
-        return this.rock;
-    }
-
-    public boolean isPlowed() {
-        return this.plowed;
-    }
-
-    public FarmSeeds getSeeds() {
-        return this.seeds;
-    }
-
     public int getAge() {
         return this.age;
     }
-
 }

@@ -248,9 +248,9 @@ public class MyFarm {
         double harvestTotal, waterBonus, fertilizerBonus;      
         FarmerType TheType = game.getType().get(farmerTypeIndex);
 
-        int productsProduced = TheTile.getProductsProduced();
-        int waterTimesCapped = TheTile.getWaterTimesCapped(TheType.getWaterBonusIncrease());
-        int fertilizerTimesCapped = TheTile.getFertilizerTimesCapped(TheType.getFertilizerBonusIncrease());
+        int productsProduced = TheTile.computeProductsProduced();
+        int waterTimesCapped = TheTile.computeWaterTimesCapped(TheType.getWaterBonusIncrease());
+        int fertilizerTimesCapped = TheTile.computeFertilizerTimesCapped(TheType.getFertilizerBonusIncrease());
 
         harvestTotal = productsProduced * (TheSeed.getSellingPrice() + TheType.getBonusEarning());
         waterBonus = harvestTotal * 0.2 * (waterTimesCapped - 1);

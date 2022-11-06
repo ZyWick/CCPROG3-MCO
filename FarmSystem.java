@@ -30,49 +30,6 @@ public class FarmSystem {
         this.day += 1;
         System.out.println("Day: " + this.day);
     }
-    
-    public void throwToolError(int error) {
-        switch (error) {
-            case 1: System.out.println("Error: tile is already plowed"); break;
-            case 2: System.out.println("Error: can't plow tile with rock"); break;
-            case 3: case 4: System.out.println("Error: tile does not have a crop"); break;
-            case 5: System.out.println("Error: tile does not have a rock"); break;
-            case 6: throwInsufficientObjectCoins();
-        }
-    }
-
-    public void throwInsufficientObjectCoins() {
-        System.out.println("Error: not enough objectCoins");
-    }
-
-    public void throwHarvestError(int error) {
-        switch (error) {
-            case 1: System.out.println("Error: crop is withered, it is past its harvest time"); break;
-            case 2: System.out.println("Error: crop is withered, it did not meet fertilizer needs"); break;
-            case 3: System.out.println("Error: crop is withered, it did not meet water needs"); break;
-            case 4: System.out.println("Error: crop has not met harvest time"); break;
-            case 5: System.out.println("Error: tile has no crop"); break;
-        }
-    }
-
-    public void throwMaxFarmerTypeError() {
-        System.out.println("Error: you. are. already. legendary.");
-    }
-
-    public void throwRegisterError() {
-        System.out.println("Error: insufficient level");
-    }
-
-    public void throwPlantError(int error) {
-        switch (error) {
-            case 1: System.out.println("Error: tile is unplowed"); break;
-            case 2: System.out.println("Error: tile has a crop already"); break;
-        }
-    }
-    
-    public void throwOutOfBoundsError() {
-        System.out.println("Error: no such choice");
-    }
 
     public void displayGameMoves () {
         System.out.println("\nWhat do you want to do?");
@@ -104,6 +61,49 @@ public class FarmSystem {
         System.out.println("| ( , )( s )( S ) crop ");
         System.out.println("| ( $ ) Harvestable crop ");
         System.out.println("| ( X ) Withered crop ");
+    }
+    
+    public void throwInsufficientObjectCoins() {
+        System.out.println("Error: not enough objectCoins");
+    }
+  
+    public void throwOutOfBoundsError() {
+        System.out.println("Error: no such choice");
+    }
+
+    public void throwToolError(int error) {
+        switch (error) {
+            case 1: System.out.println("Error: tile is already plowed"); break;
+            case 2: System.out.println("Error: can't plow tile with rock"); break;
+            case 3: case 4: System.out.println("Error: tile does not have a crop"); break;
+            case 5: System.out.println("Error: tile does not have a rock"); break;
+            case 6: throwInsufficientObjectCoins();
+        }
+    }
+
+    public void throwPlantError(int error) {
+        switch (error) {
+            case 1: System.out.println("Error: tile is unplowed"); break;
+            case 2: System.out.println("Error: tile has a crop already"); break;
+        }
+    }
+  
+    public void throwHarvestError(int error) {
+        switch (error) {
+            case 1: System.out.println("Error: crop is withered, it is past its harvest time"); break;
+            case 2: System.out.println("Error: crop is withered, it did not meet fertilizer needs"); break;
+            case 3: System.out.println("Error: crop is withered, it did not meet water needs"); break;
+            case 4: System.out.println("Error: crop has not met harvest time"); break;
+            case 5: System.out.println("Error: tile has no crop"); break;
+        }
+    }
+
+    public void throwMaxFarmerTypeError() {
+        System.out.println("Error: you. are. already. legendary.");
+    }
+
+    public void throwRegisterError() {
+        System.out.println("Error: insufficient level");
     }
 
     public ArrayList<FarmTools> getTools() {
