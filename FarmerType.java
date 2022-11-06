@@ -32,7 +32,7 @@ public class FarmerType {
     }
 
     /**
-     * Gets name.
+     * Gets the name of the Farmer Type
      *
      * @return the name
      */
@@ -41,52 +41,52 @@ public class FarmerType {
     }
 
     /**
-     * Gets level req.
+     * Gets the level requirement for the Farmer Type
      *
-     * @return the level req
+     * @return the level requirement
      */
     public int getLevelReq() {
         return this.levelReq;
     }
 
     /**
-     * Gets bonus earning.
+     * Gets the amount of bonus earnings per produce for the Farmer Type
      *
-     * @return the bonus earning
+     * @return the amount of bonus earnings
      */
     public int getBonusEarning() {
         return this.bonusEarning;
     }
 
     /**
-     * Gets seed cost reduction bonus.
+     * Gets the amount of seed cost reduction bonus for the Farmer Type
      *
-     * @return the seed cost reduction bonus
+     * @return the amount of seed cost reduction bonus
      */
     public int getSeedCostReduction() {
         return this.seedCostReduction;
     }
 
     /**
-     * Gets water bonus increase.
+     * Gets the amount of water bonus limit increase for the Farmer Type
      *
-     * @return the water bonus increase
+     * @return the amount of water bonus limit increase
      */
     public int getWaterBonusIncrease() {
         return this.waterBonusIncrease;
     }
 
     /**
-     * Gets fertilizer bonus increase.
+     * Gets the amount of fertilizer bonus limit increase for the Farmer Type
      *
-     * @return the fertilizer bonus increase
+     * @return the amount of fertilizer bonus limit increase
      */
     public int getFertilizerBonusIncrease() {
         return this.fertilizerBonusIncrease;
     }
 
     /**
-     * Gets registration fee.
+     * Gets the registration fee for the Farmer Type
      *
      * @return the registration fee
      */
