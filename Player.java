@@ -26,7 +26,7 @@ public class Player {
 
     public void useTool (int tileIndex, Scanner sc) {
         int choice = getToolChoice(sc, tileIndex, this.objectCoins);
-        if (farm.useTool(tileIndex, choice, this.objectCoins)) {
+        if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
 
             switch (choice) {
@@ -48,7 +48,7 @@ public class Player {
         if(farm.canPlantSeed(tileIndex)) {
             int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
 
-            if (farm.canPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
+            if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
                 int cost = farm.plantCrop(tileIndex, choice);
 
                 this.objectCoins -= cost + this.type.getSeedCostReduction();

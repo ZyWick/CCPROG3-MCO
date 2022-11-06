@@ -119,7 +119,7 @@ public class MyFarm {
         return error;
     }
 
-    public boolean useTool (int tileIndex, int choice, int objectCoins) {
+    public boolean checkUseTool (int tileIndex, int choice, int objectCoins) {
         boolean result = false;
 
         if (choice >= 0 && choice < game.getTools().size()) {
@@ -135,7 +135,7 @@ public class MyFarm {
         return result;
     }
 
-    public boolean canPlantCrop (int tileIndex, int farmerSeedCostReduction, int choice, int objectCoins) {
+    public boolean checkPlantCrop (int tileIndex, int farmerSeedCostReduction, int choice, int objectCoins) {
         boolean result = false;
 
         if (choice >= 0 && choice < game.getSeeds().size()) {
