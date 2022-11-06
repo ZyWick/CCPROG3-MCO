@@ -121,7 +121,7 @@ public class Player {
     }
 
     public void harvestCrop (int tileIndex) {
-        if (farm.canHarvest(tileIndex)) {
+        if (farm.checkHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += (int)yield[0];
             this.addExp(yield[1]);

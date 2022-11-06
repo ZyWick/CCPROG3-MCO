@@ -14,7 +14,7 @@ public class MyFarm {
             
     }
 
-    public char whatToPrint(int tileIndex) {
+    private char whatToPrint(int tileIndex) {
         Tile TheTile = lot.get(tileIndex);
         if (TheTile.isPlowed()) {
             if (TheTile.getSeeds() != null) {
@@ -97,7 +97,7 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    public int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
+    private int canUseTool(int toolIndex, int tileIndex, int objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
         int error = 0;
@@ -135,7 +135,7 @@ public class MyFarm {
         return result;
     }
 
-    public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
+    private boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
         if (PlayerObjectCoins >= seedCost + farmerTypeSeedReduction)
             return true;
 
@@ -173,7 +173,7 @@ public class MyFarm {
         return result;
     }
 
-    public boolean canHarvest(int tileIndex) {
+    public boolean checkHarvest(int tileIndex) {
         boolean result = true;
         int error;
         Tile TheTile = lot.get(tileIndex);
