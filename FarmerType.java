@@ -14,11 +14,11 @@ public class FarmerType {
      * Creates a new Farmer type.
      *
      * @param name                    the name
-     * @param levelReq                the level req
-     * @param bonusEarning            the bonus earning
-     * @param seedCostReduction       the seed cost reduction
-     * @param waterBonusIncrease      the water bonus increase
-     * @param fertilizerBonusIncrease the fertilizer bonus increase
+     * @param levelReq                the level requirement
+     * @param bonusEarning            the amount of bonus earnings per produce
+     * @param seedCostReduction       the amount of seed cost reduction bonus
+     * @param waterBonusIncrease      the amount of water bonus limit increase
+     * @param fertilizerBonusIncrease the amount of fertilizer bonus limit increase
      * @param registrationFee         the registration fee
      */
     public FarmerType(String name, int levelReq, int bonusEarning, int seedCostReduction, int waterBonusIncrease, int fertilizerBonusIncrease, int registrationFee) {
