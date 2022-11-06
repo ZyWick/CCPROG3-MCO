@@ -118,10 +118,6 @@ public class FarmSystem {
         return this.type;
     }
 
-    public int getDay() {
-        return this.day;
-    }
-
     public FarmerType getNextFarmerType(FarmerType farmerType) {
         int nextLevelIndex = type.indexOf(farmerType) + 1;
 
@@ -130,4 +126,9 @@ public class FarmSystem {
         else
             return null;
     }
+
+    public int getDay() {
+        return this.day;
+    }
+
 }
