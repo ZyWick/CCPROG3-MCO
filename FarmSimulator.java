@@ -6,7 +6,7 @@ public class FarmSimulator {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
         FarmSystem game = farm.getGame();
-        Player p1 = new Player(farm, game.getType().get(0));
+        Player p1 = new Player(farm);
         int choice;
 
         farm.display();

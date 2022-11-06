@@ -6,10 +6,15 @@ public class Player {
     private MyFarm farm;
     private FarmerType type;
 
-    public Player(MyFarm farm, FarmerType type) {
+    /**
+     * Instantiates the Player.
+     *
+     * @param farm an existing MyFarm
+     */
+    public Player(MyFarm farm) {
         this.experience = new Experience();
         this.farm = farm;
-        this.type  = type;
+        this.type = farm.getGame().getType().get(0);
     }
 
     public void displayPlayerStats() {
