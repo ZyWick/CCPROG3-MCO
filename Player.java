@@ -38,7 +38,12 @@ public class Player {
         }
     }
 
-    private int getSeedChoice(Scanner sc, int tileIndex) {
+    /**
+     * Displays a list of seeds that are available and asks the player to pick from one of them
+     * @param sc the Scanner to get input from
+     * @return
+     */
+    private int getSeedChoice(Scanner sc) {
         int choice;
         System.out.println("\nWhich seed do you want to plant?");
         farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
@@ -48,6 +53,12 @@ public class Player {
         return choice;
     }
 
+    /**
+     * Displays the list of eligible tools and asks the player to pick a tool
+     * @param sc the Scanner to get input from
+     * @param tileIndex the tile index
+     * @return
+     */
     private int getToolChoice(Scanner sc, int tileIndex) {
         int choice;
         System.out.println("\nWhich tool do you want to use?");
@@ -59,9 +70,9 @@ public class Player {
     }
 
     /**
-     * Gets tile index.
+     * Asks for tile coordinates from the player and returns it as an index
      *
-     * @param sc the sc
+     * @param sc the Scanner to get input from
      * @return the tile index
      */
     public int getTileIndex (Scanner sc) {
@@ -76,9 +87,9 @@ public class Player {
     }
 
     /**
-     * Interact tile.
+     * Asks player to select a tile action
      *
-     * @param sc the sc
+     * @param sc the Scanner to get input from
      */
     public void interactTile(Scanner sc) {
         // int tileIndex = getTileIndex(sc);
@@ -98,14 +109,23 @@ public class Player {
             }
     }
 
-    private void addExp(double d) {
+    /**
+     * Adds experience to the experience counter, then informs the player if the level changes
+     * @param expToAdd amount of experience points to add
+     */
+    private void addExp(double expToAdd) {
         int prev = this.experience.getLevel();
 
-        this.experience.addExp(d);
+        this.experience.addExp(expToAdd);
         if (prev < this.experience.getLevel())
             System.out.println("\n...player leveled up!");
     }
 
+    /**
+     * Asks player to choose a tool, then uses it on the specific tile index.
+     * @param sc the Scanner to get input from
+     * @param tileIndex the tile index
+     */
     private void useTool (Scanner sc, int tileIndex) {
         int choice = getToolChoice(sc, tileIndex);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
@@ -126,9 +146,14 @@ public class Player {
         }
     }
 
+    /**
+     * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
+     * @param sc the Scanner to get input from
+     * @param tileIndex the tile index
+     */
     private void plantCrop (Scanner sc, int tileIndex) {
         if(farm.canPlantSeed(tileIndex)) {
-            int choice = getSeedChoice(sc, tileIndex);
+            int choice = getSeedChoice(sc);
 
             if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
                 int cost = farm.plantCrop(tileIndex, choice);
@@ -139,6 +164,10 @@ public class Player {
         } 
     }
 
+    /**
+     * Attempt to harvest a crop at a specific tile index
+     * @param tileIndex the tile index
+     */
     private void harvestCrop (int tileIndex) {
         if (farm.checkHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
@@ -161,6 +190,11 @@ public class Player {
     private static final int REGISTER_UP_ERR_INSUFFICIENT_LEVEL = 2;
     private static final int REGISTER_UP_ERR_MAX_LEVEL = 3;
 
+    /**
+     * Check if the player can register to a higher farmer type
+     *
+     * @return 0 if the player can register. Otherwise, a positive number representing an error code
+     */
     private int canRegisterUp() {
         FarmerType zType = this.farm.getGame().getNextFarmerType(this.type);
 
@@ -177,7 +211,7 @@ public class Player {
     }
 
     /**
-     * Register up.
+     * Attempt to register up.
      */
     public void registerUp() {
         switch (canRegisterUp()) {
@@ -200,10 +234,10 @@ public class Player {
     }
 
     /**
-     * End int.
+     * Checks if the game is over. If the game is over, the player is asked if it wants to play again
      *
-     * @param sc the sc
-     * @return the int
+     * @param sc the Scanner to get input from
+     * @return 0 if the game has not ended. Otherwise, a non-zero number from the player containing their response
      */
     public int end(Scanner sc) {
         if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
