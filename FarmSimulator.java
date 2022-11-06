@@ -24,7 +24,7 @@ public class FarmSimulator {
                 case 3: p1.advanceDay(); 
                         break;
                 case 4: break;
-                case 5: p1.RegisterUp(); break;
+                case 5: p1.registerUp(); break;
                 case 6: game.displayLotLegend(); break;
                 default: break;
             }

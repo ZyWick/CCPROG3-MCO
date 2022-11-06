@@ -154,7 +154,7 @@ public class Player {
             return REGISTER_UP_ERR_MAX_LEVEL;
     }    
 
-    public void RegisterUp() {
+    public void registerUp() {
         switch (canRegisterUp()) {
             case REGISTER_UP_OK:
                 this.type = farm.getGame().getNextFarmerType(this.type);
