@@ -45,7 +45,7 @@ public class Player {
             this.objectCoins -= yield[0];
             this.addExp(yield[1]);
             System.out.println("\n| ObjectCoins expended: " + yield[0]);
-            System.out.println("| Experience gained: " + yield[2]); 
+            System.out.println("| Experience gained: " + yield[1]);
         }
     }
 
