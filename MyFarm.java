@@ -126,11 +126,11 @@ public class MyFarm {
         return false;
     }
 
-    public boolean checkUseTool (int tileIndex, int choice, int objectCoins) {
+    public boolean checkUseTool (int tileIndex, int toolIndex, int objectCoins) {
         boolean result = false;
 
-        if (choice >= 0 && choice < game.getTools().size()) {
-            int error = canUseTool(choice, tileIndex, objectCoins);
+        if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
+            int error = canUseTool(toolIndex, tileIndex, objectCoins);
 
             if (error == 0) {
                 result = true;   
