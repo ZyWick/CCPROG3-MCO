@@ -67,9 +67,9 @@ public class Player {
         farm.getGame().displayInteractionChoices();;
         int choice = sc.nextInt();
         switch (choice) {
-            case 1: useTool(tileIndex, sc);
+            case 1: useTool(sc, tileIndex);
                     break;
-            case 2: plantCrop(tileIndex, sc);
+            case 2: plantCrop(sc, tileIndex);
                     break;
             case 3: harvestCrop(tileIndex); 
                     break;
@@ -87,7 +87,7 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
-    private void useTool (int tileIndex, Scanner sc) {
+    private void useTool (Scanner sc, int tileIndex) {
         int choice = getToolChoice(sc, tileIndex);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
@@ -107,7 +107,7 @@ public class Player {
         }
     }
 
-    private void plantCrop (int tileIndex, Scanner sc) {
+    private void plantCrop (Scanner sc, int tileIndex) {
         if(farm.canPlantSeed(tileIndex)) {
             int choice = getSeedChoice(sc, tileIndex);
 
