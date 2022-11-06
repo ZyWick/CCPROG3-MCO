@@ -11,11 +11,11 @@ public class Experience {
 
     /**
      * Adds experience to the experience counter
-     * @param exp number of experience points to add
+     * @param expToAdd number of experience points to add
      */
-    public void addExp(double exp) {
-        exp += exp;
-        level = (int)(exp / 100);
+    public void addExp(double expToAdd) {
+        this.exp += expToAdd;
+        this.level = (int)(this.exp / 100);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Experience {
      * @return the number of experience points
      */
     public double getExp() {
-        return exp;
+        return this.exp;
     }
 
     /**
@@ -32,6 +32,6 @@ public class Experience {
      * @return the level
      */
     public int getLevel() {
-        return level;
+        return this.level;
     }
 } 
