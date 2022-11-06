@@ -103,8 +103,11 @@ public class MyFarm {
         int error = 0;
 
         if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow"))
-                error = TheTile.canPlow();
+            if (selectedTool.getName().equals("Plow") && TheTile.canPlow() == false)
+                if(TheTile.isRock())
+                    error = 2;
+                else
+                    error = 1;
             else if (selectedTool.getName().equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
                 error = 3;
             else if (selectedTool.getName().equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
