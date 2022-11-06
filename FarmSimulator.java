@@ -36,7 +36,7 @@ public class FarmSimulator {
                         // reinitialize everything
                         farm = new MyFarm();
                         game = farm.getGame();
-                        p1 = new Player(farm, game.getType().get(0));
+                        p1 = new Player(farm);
                         break;
                 default: sc.close();
                          System.exit(0);
