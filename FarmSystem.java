@@ -118,8 +118,8 @@ public class FarmSystem {
         return this.type;
     }
 
-    public FarmerType getNextFarmerType(FarmerType farmerType) {
-        int nextLevelIndex = type.indexOf(farmerType) + 1;
+    public FarmerType getNextFarmerType(FarmerType TheType) {
+        int nextLevelIndex = type.indexOf(TheType) + 1;
 
         if(nextLevelIndex < type.size())
             return type.get(nextLevelIndex);
