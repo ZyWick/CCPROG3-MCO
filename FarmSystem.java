@@ -1,11 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * The type Farm system.
+ */
 public class FarmSystem {
     private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
     private ArrayList<FarmSeeds> seeds = new ArrayList<FarmSeeds>();
     private ArrayList<FarmerType> type = new ArrayList<FarmerType>();
     private int day = 1;
 
+    /**
+     * Creates a new farm system
+     */
     public FarmSystem () {
         tools.add(new FarmTools("Plow", 0, 0.5));
         tools.add(new FarmTools("Watering Can", 0, 0.5));
@@ -26,11 +32,17 @@ public class FarmSystem {
         type.add(new FarmerType("Legendary Farmer", 15, 4, -3, 2, 1, 400));
     }
 
+    /**
+     * Increase the current day by 1
+     */
     public void addDay() {
         this.day += 1;
         System.out.println("Day: " + this.day);
     }
 
+    /**
+     * Prints a prompt with the list of available game actions
+     */
     public void displayGameMoves () {
         System.out.println("\nWhat do you want to do?");
         System.out.println("| 1 - display farm");
@@ -43,6 +55,9 @@ public class FarmSystem {
         System.out.print("Choice: ");
     }
 
+    /**
+     * Prints a prompt with the list of available tile actions
+     */
     public void displayInteractionChoices () {
         System.out.println("\nWhat do you want to do?");
         System.out.println("| 1 - Use Tool");
@@ -53,6 +68,9 @@ public class FarmSystem {
         System.out.print("Choice: ");
     }
 
+    /**
+     * Prints a lot status legend
+     */
     public void displayLotLegend () {
         System.out.println("\nLegend:");
         System.out.println("| ( = ) unplowed tile ");
@@ -62,15 +80,26 @@ public class FarmSystem {
         System.out.println("| ( $ ) Harvestable crop ");
         System.out.println("| ( X ) Withered crop ");
     }
-    
+
+    /**
+     * Prints an error indicating that the player does not have enough ObjectCoins
+     */
     public void throwInsufficientObjectCoins() {
         System.out.println("Error: not enough objectCoins");
     }
-  
+
+    /**
+     * Prints an error indicating that the player typed a number not among the choices
+     */
     public void throwOutOfBoundsError() {
         System.out.println("Error: no such choice");
     }
 
+    /**
+     * Prints an error indicating that the tool cannot be used due to a specific reason
+     *
+     * @param error an error code identifying the specific error
+     */
     public void throwToolError(int error) {
         switch (error) {
             case 1: System.out.println("Error: tile is already plowed"); break;
@@ -81,13 +110,23 @@ public class FarmSystem {
         }
     }
 
+    /**
+     * Prints an error indicating that the tile cannot be planted on due to a specific reason
+     *
+     * @param error an error code identifying the specific error
+     */
     public void throwPlantError(int error) {
         switch (error) {
             case 1: System.out.println("Error: tile is unplowed"); break;
             case 2: System.out.println("Error: tile has a crop already"); break;
         }
     }
-  
+
+    /**
+     * Prints an error indicating that the tile cannot be harvested due to a specific reason
+     *
+     * @param error an error code identifying the specific error
+     */
     public void throwHarvestError(int error) {
         switch (error) {
             case 1: System.out.println("Error: crop is withered, it is past its harvest time"); break;
@@ -98,26 +137,53 @@ public class FarmSystem {
         }
     }
 
+    /**
+     * Prints an error indicating that the player cannot register to higher type because they are already on the highest type
+     */
     public void throwMaxFarmerTypeError() {
         System.out.println("Error: you. are. already. legendary.");
     }
 
+    /**
+     * Prints an error indicating that the player cannot register to higher type because they do not meet the level requirement for it
+     */
     public void throwRegisterError() {
         System.out.println("Error: insufficient level");
     }
 
+    /**
+     * Gets the list of tools that are available in the game
+     *
+     * @return the list of available tools
+     */
     public ArrayList<FarmTools> getTools() {
         return this.tools;
     }
 
+    /**
+     * Gets the list of seeds that are available in the game
+     *
+     * @return the list of available seeds
+     */
     public ArrayList<FarmSeeds> getSeeds() {
         return this.seeds;
     }
 
+    /**
+     * Gets the list of farmer types that are available in the game
+     *
+     * @return the list of available farmer types
+     */
     public ArrayList<FarmerType> getType() {
         return this.type;
     }
 
+    /**
+     * Gets the next available farmer type. Returns null if there is no such farmer type
+     *
+     * @param TheType the current farmer type
+     * @return the next farmer type, can be null
+     */
     public FarmerType getNextFarmerType(FarmerType TheType) {
         int nextLevelIndex = type.indexOf(TheType) + 1;
 
@@ -127,6 +193,11 @@ public class FarmSystem {
             return null;
     }
 
+    /**
+     * Gets the current day
+     *
+     * @return the day
+     */
     public int getDay() {
         return this.day;
     }
