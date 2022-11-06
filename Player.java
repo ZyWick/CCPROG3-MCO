@@ -19,7 +19,7 @@ public class Player {
         System.out.print(" | level: " + this.experience.getLevel());
         System.out.print(" | day: " + this.farm.getGame().getDay());
 
-        switch (canRegisterUp(type)) {
+        switch (canRegisterUp()) {
             case REGISTER_UP_OK:
             case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
                 FarmerType zType = farm.getGame().getNextFarmerType(type);
@@ -139,8 +139,8 @@ public class Player {
     private static final int REGISTER_UP_ERR_INSUFFICIENT_LEVEL = 2;
     private static final int REGISTER_UP_ERR_MAX_LEVEL = 3;
 
-    private int canRegisterUp(FarmerType currentFarmerType) {
-        FarmerType zType = this.farm.getGame().getNextFarmerType(currentFarmerType);
+    private int canRegisterUp() {
+        FarmerType zType = this.farm.getGame().getNextFarmerType(this.type);
 
         if(zType != null)
             if (experience.getLevel() >= zType.getLevelReq())
@@ -155,7 +155,7 @@ public class Player {
     }    
 
     public void RegisterUp() {
-        switch (canRegisterUp(this.type)) {
+        switch (canRegisterUp()) {
             case REGISTER_UP_OK:
                 this.type = farm.getGame().getNextFarmerType(this.type);
                 this.objectCoins -= this.type.getRegistrationFee();
