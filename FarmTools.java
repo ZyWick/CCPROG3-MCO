@@ -39,7 +39,11 @@ public class FarmTools {
         return this.expYield;
     }
 
-    public double[] getToolYield() {
+    /**
+     * Returns the cost of using the tool and amount of experience gained from using the tool
+     * @return an array containing {cost of using the tool, amount of experience gained}
+     */
+    public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = this.getUsageCost();
         yield [1] = this.getExpYield();
