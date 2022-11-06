@@ -39,4 +39,12 @@ public class FarmTools {
         return this.expYield;
     }
 
+    public double[] getToolYield() {
+        double[] yield = new double[2]; 
+        yield [0] = this.getUsageCost();
+        yield [1] = this.getExpYield();
+
+        return yield;
+    }
+
 }
