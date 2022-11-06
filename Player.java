@@ -17,6 +17,7 @@ public class Player {
         System.out.print(" | ObjectCoins: " + this.objectCoins);
         System.out.print(" | exp: " + this.experience.getExp());
         System.out.print(" | level: " + this.experience.getLevel());
+        System.out.print(" | day: " + this.farm.getGame().getDay());
 
         switch (canRegisterUp(type)) {
             case REGISTER_UP_OK:
