@@ -47,7 +47,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the name of the seed
+     * Returns the name of the seed
      *
      * @return the name of the seed
      */
@@ -56,7 +56,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the type of the seed. The type can affect the needs and earnings of the crop
+     * Returns the type of the seed. The type can affect the needs and earnings of the crop
      *
      * @return the crop type
      */
@@ -65,7 +65,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the harvest time of the seed
+     * Returns the harvest time of the seed
      *
      * @return the harvest time
      */
@@ -74,7 +74,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the minimum amount of water the crop needs to become harvestable
+     * Returns the minimum amount of water the crop needs to become harvestable
      *
      * @return the amount of water the crop needs
      */
@@ -83,7 +83,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the maximum amount of times a crop can be watered for additional earnings
+     * Returns the maximum amount of times a crop can be watered for additional earnings
      *
      * @return the water bonus limit
      */
@@ -92,7 +92,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the minimum amount of fertilizer the crop needs to become harvestable
+     * Returns the minimum amount of fertilizer the crop needs to become harvestable
      *
      * @return the amount of fertilizer the crop needs
      */
@@ -101,7 +101,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the maximum amount of times a crop can be fertilized for additional earnings
+     * Returns the maximum amount of times a crop can be fertilized for additional earnings
      *
      * @return the fertilizer bonus limit
      */
@@ -110,7 +110,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets minimum amount of products produced when harvesting the crop
+     * Returns minimum amount of products produced when harvesting the crop
      *
      * @return the minimum amount of products produced
      */
@@ -119,7 +119,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets maximum amount of products produced when harvesting the crop
+     * Returns maximum amount of products produced when harvesting the crop
      *
      * @return the maximum amount of products produced
      */
@@ -128,7 +128,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the cost of the seed
+     * Returns the cost of the seed
      *
      * @return the seed cost
      */
@@ -137,7 +137,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the base selling price of each piece produced
+     * Returns the base selling price of each piece produced
      *
      * @return the selling price
      */
@@ -146,7 +146,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Gets the amount of experience gained from harvesting the crop
+     * Returns the amount of experience gained from harvesting the crop
      *
      * @return the experience yield
      */
