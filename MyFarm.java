@@ -119,22 +119,6 @@ public class MyFarm {
         return error;
     }
 
-    public boolean checkPlantSeed (int tileIndex) {
-        boolean result = true;
-
-        if (lot.get(tileIndex).isPlowed() == false) {
-            result = false;
-            game.throwPlantError(1);
-        }
-
-        if (lot.get(tileIndex).getSeeds() != null) {
-            result = false;
-            game.throwPlantError(2);
-        }
-
-        return result;
-    }
-
     private boolean canAffordSeed(int objectCoins, int seedCost, int farmerSeedReduction) {
         if (objectCoins >= seedCost + farmerSeedReduction)
             return true;
@@ -155,6 +139,22 @@ public class MyFarm {
         } else
             game.throwOutOfBoundsError();
         
+        return result;
+    }
+
+    public boolean checkPlantSeed (int tileIndex) {
+        boolean result = true;
+
+        if (lot.get(tileIndex).isPlowed() == false) {
+            result = false;
+            game.throwPlantError(1);
+        }
+
+        if (lot.get(tileIndex).getSeeds() != null) {
+            result = false;
+            game.throwPlantError(2);
+        }
+
         return result;
     }
 
