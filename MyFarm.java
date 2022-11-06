@@ -193,27 +193,7 @@ public class MyFarm {
         return result;
     }
 
-    public FarmerType canRegisterUp(int farmerTypeIndex, int playerLevel, int objectCoins) {
-        ArrayList<FarmerType> Types = game.getType();
-        FarmerType TheType = Types.get(farmerTypeIndex);
 
-        int nextLevelIndex = Types.indexOf(TheType) + 1;
-        FarmerType zType = null;
-
-        if (nextLevelIndex < Types.size()) {
-            zType = Types.get(nextLevelIndex);
-            if (playerLevel >= zType.getLevelReq())
-                if (objectCoins >= zType.getRegistrationFee())
-                    return zType;
-                else
-                    game.throwInsufficientObjectCoins();
-            else
-                game.throwRegisterError();
-        } else
-            game.throwMaxFarmerTypeError();
-
-        return zType;
-    }
 
     public double[] plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();

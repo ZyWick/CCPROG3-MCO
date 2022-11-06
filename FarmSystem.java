@@ -28,7 +28,7 @@ public class FarmSystem {
 
     public void addDay() {
         this.day += 1;
-        System.out.println("Day: " + this.day); 
+        System.out.println("Day: " + this.day);
     }
     
     public void throwToolError(int error) {
@@ -128,5 +128,14 @@ public class FarmSystem {
         yield [1] = tools.get(toolIndex).getExpYield();
 
         return yield;
+    }
+
+    public FarmerType getNextFarmerType(FarmerType farmerType) {
+        int nextLevelIndex = type.indexOf(farmerType) + 1;
+
+        if(nextLevelIndex < type.size())
+            return type.get(nextLevelIndex);
+        else
+            return null;
     }
 }
