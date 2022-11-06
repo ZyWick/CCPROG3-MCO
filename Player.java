@@ -38,7 +38,7 @@ public class Player {
             }
 
             this.objectCoins -= yield[0];
-            this.experience.addExp(yield[1]); 
+            this.addExp(yield[1]);
             System.out.println("\n| ObjectCoins expended: " + yield[0]);
             System.out.println("| Experience gained: " + yield[2]); 
         }
@@ -61,7 +61,7 @@ public class Player {
         if (farm.canHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += (int)yield[0];
-            this.experience.addExp(yield[1]);
+            this.addExp(yield[1]);
             System.out.println("| ObjectCoins gained: " + (int)yield[0]);
             System.out.println("| Experience gained: " + yield[1]);
         }
@@ -150,5 +150,13 @@ public class Player {
 
     public int getLevel() {
         return this.experience.getLevel();
+    }
+
+    private void addExp(double d) {
+        int prev = this.experience.getLevel();
+
+        this.experience.addExp(d);
+        if (prev < this.experience.getLevel())
+            System.out.println("\n...player leveled up!");
     }
 }
