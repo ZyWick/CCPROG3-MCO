@@ -17,6 +17,9 @@ public class Player {
         this.type = farm.getGame().getType().get(0);
     }
 
+    /**
+     * Prints the information about the player
+     */
     public void displayPlayerStats() {
         System.out.print("\n| " + type.getName());
         System.out.print(" | ObjectCoins: " + this.objectCoins);
@@ -53,8 +56,14 @@ public class Player {
         choice = sc.nextInt();
 
         return choice;
-    }    
+    }
 
+    /**
+     * Gets tile index.
+     *
+     * @param sc the sc
+     * @return the tile index
+     */
     public int getTileIndex (Scanner sc) {
         int x, y, tileIndex;
 
@@ -66,6 +75,11 @@ public class Player {
         return tileIndex;
     }
 
+    /**
+     * Interact tile.
+     *
+     * @param sc the sc
+     */
     public void interactTile(Scanner sc) {
         // int tileIndex = getTileIndex(sc);
         int tileIndex = 0;
@@ -135,6 +149,9 @@ public class Player {
         }
     }
 
+    /**
+     * Advance day.
+     */
     public void advanceDay() {
         farm.ageLot();
     }
@@ -157,8 +174,11 @@ public class Player {
                 return REGISTER_UP_ERR_INSUFFICIENT_LEVEL;
         else
             return REGISTER_UP_ERR_MAX_LEVEL;
-    }    
+    }
 
+    /**
+     * Register up.
+     */
     public void registerUp() {
         switch (canRegisterUp()) {
             case REGISTER_UP_OK:
@@ -179,6 +199,12 @@ public class Player {
         }
     }
 
+    /**
+     * End int.
+     *
+     * @param sc the sc
+     * @return the int
+     */
     public int end(Scanner sc) {
         if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
             int ENDD = 0;
