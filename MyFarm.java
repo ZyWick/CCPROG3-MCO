@@ -272,6 +272,7 @@ public class MyFarm {
    public boolean endGame(int objectCoins, int farmerTypeSeedReduction) {
         boolean eventA = true;
         boolean eventB = true;
+        boolean eventC = true;
 
         if (canAffordSeed(objectCoins, game.getSeeds().get(0).getSeedCost(), farmerTypeSeedReduction) == false) {
             for (Tile TheTile : lot) {
@@ -287,12 +288,19 @@ public class MyFarm {
                 eventB = false;
         }
 
+        for (Tile TheTile : lot) {
+            if (TheTile.getSeeds() != null)
+                eventC = false;
+        }
+
         if (eventA) 
             System.out.println("...you don't have enough objectCoins to continue");
         if (eventB) 
             System.out.println("...all tiles have a withered crop");
+        if (eventC)
+           System.out.println("...all tiles do not have crops");
 
-        return (eventA || eventB);
+        return (eventA || eventB || eventC);
    }
 
    public FarmSystem getGame () {
