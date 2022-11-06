@@ -30,7 +30,7 @@ public class Player {
         }
     }
 
-    public int getSeedChoice(Scanner sc, int tileIndex, int objectCoins) {
+    public int getSeedChoice(Scanner sc, int tileIndex) {
         int choice;
         System.out.println("\nWhich seed do you want to plant?");
         farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
@@ -40,7 +40,7 @@ public class Player {
         return choice;
     }
 
-    public int getToolChoice(Scanner sc, int tileIndex, int objectCoins) {
+    public int getToolChoice(Scanner sc, int tileIndex) {
         int choice;
         System.out.println("\nWhich tool do you want to use?");
         farm.displayTools(tileIndex, this.objectCoins);
@@ -67,9 +67,9 @@ public class Player {
         farm.getGame().displayInteractionChoices();;
         int choice = sc.nextInt();
         switch (choice) {
-            case 1: useTool(tileIndex, sc);
+            case 1: useTool(sc, tileIndex);
                     break;
-            case 2: plantCrop(tileIndex, sc);
+            case 2: plantCrop(sc, tileIndex);
                     break;
             case 3: harvestCrop(tileIndex); 
                     break;
@@ -87,8 +87,8 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
-    private void useTool (int tileIndex, Scanner sc) {
-        int choice = getToolChoice(sc, tileIndex, this.objectCoins);
+    private void useTool (Scanner sc, int tileIndex) {
+        int choice = getToolChoice(sc, tileIndex);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
 
@@ -107,9 +107,9 @@ public class Player {
         }
     }
 
-    private void plantCrop (int tileIndex, Scanner sc) {
+    private void plantCrop (Scanner sc, int tileIndex) {
         if(farm.canPlantSeed(tileIndex)) {
-            int choice = getSeedChoice(sc, tileIndex, this.objectCoins);
+            int choice = getSeedChoice(sc, tileIndex);
 
             if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
                 int cost = farm.plantCrop(tileIndex, choice);
