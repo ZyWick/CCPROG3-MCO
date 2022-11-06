@@ -119,6 +119,29 @@ public class MyFarm {
         return error;
     }
 
+    public boolean canPlantSeed (int tileIndex) {
+        boolean result = true;
+
+        if (lot.get(tileIndex).isPlowed() == false) {
+            result = false;
+            game.throwPlantError(1);
+        }
+
+        if (lot.get(tileIndex).getSeeds() != null) {
+            result = false;
+            game.throwPlantError(2);
+        }
+
+        return result;
+    }
+
+    public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
+        if (PlayerObjectCoins >= seedCost + farmerTypeSeedReduction)
+            return true;
+
+        return false;
+    }
+
     public boolean checkUseTool (int tileIndex, int choice, int objectCoins) {
         boolean result = false;
 
@@ -148,29 +171,6 @@ public class MyFarm {
             game.throwOutOfBoundsError();
 
         return result;
-    }
-
-    public boolean canPlantSeed (int tileIndex) {
-        boolean result = true;
-
-        if (lot.get(tileIndex).isPlowed() == false) {
-            result = false;
-            game.throwPlantError(1);
-        }
-
-        if (lot.get(tileIndex).getSeeds() != null) {
-            result = false;
-            game.throwPlantError(2);
-        }
-
-        return result;
-    }
-
-    public boolean canAffordSeed(int PlayerObjectCoins, int seedCost, int farmerTypeSeedReduction) {
-        if (PlayerObjectCoins >= seedCost + farmerTypeSeedReduction)
-            return true;
-
-        return false;
     }
 
     public boolean canHarvest(int tileIndex) {
@@ -230,16 +230,6 @@ public class MyFarm {
         return game.getSeeds().get(seedIndex).getSeedCost();
    } 
 
-   public void ageLot() {    
-    game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-    for (Tile TheTile : lot) 
-        if(TheTile.getSeeds() != null) {
-            TheTile.addDay();
-            if (TheTile.isWithered() != 0)
-                System.out.println("..." + TheTile.getSeeds().getName() + "crop has withered");
-        }
-    }
-
    public double[] harvestCrop(int tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
         FarmSeeds TheSeed = TheTile.getSeeds();
@@ -268,6 +258,16 @@ public class MyFarm {
 
         return yield;
    }
+
+   public void ageLot() {    
+    game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    for (Tile TheTile : lot) 
+        if(TheTile.getSeeds() != null) {
+            TheTile.addDay();
+            if (TheTile.isWithered() != 0)
+                System.out.println("..." + TheTile.getSeeds().getName() + "crop has withered");
+        }
+    }
 
    public boolean endGame(int objectCoins, int farmerTypeSeedReduction) {
         boolean eventA = true;
@@ -298,5 +298,4 @@ public class MyFarm {
    public FarmSystem getGame () {
         return this.game;
    }
-    
 }
