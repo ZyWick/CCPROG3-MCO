@@ -18,18 +18,18 @@ public class MyFarm {
         Tile TheTile = lot.get(tileIndex);
         if (TheTile.isPlowed()) {
             if (TheTile.getSeeds() != null) {
-                int day = TheTile.getDay();
+                int age = TheTile.getAge();
                 int harvestTime = TheTile.getSeeds().getHarvestTime();
     
-                if (day <= 1)
+                if (age <= 1)
                     return ',';
-                if (day <= harvestTime/3)
+                if (age <= harvestTime/3)
                     return 's';
-                if (day < harvestTime)
+                if (age < harvestTime)
                     return 'S'; 
-                if (day == harvestTime)
+                if (age == harvestTime)
                     return '$'; 
-                if (TheTile.isWithered() != 0 || day > harvestTime)
+                if (TheTile.isWithered() != 0 || age > harvestTime)
                     return 'X';        
             } else
                 return '#';
@@ -180,7 +180,7 @@ public class MyFarm {
 
         if (TheTile.getSeeds() == null) 
             error = 5;
-        else if (TheTile.getSeeds() != null && TheTile.getDay() < TheTile.getSeeds().getHarvestTime())
+        else if (TheTile.getSeeds() != null && TheTile.getAge() < TheTile.getSeeds().getHarvestTime())
             error = 4;
         else
             error = TheTile.isWithered();

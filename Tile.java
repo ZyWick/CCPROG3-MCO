@@ -7,7 +7,7 @@ public class Tile {
     private boolean plowed = false;
     private int waterTimes = 0;
     private int fertilizerTimes = 0;
-    private int day = 0;
+    private int age = 0;
 
     public Tile() {
     }
@@ -24,7 +24,7 @@ public class Tile {
             System.out.println("crop: " + this.seeds.getName());
             System.out.println("Times Watered: " + this.waterTimes);
             System.out.println("Times Fertilized: " + this.fertilizerTimes);
-            System.out.println("Age: " + this.day +" days");
+            System.out.println("Age: " + this.age +" days");
         } else
             System.out.println("...no crop planted");
     }
@@ -36,7 +36,7 @@ public class Tile {
 
         this.waterTimes = 0;
         this.fertilizerTimes = 0;
-        this.day = 0;
+        this.age = 0;
     }
 
     public int canPlow() {
@@ -84,7 +84,7 @@ public class Tile {
     }
 
     public void addDay() {
-        this.day += 1;
+        this.age += 1;
     }
 
     public void setSeeds(FarmSeeds seeds) {
@@ -93,19 +93,19 @@ public class Tile {
 
             waterTimes = 0;
             fertilizerTimes = 0;
-            day = 0;
+            age = 0;
             System.out.println("..." + seeds.getName() +" successfully planted");
         }
     }
 
     public int isWithered() {
-        if(this.seeds != null && this.day > this.seeds.getHarvestTime())
+        if(this.seeds != null && this.age > this.seeds.getHarvestTime())
             return 1;
 
-        if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getFertilizerTimes() < this.seeds.getFertilizerNeeds())
+        if(this.seeds != null && this.age == this.seeds.getHarvestTime() && this.getFertilizerTimes() < this.seeds.getFertilizerNeeds())
             return 2;
 
-        if(this.seeds != null && this.day == this.seeds.getHarvestTime() && this.getWaterTimes() < this.seeds.getWaterNeeds())
+        if(this.seeds != null && this.age == this.seeds.getHarvestTime() && this.getWaterTimes() < this.seeds.getWaterNeeds())
             return 3;
 
         return 0;
@@ -143,8 +143,8 @@ public class Tile {
         return this.seeds;
     }
 
-    public int getDay() {
-        return this.day;
+    public int getAge() {
+        return this.age;
     }
 
 }
