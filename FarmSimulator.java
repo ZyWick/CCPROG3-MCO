@@ -15,7 +15,7 @@ public class FarmSimulator {
         Player p1 = new Player(farm);
         int choice;
 
-        farm.display();
+        p1.thisIsMyFarm();
         while (true) {
 
             p1.displayPlayerStats();
@@ -38,6 +38,7 @@ public class FarmSimulator {
                 case 1: // reinitialize everything to play again
                         farm = new MyFarm();
                         p1 = new Player(farm);
+                        p1.thisIsMyFarm();
                         break;
                 default: sc.close();
                          System.exit(0);
