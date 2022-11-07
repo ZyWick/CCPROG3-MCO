@@ -38,15 +38,26 @@ public class Player {
         }
     }
 
+    /**
+     * Displays the list of available game tasks and obtains the player's choice
+     * @param sc the Scanner to get input from
+     * @return an int representing the player's choice
+     */
     public int whatCanIDo(Scanner sc) {
         farm.getGame().displayGameMoves();
         return sc.nextInt();
     }
 
+    /**
+     * Displays the player's farm
+     */
     public void thisIsMyFarm () {
         farm.display();
     }
 
+    /**
+     * Displays a legend to explain the symbols shown in the player's farm by {@link #thisIsMyFarm()}
+     */
     public void whatIsThat () {
         farm.getGame().displayLotLegend();
     }
@@ -55,7 +66,7 @@ public class Player {
      * Displays the list of eligible tools and asks the player to pick a tool
      * @param sc the Scanner to get input from
      * @param tileIndex the tile index
-     * @return
+     * @return an int representing the player's choice
      */
     private int getToolChoice(Scanner sc, int tileIndex) {
         int choice;
@@ -70,7 +81,7 @@ public class Player {
     /**
      * Displays a list of seeds that are available and asks the player to pick from one of them
      * @param sc the Scanner to get input from
-     * @return
+     * @return an int representing the player's choice
      */
     private int getSeedChoice(Scanner sc) {
         int choice;
