@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * The type My farm.
+ * MyFarm is the player's farm
  */
 public class MyFarm {
     private ArrayList<Tile> lot = new ArrayList<Tile>();

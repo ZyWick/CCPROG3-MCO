@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * The Player is the user that controls the farm
+ */
 public class Player {
     private double objectCoins = 100.0;
     private Experience experience;

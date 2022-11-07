@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * The type Farm system.
+ * FarmSystem contains the available items and helper methods
  */
 public class FarmSystem {
     private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
