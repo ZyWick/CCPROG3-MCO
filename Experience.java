@@ -1,3 +1,6 @@
+/**
+ * Experience counter with exp and level
+ */
 public class Experience {
     private double exp = 0.0;
     private int level = 0;

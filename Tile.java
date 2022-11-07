@@ -2,7 +2,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Math.min;
 
 /**
- * The type Tile.
+ * Tile stores information about a particular tile or plot of land.
  */
 public class Tile {
     private FarmSeeds seeds = null;    

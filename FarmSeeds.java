@@ -1,5 +1,5 @@
 /**
- * The type Farm seeds.
+ * FarmSeeds stores information about a particular seed
  */
 public class FarmSeeds {
     private String name;

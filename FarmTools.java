@@ -1,3 +1,6 @@
+/**
+ * FarmTools stores information about a particular tool
+ */
 public class FarmTools {
     private String name;
     private int usageCost;

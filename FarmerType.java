@@ -1,5 +1,5 @@
 /**
- * The type Farmer type.
+ * FarmerType stores information about a particular farmer type, which can be purchased by the player to get additional perks
  */
 public class FarmerType {
     private String name;
