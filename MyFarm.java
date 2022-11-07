@@ -89,7 +89,7 @@ public class MyFarm {
      * @param tileIndex   the index of the tile
      * @param objectCoins the number of ObjectCoins the player has
      */
-    public void displayTools (int tileIndex, int objectCoins) {
+    public void displayTools (int tileIndex, double objectCoins) {
         for (FarmTools tool : game.getTools()) {
             int toolIndex = game.getTools().indexOf(tool);
 
@@ -108,7 +108,7 @@ public class MyFarm {
      * @param objectCoins the number of ObjectCoins the player has
      * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
      */
-    public void displaySeeds (int objectCoins, int farmerSeedCostReduction) {
+    public void displaySeeds (double objectCoins, int farmerSeedCostReduction) {
         for (FarmSeeds seed : game.getSeeds()) {
             if(canAffordSeed(objectCoins, seed.getSeedCost(), farmerSeedCostReduction))
                 System.out.print("| / | ");
@@ -128,7 +128,7 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    private int canUseTool(int tileIndex, int toolIndex, int objectCoins) {
+    private int canUseTool(int tileIndex, int toolIndex, double objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
         int error = 0;
@@ -153,7 +153,7 @@ public class MyFarm {
         return error;
     }
 
-    private boolean canAffordSeed(int objectCoins, int seedCost, int farmerSeedReduction) {
+    private boolean canAffordSeed(double objectCoins, int seedCost, int farmerSeedReduction) {
         if (objectCoins >= seedCost + farmerSeedReduction)
             return true;
 
@@ -168,7 +168,7 @@ public class MyFarm {
      * @param objectCoins the number of ObjectCoins the player has
      * @return true if the tool can be used, otherwise false
      */
-    public boolean checkUseTool (int tileIndex, int toolIndex, int objectCoins) {
+    public boolean checkUseTool (int tileIndex, int toolIndex, double objectCoins) {
         boolean result = false;
 
         if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
@@ -215,7 +215,7 @@ public class MyFarm {
      * @param objectCoins             the number of ObjectCoins the player has
      * @return true if the specific seed can be planted, otherwise false
      */
-    public boolean checkPlantCrop (int tileIndex, int farmerSeedCostReduction, int seedIndex, int objectCoins) {
+    public boolean checkPlantCrop (int tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
         boolean result = false;
 
         if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
@@ -386,7 +386,7 @@ public class MyFarm {
      * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
      * @return the boolean
      */
-    public boolean endGame(int objectCoins, int farmerSeedCostReduction) {
+    public boolean endGame(double objectCoins, int farmerSeedCostReduction) {
         boolean eventA = true;
         boolean eventB = true;
 

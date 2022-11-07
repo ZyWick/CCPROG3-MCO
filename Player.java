@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Player {
-    private int objectCoins = 100;
+    private double objectCoins = 100.0;
     private Experience experience;
     private MyFarm farm;
     private FarmerType type;
@@ -39,21 +39,6 @@ public class Player {
     }
 
     /**
-     * Displays a list of seeds that are available and asks the player to pick from one of them
-     * @param sc the Scanner to get input from
-     * @return
-     */
-    private int getSeedChoice(Scanner sc) {
-        int choice;
-        System.out.println("\nWhich seed do you want to plant?");
-        farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    /**
      * Displays the list of eligible tools and asks the player to pick a tool
      * @param sc the Scanner to get input from
      * @param tileIndex the tile index
@@ -63,6 +48,21 @@ public class Player {
         int choice;
         System.out.println("\nWhich tool do you want to use?");
         farm.displayTools(tileIndex, this.objectCoins);
+        System.out.print("Choice: ");
+        choice = sc.nextInt();
+
+        return choice;
+    }
+
+    /**
+     * Displays a list of seeds that are available and asks the player to pick from one of them
+     * @param sc the Scanner to get input from
+     * @return
+     */
+    private int getSeedChoice(Scanner sc) {
+        int choice;
+        System.out.println("\nWhich seed do you want to plant?");
+        farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
         System.out.print("Choice: ");
         choice = sc.nextInt();
 
@@ -171,9 +171,9 @@ public class Player {
     private void harvestCrop (int tileIndex) {
         if (farm.checkHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
-            this.objectCoins += (int)yield[0];
+            this.objectCoins += yield[0];
             this.addExp(yield[1]);
-            System.out.println("| ObjectCoins gained: " + (int)yield[0]);
+            System.out.println("| ObjectCoins gained: " + yield[0]);
             System.out.println("| Experience gained: " + yield[1]);
         }
     }
