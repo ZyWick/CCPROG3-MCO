@@ -38,6 +38,19 @@ public class Player {
         }
     }
 
+    public int whatCanIDo(Scanner sc) {
+        farm.getGame().displayGameMoves();
+        return sc.nextInt();
+    }
+
+    public void thisIsMyFarm () {
+        farm.display();
+    }
+
+    public void whatIsThat () {
+        farm.getGame().displayLotLegend();
+    }
+
     /**
      * Displays the list of eligible tools and asks the player to pick a tool
      * @param sc the Scanner to get input from

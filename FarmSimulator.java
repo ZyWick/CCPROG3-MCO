@@ -5,7 +5,6 @@ public class FarmSimulator {
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
-        FarmSystem game = farm.getGame();
         Player p1 = new Player(farm);
         int choice;
 
@@ -13,11 +12,10 @@ public class FarmSimulator {
         while (true) {
 
             p1.displayPlayerStats();
-            game.displayGameMoves();
-            choice = sc.nextInt();
+            choice = p1.whatCanIDo(sc);
 
             switch (choice) {
-                case 1: farm.display(); 
+                case 1: p1.thisIsMyFarm(); 
                         break;
                 case 2: p1.interactTile(sc);
                         break;
@@ -25,17 +23,14 @@ public class FarmSimulator {
                         break;
                 case 4: break;
                 case 5: p1.registerUp(); break;
-                case 6: game.displayLotLegend(); break;
+                case 6: p1.whatIsThat(); break;
                 default: break;
             }
 
             switch (p1.end(sc)) {
                 case 0: break;
-                case 1: //play again
-
-                        // reinitialize everything
+                case 1: // reinitialize everything to play again
                         farm = new MyFarm();
-                        game = farm.getGame();
                         p1 = new Player(farm);
                         break;
                 default: sc.close();
