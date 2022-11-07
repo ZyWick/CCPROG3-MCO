@@ -128,6 +128,13 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
+    /**
+     * Checks if the tool can be used by the player on the specified tile
+     * @param tileIndex   the index of the tool
+     * @param toolIndex   the index of the tile
+     * @param objectCoins the number of ObjectCoins the player has
+     * @return true if the player can use the tool on the tile, otherwise false
+     */
     private int canUseTool(int tileIndex, int toolIndex, double objectCoins) {
         Tile TheTile = lot.get(tileIndex);
         FarmTools selectedTool = game.getTools().get(toolIndex);
@@ -153,6 +160,13 @@ public class MyFarm {
         return error;
     }
 
+    /**
+     * Checks if the seed can be purchased by the player
+     * @param objectCoins          the number of ObjectCoins the player has
+     * @param seedCost             cost of the seed in ObjectCoins
+     * @param farmerSeedReduction  discount on seed cost given by the player's farmer type
+     * @return true if the player can purchase the seed, otherwise false
+     */
     private boolean canAffordSeed(double objectCoins, int seedCost, int farmerSeedReduction) {
         if (objectCoins >= seedCost + farmerSeedReduction)
             return true;
