@@ -85,14 +85,14 @@ public class FarmSystem {
      * Prints an error indicating that the player does not have enough ObjectCoins
      */
     public void throwInsufficientObjectCoins() {
-        System.out.println("Error: not enough objectCoins");
+        System.out.println("\n| Error: not enough objectCoins");
     }
 
     /**
      * Prints an error indicating that the player typed a number not among the choices
      */
     public void throwOutOfBoundsError() {
-        System.out.println("Error: no such choice");
+        System.out.println("\n| Error: no such choice");
     }
 
     /**
@@ -102,10 +102,10 @@ public class FarmSystem {
      */
     public void throwToolError(int error) {
         switch (error) {
-            case 1: System.out.println("Error: tile is already plowed"); break;
-            case 2: System.out.println("Error: can't plow tile with rock"); break;
-            case 3: case 4: System.out.println("Error: tile does not have a crop"); break;
-            case 5: System.out.println("Error: tile does not have a rock"); break;
+            case 1: System.out.println("\n| Error: tile is already plowed"); break;
+            case 2: System.out.println("\n| Error: can't plow tile with rock"); break;
+            case 3: case 4: System.out.println("\n| Error: tile does not have a crop"); break;
+            case 5: System.out.println("\n| Error: tile does not have a rock"); break;
             case 6: throwInsufficientObjectCoins();
         }
     }
@@ -117,8 +117,8 @@ public class FarmSystem {
      */
     public void throwPlantError(int error) {
         switch (error) {
-            case 1: System.out.println("Error: tile is unplowed"); break;
-            case 2: System.out.println("Error: tile has a crop already"); break;
+            case 1: System.out.println("\n| Error: tile is unplowed"); break;
+            case 2: System.out.println("\n| Error: tile has a crop already"); break;
         }
     }
 
@@ -129,11 +129,11 @@ public class FarmSystem {
      */
     public void throwHarvestError(int error) {
         switch (error) {
-            case 1: System.out.println("Error: crop is withered, it is past its harvest time"); break;
-            case 2: System.out.println("Error: crop is withered, it did not meet fertilizer needs"); break;
-            case 3: System.out.println("Error: crop is withered, it did not meet water needs"); break;
-            case 4: System.out.println("Error: crop has not met harvest time"); break;
-            case 5: System.out.println("Error: tile has no crop"); break;
+            case 1: System.out.println("\n| Error: crop is withered, it is past its harvest time"); break;
+            case 2: System.out.println("\n| Error: crop is withered, it did not meet fertilizer needs"); break;
+            case 3: System.out.println("\n| Error: crop is withered, it did not meet water needs"); break;
+            case 4: System.out.println("\n| Error: crop has not met harvest time"); break;
+            case 5: System.out.println("\n| Error: tile has no crop"); break;
         }
     }
 
@@ -141,14 +141,14 @@ public class FarmSystem {
      * Prints an error indicating that the player cannot register to higher type because they are already on the highest type
      */
     public void throwMaxFarmerTypeError() {
-        System.out.println("Error: you. are. already. legendary.");
+        System.out.println("\n| Error: you. are. already. legendary.");
     }
 
     /**
      * Prints an error indicating that the player cannot register to higher type because they do not meet the level requirement for it
      */
     public void throwRegisterError() {
-        System.out.println("Error: insufficient level");
+        System.out.println("\n| Error: insufficient level");
     }
 
     /**
