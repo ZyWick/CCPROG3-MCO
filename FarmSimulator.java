@@ -7,7 +7,7 @@ public class FarmSimulator {
     /**
      * The main method that runs the game loop
      *
-     * @param args currently unused
+     * @param args the command-line arguments passed to the program, currently unused
      */
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
