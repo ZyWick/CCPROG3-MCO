@@ -21,9 +21,8 @@ public class FarmSimulator {
                         break;
                 case 3: p1.advanceDay(); 
                         break;
-                case 4: break;
-                case 5: p1.registerUp(); break;
-                case 6: p1.whatIsThat(); break;
+                case 4: p1.registerUp(); break;
+                case 5: p1.whatIsThat(); break;
                 default: break;
             }
 
