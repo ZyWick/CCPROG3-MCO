@@ -101,6 +101,12 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.waterTimes += 1;
             System.out.println("\n...success, total Times Watered: " + this.waterTimes);
+
+            if (this.waterTimes >= seeds.getWaterNeeds())
+                if (this.waterTimes >= seeds.getWaterLimit())
+                    System.out.println("...crop water bonus limit reached");
+            else
+                System.out.println("...crop needs to be watered " + (seeds.getWaterNeeds() - this.waterTimes) + " more times");
         }
     }
 
@@ -111,6 +117,12 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.fertilizerTimes += 1;
             System.out.println("\n...success, total Times Fertilized: " + this.fertilizerTimes);
+
+            if (this.fertilizerTimes >= seeds.getFertilizerNeeds())
+                if (this.fertilizerTimes >= seeds.getFertilizerLimit())
+                    System.out.println("...crop fertilizer bonus limit reached");
+            else
+                System.out.println("...crop needs to be fertilized " + (seeds.getFertilizerNeeds() - this.fertilizerTimes) + " more times");
         }
     }
 
