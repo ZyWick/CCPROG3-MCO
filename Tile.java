@@ -158,7 +158,7 @@ public class Tile {
      * Compute the amount of times the tile was watered, with respect to the maximum number of times that it can be watered for extra earnings
      *
      * @param typeWaterBonus watering limit increase given by the player's farmer type
-     * @return the int
+     * @return the result
      */
     public int computeWaterTimesCapped(int typeWaterBonus) {
         return min(this.waterTimes, seeds.getWaterLimit() + typeWaterBonus);
@@ -168,7 +168,7 @@ public class Tile {
      * Compute the amount of times the tile was fertilized, with respect to the maximum number of times that it can be fertilized for extra earnings
      *
      * @param typeFertilizerBonus fertilizing limit increase given by the player's farmer type
-     * @return the int
+     * @return the result
      */
     public int computeFertilizerTimesCapped(int typeFertilizerBonus) {
         return min(this.fertilizerTimes, seeds.getFertilizerLimit() + typeFertilizerBonus);
@@ -177,7 +177,7 @@ public class Tile {
     /**
      * Sets the seeds.
      *
-     * @param seeds the seed to capped
+     * @param seeds the seed to plant
      */
     public void setSeeds(FarmSeeds seeds) {
         if(this.canPlant()) {
