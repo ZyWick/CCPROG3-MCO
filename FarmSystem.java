@@ -37,7 +37,7 @@ public class FarmSystem {
      */
     public void addDay() {
         this.day += 1;
-        System.out.println("Day: " + this.day);
+        System.out.print("\n...success, a day has passed");
     }
 
     /**
@@ -48,9 +48,8 @@ public class FarmSystem {
         System.out.println("| 1 - display farm");
         System.out.println("| 2 - Interact with tile");
         System.out.println("| 3 - advance day");
-        System.out.println("| 4 - display player stats");
-        System.out.println("| 5 - Register superior farmer type");
-        System.out.println("| 6 - display farm legend");
+        System.out.println("| 4 - Register superior farmer type");
+        System.out.println("| 5 - display farm legend");
         System.out.println("| ...input any number to return to main");
         System.out.print("Choice: ");
     }

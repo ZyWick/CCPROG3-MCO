@@ -170,7 +170,7 @@ public class Tile {
             waterTimes = 0;
             fertilizerTimes = 0;
             age = 0;
-            System.out.println("..." + seeds.getName() +" successfully planted");
+            System.out.println("\n..." + seeds.getName() +" successfully planted");
         }
     }
 
