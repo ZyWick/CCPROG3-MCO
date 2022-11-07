@@ -384,7 +384,7 @@ public class MyFarm {
      *
      * @param objectCoins             the number of ObjectCoins the player has
      * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
-     * @return the boolean
+     * @return true if the game is over, otherwise false
      */
     public boolean endGame(double objectCoins, int farmerSeedCostReduction) {
         boolean eventA = true;
