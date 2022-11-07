@@ -154,7 +154,7 @@ public class Player {
 
             this.objectCoins -= yield[0];
             this.addExp(yield[1]);
-            System.out.println("\n| ObjectCoins expended: " + yield[0]);
+            System.out.println("| ObjectCoins expended: " + yield[0]);
             System.out.println("| Experience gained: " + yield[1]);
         }
     }
@@ -172,7 +172,7 @@ public class Player {
                 int cost = farm.plantCrop(tileIndex, choice);
 
                 this.objectCoins -= cost + this.type.getSeedCostReduction();
-                System.out.println("\n| ObjectCoins expended: " + (cost + this.type.getSeedCostReduction()));
+                System.out.println("| ObjectCoins expended: " + (cost + this.type.getSeedCostReduction()));
             }
         } 
     }

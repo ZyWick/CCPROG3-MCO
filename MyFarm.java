@@ -405,9 +405,9 @@ public class MyFarm {
         }
 
         if (eventA) 
-            System.out.println("...you don't have enough objectCoins to continue");
+            System.out.println("\n...you don't have enough objectCoins to continue");
         if (eventB) 
-            System.out.println("...all tiles have a withered crop");
+            System.out.println("\n...all tiles have a withered crop");
 
         return (eventA || eventB);
    }

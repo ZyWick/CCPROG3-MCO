@@ -90,7 +90,7 @@ public class Tile {
         // do not plow if plowing is not allowed
         if(canPlow()) {
             this.plowed = true;
-            System.out.println("...tile successfully plowed");
+            System.out.println("\n...tile successfully plowed");
         }
     }
 
@@ -100,7 +100,7 @@ public class Tile {
     public void addWaterTimes() {
         if(this.canWaterOrFertilize()) {
             this.waterTimes += 1;
-            System.out.println("Times Watered: " + this.waterTimes);
+            System.out.println("\n...success, total Times Watered: " + this.waterTimes);
         }
     }
 
@@ -110,7 +110,7 @@ public class Tile {
     public void addFertilizerTimes() {
         if(this.canWaterOrFertilize()) {
             this.fertilizerTimes += 1;
-            System.out.println("Times Fertilized: " + this.fertilizerTimes);
+            System.out.println("\n...success, total Times Fertilized: " + this.fertilizerTimes);
         }
     }
 
@@ -119,7 +119,7 @@ public class Tile {
      */
     public void removeRock() {
         this.rock = false;
-        System.out.println("...rock removed from tile");
+        System.out.println("\n...rock removed from tile");
     }
 
     /**
