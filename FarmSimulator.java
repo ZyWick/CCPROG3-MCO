@@ -4,7 +4,11 @@ import java.util.Scanner;
  * FarmSimulator is the driver class which contains the main method
  */
 public class FarmSimulator {
- 
+    /**
+     * The main method that runs the game loop
+     *
+     * @param args currently unused
+     */
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
