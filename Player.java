@@ -231,8 +231,8 @@ public class Player {
             case REGISTER_UP_OK:
                 this.type = farm.getGame().getNextFarmerType(this.type);
                 this.objectCoins -= this.type.getRegistrationFee();
-                System.out.println("\n| ObjectCoins expended: " + this.type.getRegistrationFee());
-                System.out.println("...you are now a " + this.type.getName());
+                System.out.println("\n...you are now a " + this.type.getName());
+                System.out.println("| ObjectCoins expended: " + this.type.getRegistrationFee());
                 break;
             case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
                 farm.getGame().throwInsufficientObjectCoins();

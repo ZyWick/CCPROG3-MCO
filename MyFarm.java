@@ -360,7 +360,7 @@ public class MyFarm {
         yield[0] = harvestTotal;
         yield[1] = TheSeed.getExpYield();
         
-        System.out.println("\n...tile has been reset");
+        System.out.println("\n...crop harvested + tile has been reset");
         System.out.println("| " + TheSeed.getName() + " products produced: " + productsProduced);
 
         return yield;
