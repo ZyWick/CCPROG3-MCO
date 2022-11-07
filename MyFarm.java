@@ -31,15 +31,15 @@ public class MyFarm {
             if (TheTile.getSeeds() != null) {
                 int age = TheTile.getAge();
                 int harvestTime = TheTile.getSeeds().getHarvestTime();
-    
+
+                if (age == harvestTime)
+                    return '$'; 
                 if (age <= 1)
                     return ',';
                 if (age <= harvestTime/3)
                     return 's';
                 if (age < harvestTime)
                     return 'S'; 
-                if (age == harvestTime)
-                    return '$'; 
                 if (TheTile.isWithered() != 0 || age > harvestTime)
                     return 'X';        
             } else
@@ -375,7 +375,7 @@ public class MyFarm {
         if(TheTile.getSeeds() != null) {
             TheTile.addDay();
             if (TheTile.isWithered() != 0)
-                System.out.println("..." + TheTile.getSeeds().getName() + "crop has withered");
+                System.out.print("\n..." + TheTile.getSeeds().getName() + " has withered");
         }
     }
 
