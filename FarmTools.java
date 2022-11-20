@@ -1,7 +1,8 @@
 /**
  * FarmTools stores information about a particular tool
  */
-public abstract class FarmTools {
+public class FarmTools {
+    private String name;
     private int usageCost;
     private double expYield;
 
@@ -11,12 +12,19 @@ public abstract class FarmTools {
      * @param usageCost cost of using the tool
      * @param expYield amount of experience gained from using the tool
      */
-    public FarmTools(int usageCost, double expYield) {
+    public FarmTools(String name, int usageCost, double expYield) {
+        this.name = name;
         this.usageCost = usageCost;
         this.expYield = expYield;
     }
 
-    protected abstract double[] useTool (MyFarm farm, int tileIndex);
+    /**
+     * Returns the name of the tool
+     * @return name of the tool
+     */
+    public String getName() {
+        return this.name;
+    }
 
     /**
      * Returns the cost of using the tool
@@ -38,7 +46,7 @@ public abstract class FarmTools {
      * Returns the cost of using the tool and amount of experience gained from using the tool
      * @return an array containing {cost of using the tool, amount of experience gained}
      */
-    protected double[] getToolCostAndYield() {
+    public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = this.getUsageCost();
         yield [1] = this.getExpYield();
