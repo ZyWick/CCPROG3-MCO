@@ -276,9 +276,8 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return an array containing the cost and exp yield of the operation
      */
-    public double[] plowTile(int tileIndex) {
+    public void plowTile(int tileIndex) {
         lot.get(tileIndex).plowTile();
-        return game.getTools().get(0).getToolCostAndYield();
     }
 
     /**
