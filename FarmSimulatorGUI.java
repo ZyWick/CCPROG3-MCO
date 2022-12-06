@@ -35,6 +35,10 @@ public class FarmSimulatorGUI{
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
                 tilePanel.rescale(new Dimension(e.getComponent().getWidth(), e.getComponent().getHeight()));
+
+                // update all views to account for the potential change in their sizes
+                // source: https://stackoverflow.com/a/7630604
+                SwingUtilities.updateComponentTreeUI(frame);
             }
 
         });
