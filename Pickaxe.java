@@ -8,13 +8,17 @@ public class Pickaxe implements FarmTools{
     }
 
     public double[] useTool(MyFarm farm, int tileIndex) {
-        farm.plowTile(tileIndex);
+        farm.removeRock(tileIndex);
         return getToolCostAndYield();
+    }
+    
+    public int getUsageCost() {
+        return this.usageCost;
     }
 
     private double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
-        yield [0] = this.usageCost;
+        yield [0] = getUsageCost();
         yield [1] = this.expYield;
 
         return yield;

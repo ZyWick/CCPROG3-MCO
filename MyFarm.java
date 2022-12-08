@@ -98,7 +98,7 @@ public class MyFarm {
             else
                 System.out.print("| x | ");
 
-            System.out.println(toolIndex + " - " + tool.getName());
+            System.out.println(toolIndex + " - " + tool.getClass());
         }
     }
 
@@ -128,37 +128,37 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
-    /**
-     * Checks if the tool can be used by the player on the specified tile
-     * @param tileIndex   the index of the tool
-     * @param toolIndex   the index of the tile
-     * @param objectCoins the number of ObjectCoins the player has
-     * @return true if the player can use the tool on the tile, otherwise false
-     */
-    private int canUseTool(int tileIndex, int toolIndex, double objectCoins) {
-        Tile TheTile = lot.get(tileIndex);
-        FarmTools selectedTool = game.getTools().get(toolIndex);
-        int error = 0;
+    // /**
+    //  * Checks if the tool can be used by the player on the specified tile
+    //  * @param tileIndex   the index of the tool
+    //  * @param toolIndex   the index of the tile
+    //  * @param objectCoins the number of ObjectCoins the player has
+    //  * @return true if the player can use the tool on the tile, otherwise false
+    //  */
+    // private int canUseTool(int tileIndex, int toolIndex, double objectCoins) {
+    //     Tile TheTile = lot.get(tileIndex);
+    //     FarmTools selectedTool = game.getTools().get(toolIndex);
+    //     int error = 0;
 
-        if (objectCoins >= selectedTool.getUsageCost()) {
-            if (selectedTool.getName().equals("Plow") && TheTile.canPlow() == false)
-                if(TheTile.isRock())
-                    error = 2;
-                else
-                    error = 1;
-            else if (selectedTool.getName().equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
-                error = 3;
-            else if (selectedTool.getName().equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
-                error = 4;
-            else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock() == false)
-                error = 5;
-            else if (selectedTool.getName().equals("Shovel"))
-                error = 0;
-        } else
-            error = 6;      
+    //     if (objectCoins >= selectedTool.getUsageCost()) {
+    //         if (selectedTool.getName().equals("Plow") && TheTile.canPlow() == false)
+    //             if(TheTile.isRock())
+    //                 error = 2;
+    //             else
+    //                 error = 1;
+    //         else if (selectedTool.getName().equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
+    //             error = 3;
+    //         else if (selectedTool.getName().equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
+    //             error = 4;
+    //         else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock() == false)
+    //             error = 5;
+    //         else if (selectedTool.getName().equals("Shovel"))
+    //             error = 0;
+    //     } else
+    //         error = 6;      
     
-        return error;
-    }
+    //     return error;
+    // }
 
     /**
      * Checks if the seed can be purchased by the player
@@ -286,9 +286,8 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return an array containing the cost and exp yield of the operation
      */
-    public double[] waterTile(int tileIndex) {
+    public void waterTile(int tileIndex) {
         lot.get(tileIndex).addWaterTimes();
-        return game.getTools().get(1).getToolCostAndYield();
     }
 
     /**
@@ -297,9 +296,8 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return an array containing the cost and exp yield of the operation
      */
-    public double[] fertilizeTile(int tileIndex) {
+    public void fertilizeTile(int tileIndex) {
         lot.get(tileIndex).addFertilizerTimes();   
-        return game.getTools().get(2).getToolCostAndYield();
     }
 
     /**
@@ -308,9 +306,8 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return an array containing the cost and exp yield of the operation
      */
-    public double[] removeRock(int tileIndex) {
+    public void removeRock(int tileIndex) {
         lot.get(tileIndex).removeRock();
-        return game.getTools().get(3).getToolCostAndYield();
     }
 
     /**
@@ -319,7 +316,7 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return an array containing the cost and exp yield of the operation
      */
-    public double[] useShovel (int tileIndex) {
+    public void useShovel (int tileIndex) {
         Tile TheTile = lot.get(tileIndex);
         
         if (TheTile.isPlowed() == false || TheTile.isRock() == true)
@@ -328,7 +325,6 @@ public class MyFarm {
             System.out.println("\n...tile has been reset");
         
         TheTile.reset();
-        return game.getTools().get(4).getToolCostAndYield();
     }
 
     /**

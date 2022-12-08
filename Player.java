@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * The Player is the user that controls the farm
@@ -8,7 +9,7 @@ public class Player {
     private Experience experience;
     private MyFarm farm;
     private FarmerType type;
-
+    private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
     /**
      * Instantiates the Player.
      *
@@ -18,6 +19,11 @@ public class Player {
         this.experience = new Experience();
         this.farm = farm;
         this.type = farm.getGame().getType().get(0);
+        tools.add(new Plow());
+        tools.add(new WateringCan());
+        tools.add(new Fertilizer());
+        tools.add(new Pickaxe());
+        tools.add(new Shovel());
     }
 
     /**
@@ -157,14 +163,8 @@ public class Player {
         int choice = getToolChoice(sc, tileIndex);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
-
-            switch (choice) {
-                case 0: yield = farm.plowTile(tileIndex); break;
-                case 1: yield = farm.waterTile(tileIndex); break;
-                case 2: yield = farm.fertilizeTile(tileIndex); break;
-                case 3: yield = farm.removeRock(tileIndex); break;
-                case 4: yield = farm.useShovel(tileIndex); break;
-            }
+            
+            yield = tools.get(choice).useTool(farm, tileIndex);
 
             this.objectCoins -= yield[0];
             this.addExp(yield[1]);

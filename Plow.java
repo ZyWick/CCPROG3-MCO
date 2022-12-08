@@ -11,10 +11,14 @@ public class Plow implements FarmTools{
         farm.plowTile(tileIndex);
         return getToolCostAndYield();
     }
+    
+    public int getUsageCost() {
+        return this.usageCost;
+    }
 
     private double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
-        yield [0] = this.usageCost;
+        yield [0] = getUsageCost();
         yield [1] = this.expYield;
 
         return yield;
