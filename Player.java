@@ -150,13 +150,19 @@ public class Player {
      * Adds experience to the experience counter, then informs the player if the level changes
      * @param expToAdd amount of experience points to add
      */
-    public void addExp(double expToAdd) {
+    private void addExp(double expToAdd) {
         int prev = this.experience.getLevel();
 
         this.experience.addExp(expToAdd);
         if (prev < this.experience.getLevel())
             System.out.println("\n...player leveled up!");
     }
+
+
+    private void addObjectCoins (double change) {
+        this.objectCoins += change;
+    }
+
 
     /**
      * Asks player to choose a tool, then uses it on the specific tile index.
@@ -261,10 +267,6 @@ public class Player {
 
     public FarmerType getType() {
         return type;
-    }
-
-    public void addObjectCoins (double change) {
-        this.objectCoins += change;
     }
 
     public double getObjectCoins(){

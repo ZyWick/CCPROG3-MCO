@@ -214,17 +214,17 @@ public class MyFarm {
      * @param objectCoins             the number of ObjectCoins the player has
      * @return true if the specific seed can be planted, otherwise false
      */
-    public boolean checkPlantCrop (Coordinates tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
-        boolean result = false;
+    public int checkPlantCrop (Coordinates tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
+        int result = 0;
 
         if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
 
             if (canAffordSeed(objectCoins, game.getSeeds().get(seedIndex).getSeedCost(), farmerSeedCostReduction)) {
-                result = true;
+                return result;
             } else
-                game.throwInsufficientObjectCoins();
+                result = 3; //game.throwInsufficientObjectCoins();
         } else
-            game.throwOutOfBoundsError();
+            result = 4; //game.throwOutOfBoundsError();
 
         return result;
     }
@@ -235,8 +235,7 @@ public class MyFarm {
      * @param tileIndex the index of the tile
      * @return true if the tile can be harvested, otherwise false
      */
-    public boolean checkHarvest(Coordinates tileIndex) {
-        boolean result = true;
+    public int checkHarvest(Coordinates tileIndex) {
         int error;
         Tile TheTile = lot.get(tileIndex);
 
@@ -246,13 +245,8 @@ public class MyFarm {
             error = 4;
         else
             error = TheTile.isWithered();
-        
-        if (error != 0) {
-            game.throwHarvestError(error);
-            result = false;
-        }
 
-        return result;
+        return error;
     }
 
     /**
@@ -346,7 +340,7 @@ public class MyFarm {
         fertilizerBonus = harvestTotal * 0.5 * fertilizerTimesCapped;
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
-        if(TheSeed.getCropType().equals("Flower"))
+        if(TheSeed instanceof Flower)
             harvestTotal *= 1.1;   
 
         TheTile.reset();
