@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * FarmSeeds stores information about a particular seed
  */
@@ -109,22 +111,14 @@ public class FarmSeeds {
         return this.fertilizerLimit;
     }
 
-    /**
-     * Returns minimum amount of products produced when harvesting the crop
-     *
-     * @return the minimum amount of products produced
-     */
-    public int getMinProductsProduced() {
-        return this.minProductsProduced;
-    }
 
     /**
-     * Returns maximum amount of products produced when harvesting the crop
+     * Computes the amount of products produced by tile
      *
-     * @return the maximum amount of products produced
+     * @return the amount of products
      */
-    public int getMaxProductsProduced() {
-        return this.maxProductsProduced;
+    public int computeProductsProduced() {
+        return ThreadLocalRandom.current().nextInt(this.minProductsProduced, this.maxProductsProduced + 1);
     }
 
     /**

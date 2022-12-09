@@ -23,12 +23,46 @@ public class FarmController {
             public void onMessagePlant(Coordinates coordinates, String seedName) {
                 System.out.println("Plant " + seedName + " at coordinate " + coordinates);
 
+                if(farm.checkPlantInTile(coordinates)) {
+                    int choice = 999;
+                    for (FarmSeeds seed : farm.getGame().getSeeds())
+                        if (seed.getName().equals(seedName))
+                            choice = farm.getGame().getSeeds().indexOf(seed);
+
+                    if (farm.checkPlantCrop(coordinates, player.getType().getSeedCostReduction(), choice, player.getObjectCoins())) {
+                        int cost = farm.plantCrop(coordinates, choice);
+        
+                        player.addObjectCoins((cost + player.getType().getSeedCostReduction()) * -1); 
+                        System.out.println("| ObjectCoins expended: " + (cost + player.getType().getSeedCostReduction()));
+                    }
+                } 
+
                 updateFarmView();
             }
 
             @Override
             public void onMessageUseTool(Coordinates coordinates, String toolName) {
                 System.out.println("Use " + toolName + " at coordinate " + coordinates);
+                FarmTools choice = null;
+                for (FarmTools tool : player.getTools())
+                        if (tool.getClass().getSimpleName().equals(toolName))
+                            choice = tool;
+
+                if (choice != null) {
+                    int error = farm.canUseTool(coordinates, toolName, choice.getUsageCost(), player.getObjectCoins());
+
+                    if (error == 0) {
+                        double[] yield = choice.useTool(farm, coordinates);
+            
+                        player.addObjectCoins(yield[0]); 
+                        player.addExp(yield[1]);
+                        System.out.println("| ObjectCoins expended: " + yield[0]);
+                        System.out.println("| Experience gained: " + yield[1]);
+                
+                    } else 
+                        farm.getGame().throwToolError(error);
+                } else
+                    farm.getGame().throwOutOfBoundsError();
 
                 updateFarmView();
             }

@@ -1,4 +1,3 @@
-import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Math.min;
 
 /**
@@ -155,7 +154,7 @@ public class Tile {
      * @return the amount of products
      */
     public int computeProductsProduced() {
-        return ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+        return seeds.computeProductsProduced();
     }
 
     /**

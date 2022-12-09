@@ -74,41 +74,41 @@ public class MyFarm {
     public void display () {
     }
 
-    /**
-     * Displays the tools that can and cannot be used on a specific tile
-     *
-     * @param tileIndex   the index of the tile
-     * @param objectCoins the number of ObjectCoins the player has
-     */
-    public void displayTools (Coordinates tileIndex, double objectCoins) {
-        for (FarmTools tool : game.getTools()) {
-            int toolIndex = game.getTools().indexOf(tool);
+    // /**
+    //  * Displays the tools that can and cannot be used on a specific tile
+    //  *
+    //  * @param tileIndex   the index of the tile
+    //  * @param objectCoins the number of ObjectCoins the player has
+    //  */
+    // public void displayTools (Coordinates tileIndex, double objectCoins) {
+    //     for (FarmTools tool : game.getTools()) {
+    //         int toolIndex = game.getTools().indexOf(tool);
 
-            if(canUseTool(tileIndex, toolIndex, objectCoins) == 0)
-                System.out.print("| / | ");
-            else
-                System.out.print("| x | ");
+    //         if(canUseTool(tileIndex, toolIndex, objectCoins) == 0)
+    //             System.out.print("| / | ");
+    //         else
+    //             System.out.print("| x | ");
 
-            System.out.println(toolIndex + " - " + tool.getClass());
-        }
-    }
+    //         System.out.println(toolIndex + " - " + tool.getClass());
+    //     }
+    // }
 
-    /**
-     * Displays the seeds that can and cannot be planted by the player
-     *
-     * @param objectCoins the number of ObjectCoins the player has
-     * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
-     */
-    public void displaySeeds (double objectCoins, int farmerSeedCostReduction) {
-        for (FarmSeeds seed : game.getSeeds()) {
-            if(canAffordSeed(objectCoins, seed.getSeedCost(), farmerSeedCostReduction))
-                System.out.print("| / | ");
-            else
-                System.out.print("| x | ");
+    // /**
+    //  * Displays the seeds that can and cannot be planted by the player
+    //  *
+    //  * @param objectCoins the number of ObjectCoins the player has
+    //  * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
+    //  */
+    // public void displaySeeds (double objectCoins, int farmerSeedCostReduction) {
+    //     for (FarmSeeds seed : game.getSeeds()) {
+    //         if(canAffordSeed(objectCoins, seed.getSeedCost(), farmerSeedCostReduction))
+    //             System.out.print("| / | ");
+    //         else
+    //             System.out.print("| x | ");
 
-            System.out.println(game.getSeeds().indexOf(seed) + " - " + seed.getName());
-        }
-    }
+    //         System.out.println(game.getSeeds().indexOf(seed) + " - " + seed.getName());
+    //     }
+    // }
 
     /**
      * Display tile status.
@@ -119,40 +119,36 @@ public class MyFarm {
         return lot.get(tileIndex).displayTileStatus();
    }
 
-   private int canUseTool(Coordinates tileIndex, int toolIndex, double objectCoins){
-        return 0;
-   }
-    // /**
-    //  * Checks if the tool can be used by the player on the specified tile
-    //  * @param tileIndex   the index of the tool
-    //  * @param toolIndex   the index of the tile
-    //  * @param objectCoins the number of ObjectCoins the player has
-    //  * @return true if the player can use the tool on the tile, otherwise false
-    //  */
-    // private int canUseTool(Coordinates tileIndex, int toolIndex, double objectCoins) {
-    //     Tile TheTile = lot.get(tileIndex);
-    //     FarmTools selectedTool = game.getTools().get(toolIndex);
-    //     int error = 0;
+    /**
+     * Checks if the tool can be used by the player on the specified tile
+     * @param tileIndex   the index of the tool
+     * @param toolIndex   the index of the tile
+     * @param objectCoins the number of ObjectCoins the player has
+     * @return true if the player can use the tool on the tile, otherwise false
+     */
+    public int canUseTool(Coordinates tileIndex, String toolName, int usageCost, double objectCoins) {
+        Tile TheTile = lot.get(tileIndex);
+        int error = 0;
 
-    //     if (objectCoins >= selectedTool.getUsageCost()) {
-    //         if (selectedTool.getName().equals("Plow") && TheTile.canPlow() == false)
-    //             if(TheTile.isRock())
-    //                 error = 2;
-    //             else
-    //                 error = 1;
-    //         else if (selectedTool.getName().equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
-    //             error = 3;
-    //         else if (selectedTool.getName().equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
-    //             error = 4;
-    //         else if (selectedTool.getName().equals("Pickaxe") && TheTile.isRock() == false)
-    //             error = 5;
-    //         else if (selectedTool.getName().equals("Shovel"))
-    //             error = 0;
-    //     } else
-    //         error = 6;      
+        if (objectCoins >= usageCost) {
+            if (toolName.equals("Plow") && TheTile.canPlow() == false)
+                if(TheTile.isRock())
+                    error = 2;
+                else
+                    error = 1;
+            else if (toolName.equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
+                error = 3;
+            else if (toolName.equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
+                error = 4;
+            else if (toolName.equals("Pickaxe") && TheTile.isRock() == false)
+                error = 5;
+            else if (toolName.equals("Shovel"))
+                error = 0;
+        } else
+            error = 6;      
     
-    //     return error;
-    // }
+        return error;
+    }
 
     /**
      * Checks if the seed can be purchased by the player
@@ -168,29 +164,29 @@ public class MyFarm {
         return false;
     }
 
-    /**
-     * Checks if a tool can be used on the tile
-     *
-     * @param tileIndex   the index of the tile
-     * @param toolIndex   the index of the tool
-     * @param objectCoins the number of ObjectCoins the player has
-     * @return true if the tool can be used, otherwise false
-     */
-    public boolean checkUseTool (Coordinates tileIndex, int toolIndex, double objectCoins) {
-        boolean result = false;
+    // /**
+    //  * Checks if a tool can be used on the tile
+    //  *
+    //  * @param tileIndex   the index of the tile
+    //  * @param toolIndex   the index of the tool
+    //  * @param objectCoins the number of ObjectCoins the player has
+    //  * @return true if the tool can be used, otherwise false
+    //  */
+    // public boolean checkUseTool (Coordinates tileIndex, int toolIndex, double objectCoins) {
+    //     boolean result = false;
 
-        if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
-            int error = canUseTool(tileIndex, toolIndex, objectCoins);
+    //     if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
+    //         int error = canUseTool(tileIndex, toolIndex, objectCoins);
 
-            if (error == 0) {
-                result = true;   
-            } else 
-                game.throwToolError(error);
-        } else
-            game.throwOutOfBoundsError();
+    //         if (error == 0) {
+    //             result = true;   
+    //         } else 
+    //             game.throwToolError(error);
+    //     } else
+    //         game.throwOutOfBoundsError();
         
-        return result;
-    }
+    //     return result;
+    // }
 
     /**
      * Checks if a new seed can be planted on the tile
