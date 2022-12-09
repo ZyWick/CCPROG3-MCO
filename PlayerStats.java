@@ -6,6 +6,7 @@ public class PlayerStats {
     private int day;
 
     public PlayerStats(String type, double objectCoins, double exp, int level, int day) {
+        this.type = type;
         this.objectCoins = objectCoins;
         this.exp = exp;
         this.level = level;
