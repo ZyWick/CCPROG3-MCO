@@ -168,4 +168,15 @@ public class FarmView {
     public void reportError(Exception e){
         JOptionPane.showMessageDialog(frame, e.getMessage());
     }
+
+    /**
+     * Shows the game over dialog
+     * @return true if user wants to play again, otherwise false
+     */
+    public boolean endGame() {
+        int response = JOptionPane.showConfirmDialog(frame, "Game Over. Do you want to play again?",
+                "", JOptionPane.YES_NO_OPTION);
+
+        return response == JOptionPane.YES_OPTION;
+    }
 }

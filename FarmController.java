@@ -1,12 +1,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static java.lang.System.exit;
+
 public class FarmController {
     private FarmView farmView;
     private MyFarm farm;
     private Player player;
 
     public FarmController() {
+        init();
+    }
+
+    public void init() {
         farmView = new FarmView();
         farm = new MyFarm();
         player = new Player(farm);
@@ -63,7 +69,17 @@ public class FarmController {
     }
 
     private void updateFarmView() {
-        // get stuff from player
+        if(player.endGame()){
+            // game over
+            if(farmView.endGame()){
+                // play again
+                init();
+            } else {
+                // exit
+                exit(0);
+            }
+        }
+
         farmView.setPlayerStats(player.getPlayerStats());
 
         HashMap<Coordinates, TileState> states = new HashMap<>();

@@ -265,23 +265,12 @@ public class Player {
     }
 
     /**
-     * Checks if the game is over. If the game is over, the player is asked if it wants to play again
+     * Checks if the game is over.
      *
-     * @param sc the Scanner to get input from
-     * @return 0 if the game has not ended. Otherwise, a non-zero number from the player containing their response
+     * @return false if the game has not ended. Otherwise, true
      */
-    public int end(Scanner sc) {
-        if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
-            int ENDD = 0;
-
-            while (ENDD == 0) {
-                System.out.print("\n| input 1 to play again: ");
-                ENDD = sc.nextInt();
-            }
-            return ENDD;
-        }
-            
-        return 0;
+    public boolean endGame() {
+        return farm.endGame(this.objectCoins, this.type.getSeedCostReduction());
     }
 
 }
