@@ -23,6 +23,11 @@ public class Coordinates {
     }
 
     @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
     public String toString() {
         return "(row: " + row + " col: " + col + ")";
     }
