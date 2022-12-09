@@ -57,7 +57,7 @@ public class FarmController {
                 ArrayList<FarmSeeds> modifiedFarmSeeds = new ArrayList<>();
                 FarmerType type = player.getType();
 
-                System.out.println("TODO: modify the seed");
+                System.out.println("TODO: modify the seed (check if modified)");
                 for(FarmSeeds seed : farm.getGame().getSeeds()) {
                     modifiedFarmSeeds.add(new FarmSeeds(seed.getName(),
                                                         seed.getCropType(),
@@ -68,8 +68,8 @@ public class FarmController {
                                                         seed.getFertilizerLimit(),
                                                         seed.getMinProductsProduced(),
                                                         seed.getMaxProductsProduced(),
-                                                        seed.getSeedCost(),
-                                                        seed.getSellingPrice(),
+                                                        seed.getSeedCost() + type.getSeedCostReduction(),
+                                                        seed.getSellingPrice() + type.getBonusEarning(),
                                                         seed.getExpYield()));
                 }
                 return modifiedFarmSeeds;
