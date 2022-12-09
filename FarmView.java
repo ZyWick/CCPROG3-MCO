@@ -21,7 +21,7 @@ public class FarmView {
         frame = new JFrame("Farm");
 
         baseCanvas = new JPanel();
-        baseCanvas.setBackground(new Color(0x477A1E));
+        baseCanvas.setBackground(new Color(0xB99C6B));
         baseCanvas.setLayout(new GridBagLayout());
 
 
@@ -181,10 +181,10 @@ public class FarmView {
 
     public void setPlayerStats(PlayerStats stats) {
         statsPanel.setText("<html>" +
-                "<span style=\"color: #33b5e5\"> Type: " + stats.getType() + "</span> <br>" +
-                "<span style=\"color: #33b5e5\"> Exp: " + stats.getExp() + "</span> <br>" +
-                "<span style=\"color: #33b5e5\"> Level: " + stats.getLevel() + "</span> <br>" +
-                "<span style=\"color: #33b5e5\"> Coins: " + stats.getObjectCoins() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> Type: " + stats.getType() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> Exp: " + stats.getExp() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> Level: " + stats.getLevel() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> Coins: " + stats.getObjectCoins() + "</span> <br>" +
                 "</html>");
     }
 
@@ -193,7 +193,7 @@ public class FarmView {
     }
 
     public void reportFeedback(String text){
-        feedbackPanel.setText("<html><span style=\"color: #ffffff\">" + text + "</span></html>");
+        feedbackPanel.setText("<html><span style=\"color: #5A2729\">" + text + "</span></html>");
     }
 
     /**
