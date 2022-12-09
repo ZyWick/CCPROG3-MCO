@@ -10,7 +10,7 @@ public class FarmSimulator {
      * @param args the command-line arguments passed to the program, currently unused
      */
     public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);
         MyFarm farm = new MyFarm();
         Player p1 = new Player(farm);
         int choice;
@@ -44,6 +44,6 @@ public class FarmSimulator {
                          System.exit(0);
                          break;
             }
-        }
+        }*/
     }
 }
