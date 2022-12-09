@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FarmView {
     private JFrame frame;
@@ -61,16 +65,82 @@ public class FarmView {
         frame.pack();
         frame.setVisible(true);
 
-        OnTileClickListener listener = new OnTileClickListener() {
+        OnTileClickListener tileClickListener = new OnTileClickListener() {
             @Override
             public void onClick(Coordinates coordinates) {
                 System.out.println("Recv click from " + coordinates);
+                showTileMenu();
             }
         };
 
-        tilePanel.setOnTileClickListener(listener);
+        tilePanel.setOnTileClickListener(tileClickListener);
     }
 
+    private void showTileMenu() {
+        JPopupMenu menu = new JPopupMenu();
+
+        String[] actions = {"Plant", "Harvest", "...", "....", "....."};
+
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(actionEvent.getSource() instanceof JMenuItem) {
+                    JMenuItem entry = (JMenuItem) actionEvent.getSource();
+
+                    switch (entry.getText()) {
+                        case "Plant": showPlantMenu(); break;
+                    }
+
+                }
+            }
+        };
+
+        for(String action : actions) {
+            JMenuItem menuEntry = new JMenuItem(action);
+            menuEntry.addActionListener(listener);
+            menu.add(menuEntry);
+        }
+
+        showMenuAtCursor(menu);
+    }
+    private void showPlantMenu() {
+        JPopupMenu menu = new JPopupMenu();
+
+        // TODO: get seed and seed cost from Player
+        String[] seeds = {"Turnip (cost: 1)", "Fruit", "Something"};
+
+        HashMap<String, String> translateMenuStringToSeed;
+
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(actionEvent.getSource() instanceof JMenuItem) {
+                    String entryName = ((JMenuItem) actionEvent.getSource()).getText();
+
+                    // TODO: translate entry name (with seed cost) to actual seed name using HashMap
+                    System.out.println("Tell controller to plant " + entryName);
+                }
+            }
+        };
+
+        seeds[1] = "h";
+
+        for(String seed : seeds) {
+            JMenuItem menuEntry = new JMenuItem(seed);
+            menuEntry.addActionListener(listener);
+            menu.add(menuEntry);
+        }
+
+        showMenuAtCursor(menu);
+    }
+
+    private void showMenuAtCursor(JPopupMenu menu) {
+        Point mouseLocation = frame.getMousePosition();
+        int x = (int) mouseLocation.getX();
+        int y = (int) mouseLocation.getY();
+
+        menu.show(frame, x, y);
+    }
     public void setOnTileMessageListener(OnViewMessageListener messageListener) {
         this.messageListener = messageListener;
     }
