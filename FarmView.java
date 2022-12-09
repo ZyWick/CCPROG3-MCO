@@ -6,6 +6,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class FarmView {
     private JFrame frame;
@@ -79,7 +81,14 @@ public class FarmView {
     private void showTileMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
-        String[] actions = {"Plant", "Harvest", "...", "....", "....."};
+        // LinkedHashMap preserves order of insertion
+        LinkedHashMap<String, String> actions = new LinkedHashMap<>();
+
+        actions.put("<html>Plant<br>Hide this if cannot plant<html>", "plant");
+        actions.put("Harvest", "harvest");
+        actions.put("...", "idk");
+        actions.put("....", "idk");
+        actions.put(".....", "idk");
 
         ActionListener listener = new ActionListener() {
             @Override
@@ -87,16 +96,19 @@ public class FarmView {
                 if(actionEvent.getSource() instanceof JMenuItem) {
                     JMenuItem entry = (JMenuItem) actionEvent.getSource();
 
-                    switch (entry.getText()) {
-                        case "Plant": showPlantMenu(coordinates); break;
+                    String action = actions.get(entry.getText());
+                    if(action != null) {
+                        switch (action) {
+                            case "plant": showPlantMenu(coordinates); break;
+                        }
                     }
-
                 }
             }
         };
 
-        for(String action : actions) {
-            JMenuItem menuEntry = new JMenuItem(action);
+        for(Map.Entry<String, String> hashMapEntry : actions.entrySet()) {
+            String menuEntryText = hashMapEntry.getKey();
+            JMenuItem menuEntry = new JMenuItem(menuEntryText);
             menuEntry.addActionListener(listener);
             menu.add(menuEntry);
         }
