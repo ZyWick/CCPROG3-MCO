@@ -84,11 +84,13 @@ public class FarmView {
         // LinkedHashMap preserves order of insertion
         LinkedHashMap<String, String> actions = new LinkedHashMap<>();
         actions.put(messageListener.requestTileStatus(coordinates), "nothing");
-        actions.put("<html>Plant<br>Hide this if cannot plant<html>", "plant");
+        actions.put("Plant", "plant");
         actions.put("Harvest", "harvest");
-        actions.put("...", "idk");
-        actions.put("....", "idk");
-        actions.put(".....", "idk");
+        actions.put("Plow", "plow");
+        actions.put("Water", "water");
+        actions.put("Fertilize", "fertilize");
+        actions.put("Pickaxe", "pickaxe");
+        actions.put("Shovel", "shovel");
 
         ActionListener listener = new ActionListener() {
             @Override
@@ -100,6 +102,12 @@ public class FarmView {
                     if(action != null) {
                         switch (action) {
                             case "plant": showPlantMenu(coordinates); break;
+                            case "harvest":   messageListener.onMessageHarvestCrop(coordinates); break;
+                            case "plow":      messageListener.onMessageUseTool(coordinates, "plow");
+                            case "water":     messageListener.onMessageUseTool(coordinates, "water");
+                            case "fertilize": messageListener.onMessageUseTool(coordinates, "fertilize");
+                            case "pickaxe":   messageListener.onMessageUseTool(coordinates, "pickaxe");
+                            case "shovel":    messageListener.onMessageUseTool(coordinates, "shovel");
                         }
                     }
                 }
