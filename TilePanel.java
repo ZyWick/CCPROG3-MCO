@@ -71,7 +71,7 @@ public class TilePanel extends JPanel {
     /*
     In this case, we want to add the listener to the tiles it holds
      */
-    public void setOnTileClickListener(OnTileClickListener onTileClickListener) {
+    public void addOnTileClickListener(OnTileClickListener onTileClickListener) {
         for(Map.Entry<Coordinates, TileView> entry : tileViews.entrySet()) {
             entry.getValue().setOnTileClickListener(onTileClickListener);
         }

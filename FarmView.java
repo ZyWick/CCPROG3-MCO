@@ -61,12 +61,13 @@ public class FarmView {
         frame.pack();
         frame.setVisible(true);
 
+        OnTileClickListener listener = new OnTileClickListener() {
+            @Override
+            public void onClick(Coordinates coordinates) {
+                System.out.println("Recv click from " + coordinates);
+            }
+        };
 
-
-
-    }
-
-    public void setOnTileClickListener(OnTileClickListener listener){
-        tilePanel.setOnTileClickListener(listener);
+        tilePanel.addOnTileClickListener(listener);
     }
 }
