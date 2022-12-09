@@ -22,10 +22,16 @@ public class FarmSimulatorGUI{
             @Override
             public void onMessageRegisterFarmer() {
                 System.out.println("Player wants to register");
+                try {
+                    player.registerUp();
+                } catch(Exception e) {
+                    farmView.reportError(e);
+                }
             }
         });
 
         farmView.setPlayerStats(player.getPlayerStats());
+        //farmView.reportError(new Exception("this is a test error"));
     }
 
 }

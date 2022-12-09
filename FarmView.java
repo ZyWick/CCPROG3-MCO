@@ -78,4 +78,8 @@ public class FarmView {
     public void setPlayerStats(PlayerStats stats) {
         statsPanel.setPlayerStats(stats);
     }
+
+    public void reportError(Exception e){
+        JOptionPane.showMessageDialog(frame, e.getMessage());
+    }
 }
