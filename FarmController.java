@@ -28,7 +28,7 @@ public class FarmController {
 
             @Override
             public void onMessageUseTool(Coordinates coordinates, String toolName) {
-                System.out.println("Use " + " at coordinate " + coordinates);
+                System.out.println("Use " + toolName + " at coordinate " + coordinates);
 
                 updateFarmView();
             }
