@@ -31,11 +31,8 @@ public class FarmController {
                             choice = farm.getGame().getSeeds().indexOf(seed);
 
                     error = farm.checkPlantCrop(coordinates, player.getType().getSeedCostReduction(), choice, player.getObjectCoins());
-                    if (error == 0) {
-                        int cost = farm.plantCrop(coordinates, choice);
-                        player.addObjectCoins((cost + player.getType().getSeedCostReduction()) * -1); 
-                        System.out.println("| ObjectCoins expended: " + (cost + player.getType().getSeedCostReduction()));
-                    }
+                    if (error == 0) 
+                        player.plantCrop(coordinates, choice);
                 } 
                 if (error != 0)
                     farm.getGame().throwPlantError(error);
@@ -55,13 +52,8 @@ public class FarmController {
                     int error = farm.canUseTool(coordinates, toolName, choice.getUsageCost(), player.getObjectCoins());
 
                     if (error == 0) {
-                        double[] yield = choice.useTool(farm, coordinates);
-            
-                        player.addObjectCoins(yield[0]); 
-                        player.addExp(yield[1]);
-                        System.out.println("| ObjectCoins expended: " + yield[0]);
-                        System.out.println("| Experience gained: " + yield[1]);
-                
+                        player.useTool(coordinates, choice);
+
                     } else 
                         farm.getGame().throwToolError(error);
                 } else
@@ -76,11 +68,7 @@ public class FarmController {
 
                 int error = farm.checkHarvest(coordinates);
                 if (error == 0) {
-                    double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(player.getType()));
-                    player.addObjectCoins(yield[0]);
-                    player.addExp(yield[1]);
-                    System.out.println("| ObjectCoins gained: " + yield[0]);
-                    System.out.println("| Experience gained: " + yield[1]);
+                    player.harvestCrop(coordinates);
                 } else 
                     farm.getGame().throwHarvestError(error);
 

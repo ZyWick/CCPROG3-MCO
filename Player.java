@@ -163,51 +163,37 @@ public class Player {
      * @param sc the Scanner to get input from
      * @param tileIndex the tile index
      */
-    /*private void useTool (Scanner sc, Coordinates tileIndex) {
-        int choice = getToolChoice(sc, tileIndex);
-        if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
-            double[] yield = new double[2];
+    public void useTool (Coordinates coordinates, FarmTools tool) {
+        double[] yield = tool.useTool(farm, coordinates);
             
-            yield = tools.get(choice).useTool(farm, tileIndex);
+        addObjectCoins(yield[0]); 
+        addExp(yield[1]);
+        System.out.println("| ObjectCoins expended: " + yield[0]);
+        System.out.println("| Experience gained: " + yield[1]);
+    }
 
-            this.objectCoins -= yield[0];
-            this.addExp(yield[1]);
-            System.out.println("| ObjectCoins expended: " + yield[0]);
-            System.out.println("| Experience gained: " + yield[1]);
-        }
-    }*/
-
-    // /**
-    //  * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
-    //  * @param sc the Scanner to get input from
-    //  * @param tileIndex the tile index
-    //  */
-    // private void plantCrop (Scanner sc, Coordinates tileIndex) {
-    //     if(farm.checkPlantInTile(tileIndex)) {
-    //         int choice = getSeedChoice(sc);
-
-    //         if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
-    //             int cost = farm.plantCrop(tileIndex, choice);
-
-    //             this.objectCoins -= cost + this.type.getSeedCostReduction();
-    //             System.out.println("| ObjectCoins expended: " + (cost + this.type.getSeedCostReduction()));
-    //         }
-    //     } 
-    // }
+    /**
+     * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
+     * @param sc the Scanner to get input from
+     * @param tileIndex the tile index
+     */
+    public void plantCrop (Coordinates coordinates, int seedIndex) {
+        int cost = farm.plantCrop(coordinates, seedIndex);
+        addObjectCoins((cost + this.type.getSeedCostReduction()) * -1); 
+        System.out.println("| ObjectCoins expended: " + (cost + this.getType().getSeedCostReduction()));
+    }
 
     // /**
     //  * Attempts to harvest a crop at a specific tile index
     //  * @param tileIndex the tile index
     //  */
-    // private void harvestCrop (Coordinates tileIndex) {
-    //     if (farm.checkHarvest(tileIndex)) {
-    //         double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
-    //         this.objectCoins += yield[0];
-    //         this.addExp(yield[1]);
-    //         System.out.println("| ObjectCoins gained: " + yield[0]);
-    //         System.out.println("| Experience gained: " + yield[1]);
-    //     }
-    // }
+    public void harvestCrop (Coordinates coordinates) {
+            double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
+            addObjectCoins(yield[0]);
+            addExp(yield[1]);
+            System.out.println("| ObjectCoins gained: " + yield[0]);
+            System.out.println("| Experience gained: " + yield[1]);
+    }
 
     /**
      * Advance day.
