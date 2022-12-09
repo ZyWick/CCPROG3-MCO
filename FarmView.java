@@ -68,6 +68,6 @@ public class FarmView {
             }
         };
 
-        tilePanel.addOnTileClickListener(listener);
+        tilePanel.setOnTileClickListener(listener);
     }
 }
