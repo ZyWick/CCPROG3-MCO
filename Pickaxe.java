@@ -15,6 +15,7 @@ public class Pickaxe implements FarmTools{
     public int getUsageCost() {
         return this.usageCost;
     }
+    
 
     private double[] getToolCostAndYield() {
         double[] yield = new double[2]; 

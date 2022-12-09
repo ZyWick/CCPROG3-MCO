@@ -22,20 +22,23 @@ public class FarmController {
             @Override
             public void onMessagePlant(Coordinates coordinates, String seedName) {
                 System.out.println("Plant " + seedName + " at coordinate " + coordinates);
-
-                if(farm.checkPlantInTile(coordinates)) {
+                
+                int error = farm.checkPlantInTile(coordinates);
+                if(error == 0) {
                     int choice = 999;
                     for (FarmSeeds seed : farm.getGame().getSeeds())
                         if (seed.getName().equals(seedName))
                             choice = farm.getGame().getSeeds().indexOf(seed);
 
-                    if (farm.checkPlantCrop(coordinates, player.getType().getSeedCostReduction(), choice, player.getObjectCoins())) {
+                    error = farm.checkPlantCrop(coordinates, player.getType().getSeedCostReduction(), choice, player.getObjectCoins());
+                    if (error == 0) {
                         int cost = farm.plantCrop(coordinates, choice);
-        
                         player.addObjectCoins((cost + player.getType().getSeedCostReduction()) * -1); 
                         System.out.println("| ObjectCoins expended: " + (cost + player.getType().getSeedCostReduction()));
                     }
                 } 
+                if (error != 0)
+                    farm.getGame().throwPlantError(error);
 
                 updateFarmView();
             }
@@ -70,6 +73,16 @@ public class FarmController {
             @Override
             public void onMessageHarvestCrop(Coordinates coordinates) {
                 System.out.println("Harvest at coordinate " + coordinates);
+
+                int error = farm.checkHarvest(coordinates);
+                if (error == 0) {
+                    double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(player.getType()));
+                    player.addObjectCoins(yield[0]);
+                    player.addExp(yield[1]);
+                    System.out.println("| ObjectCoins gained: " + yield[0]);
+                    System.out.println("| Experience gained: " + yield[1]);
+                } else 
+                    farm.getGame().throwHarvestError(error);
 
                 updateFarmView();
             }

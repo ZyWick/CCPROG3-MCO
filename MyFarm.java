@@ -194,19 +194,14 @@ public class MyFarm {
      * @param tileIndex   the index of the tile
      * @return true if a new seed can be planted, otherwise false
      */
-    public boolean checkPlantInTile (Coordinates tileIndex) {
-        boolean result = true;
+    public int checkPlantInTile (Coordinates tileIndex) {
+        int result = 0;
 
-        if (lot.get(tileIndex).isPlowed() == false) {
-            result = false;
-            game.throwPlantError(1);
-        }
-
-        if (lot.get(tileIndex).getSeeds() != null) {
-            result = false;
-            game.throwPlantError(2);
-        }
-
+        if (lot.get(tileIndex).isPlowed() == false) 
+            result = 1;
+        if (lot.get(tileIndex).getSeeds() != null) 
+            result = 2;
+        
         return result;
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * FarmSystem contains the available items and helper methods
  */
 public class FarmSystem {
-    private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
+    // private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
     private ArrayList<FarmSeeds> seeds = new ArrayList<FarmSeeds>();
     private ArrayList<FarmerType> type = new ArrayList<FarmerType>();
     private int day = 1;
@@ -113,6 +113,8 @@ public class FarmSystem {
         switch (error) {
             case 1: System.out.println("\n| Error: tile is unplowed"); break;
             case 2: System.out.println("\n| Error: tile has a crop already"); break;
+            case 3: throwInsufficientObjectCoins(); break;
+            case 4: throwOutOfBoundsError(); break;
         }
     }
 
@@ -145,14 +147,14 @@ public class FarmSystem {
         System.out.println("\n| Error: insufficient level");
     }
 
-    /**
-     * Returns the list of tools that are available in the game
-     *
-     * @return the list of available tools
-     */
-    public ArrayList<FarmTools> getTools() {
-        return this.tools;
-    }
+    // /**
+    //  * Returns the list of tools that are available in the game
+    //  *
+    //  * @return the list of available tools
+    //  */
+    // public ArrayList<FarmTools> getTools() {
+    //     return this.tools;
+    // }
 
     /**
      * Returns the list of seeds that are available in the game
