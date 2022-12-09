@@ -13,7 +13,7 @@ public class FarmView {
     private JFrame frame;
     private JPanel baseCanvas;
 
-    private StatsPanel statsPanel;
+    private JLabel statsPanel;
     private TilePanel tilePanel;
     private OnViewMessageListener messageListener;
 
@@ -29,7 +29,7 @@ public class FarmView {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        statsPanel = new StatsPanel();
+        statsPanel = new JLabel();
 
         // (0, 0) with height of 1 row
         c.gridx = 0;
@@ -164,7 +164,12 @@ public class FarmView {
     }
 
     public void setPlayerStats(PlayerStats stats) {
-        statsPanel.setPlayerStats(stats);
+        statsPanel.setText("<html>" +
+                "<span style=\"color: #33b5e5\"> Type: " + stats.getType() + "</span> <br>" +
+                "<span style=\"color: #33b5e5\"> Exp: " + stats.getExp() + "</span> <br>" +
+                "<span style=\"color: #33b5e5\"> Level: " + stats.getLevel() + "</span> <br>" +
+                "<span style=\"color: #33b5e5\"> Coins: " + stats.getObjectCoins() + "</span> <br>" +
+                "</html>");
     }
 
     public void setTileStates(HashMap<Coordinates, TileState> states) {
