@@ -25,14 +25,23 @@ public class FarmController {
                 
                 int error = farm.checkPlantInTile(coordinates);
                 if(error == 0) {
-                    int choice = 999;
+                    FarmSeeds choice = null;
                     for (FarmSeeds seed : farm.getGame().getSeeds())
                         if (seed.getName().equals(seedName))
-                            choice = farm.getGame().getSeeds().indexOf(seed);
+                            choice = seed;
+                           
+                            if (choice != null) {
 
-                    error = farm.checkPlantCrop(coordinates, player.getType().getSeedCostReduction(), choice, player.getObjectCoins());
-                    if (error == 0) 
-                        player.plantCrop(coordinates, choice);
+                                if (player.canAffordSeed(choice.getSeedCost())) {
+                                    if (choice instanceof FruitTree) {
+                                        // if property checkFreeAdjacentTile()
+                                            player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
+                                    } else
+                                        player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
+                                } else
+                                    error = 3; //game.throwInsufficientObjectCoins();
+                            } else
+                                error = 4; //game.throwOutOfBoundsError();
                 } 
                 if (error != 0)
                     farm.getGame().throwPlantError(error);
@@ -95,7 +104,7 @@ public class FarmController {
                 System.out.println("TODO: modify the seed (check if modified)");
                 for(FarmSeeds seed : farm.getGame().getSeeds()) {
                     modifiedFarmSeeds.add(new FarmSeeds(seed.getName(),
-                                                        seed.getCropType(),
+                                                     /*   seed.getCropType(), */
                                                         seed.getHarvestTime(),
                                                         seed.getWaterNeeds(),
                                                         seed.getWaterLimit(),

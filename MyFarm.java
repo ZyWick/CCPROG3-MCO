@@ -205,29 +205,31 @@ public class MyFarm {
         return result;
     }
 
-    /**
-     * Checks if a specific seed can be planted on the tile
-     *
-     * @param tileIndex               the index of the tile
-     * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
-     * @param seedIndex               the index of the seed
-     * @param objectCoins             the number of ObjectCoins the player has
-     * @return true if the specific seed can be planted, otherwise false
-     */
-    public int checkPlantCrop (Coordinates tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
-        int result = 0;
+    // /**
+    //  * Checks if a specific seed can be planted on the tile
+    //  *
+    //  * @param tileIndex               the index of the tile
+    //  * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
+    //  * @param seedIndex               the index of the seed
+    //  * @param objectCoins             the number of ObjectCoins the player has
+    //  * @return true if the specific seed can be planted, otherwise false
+    //  */
+    // public int checkPlantCrop (Coordinates tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
+    //     int result = 0;
 
-        if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
+    //     if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
 
-            if (canAffordSeed(objectCoins, game.getSeeds().get(seedIndex).getSeedCost(), farmerSeedCostReduction)) {
-                return result;
-            } else
-                result = 3; //game.throwInsufficientObjectCoins();
-        } else
-            result = 4; //game.throwOutOfBoundsError();
+    //         if (canAffordSeed(objectCoins, game.getSeeds().get(seedIndex).getSeedCost(), farmerSeedCostReduction)) {
+    //             if (game.getSeeds().get(seedIndex) instanceof FruitTree) {
 
-        return result;
-    }
+    //             }
+    //         } else
+    //             result = 3; //game.throwInsufficientObjectCoins();
+    //     } else
+    //         result = 4; //game.throwOutOfBoundsError();
+
+    //     return result;
+    // }
 
     /**
      * Check if the tile can be harvested

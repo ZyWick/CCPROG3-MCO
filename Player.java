@@ -208,6 +208,13 @@ public class Player {
         farm.ageLot();
     }
 
+    public boolean canAffordSeed(int seedCost) {
+        if (this.objectCoins >= seedCost + this.type.getSeedCostReduction())
+            return true;
+
+        return false;
+    }
+
     private static final int REGISTER_UP_OK = 0;
     private static final int REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS = 1;
     private static final int REGISTER_UP_ERR_INSUFFICIENT_LEVEL = 2;
