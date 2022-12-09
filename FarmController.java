@@ -54,7 +54,25 @@ public class FarmController {
 
             @Override
             public ArrayList<FarmSeeds> requestFarmSeedsWithBonuses() {
-                return null;
+                ArrayList<FarmSeeds> modifiedFarmSeeds = new ArrayList<>();
+                FarmerType type = player.getType();
+
+                System.out.println("TODO: modify the seed");
+                for(FarmSeeds seed : farm.getGame().getSeeds()) {
+                    modifiedFarmSeeds.add(new FarmSeeds(seed.getName(),
+                                                        seed.getCropType(),
+                                                        seed.getHarvestTime(),
+                                                        seed.getWaterNeeds(),
+                                                        seed.getWaterLimit(),
+                                                        seed.getFertilizerNeeds(),
+                                                        seed.getFertilizerLimit(),
+                                                        seed.getMinProductsProduced(),
+                                                        seed.getMaxProductsProduced(),
+                                                        seed.getSeedCost(),
+                                                        seed.getSellingPrice(),
+                                                        seed.getExpYield()));
+                }
+                return modifiedFarmSeeds;
             }
 
             @Override

@@ -134,25 +134,33 @@ public class FarmView {
     private void showPlantMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
-        // TODO: get seed and seed cost from Player
-        String[] seeds = {"Turnip (cost: 1)", "Fruit", "Something"};
+        // get seed and seed cost from Player
+        ArrayList<FarmSeeds> seeds = messageListener.requestFarmSeedsWithBonuses();
+        ArrayList<String> menuEntries = new ArrayList<>();
+        HashMap<String, String> translateMenuStringToSeed = new HashMap<>();
 
-        HashMap<String, String> translateMenuStringToSeed;
+        for (FarmSeeds seed : seeds) {
+            String menuEntry = seed.getName() + " (cost: " + seed.getSeedCost() + ")";
+            menuEntries.add(menuEntry);
+            translateMenuStringToSeed.put(menuEntry, seed.getName());
+        }
 
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if(actionEvent.getSource() instanceof JMenuItem) {
                     String entryName = ((JMenuItem) actionEvent.getSource()).getText();
+                    String seedName = translateMenuStringToSeed.get(entryName);
 
-                    // TODO: translate entry name (with seed cost) to actual seed name using HashMap
-                    System.out.println("Tell controller to plant " + entryName + " at " + coordinates);
+                    if(seedName != null){
+                        messageListener.onMessagePlant(coordinates, seedName);
+                    }
                 }
             }
         };
 
-        for(String seed : seeds) {
-            JMenuItem menuEntry = new JMenuItem(seed);
+        for(String menuEntryStr : menuEntries) {
+            JMenuItem menuEntry = new JMenuItem(menuEntryStr);
             menuEntry.addActionListener(listener);
             menu.add(menuEntry);
         }

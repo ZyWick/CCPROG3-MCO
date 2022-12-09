@@ -273,4 +273,8 @@ public class Player {
         return farm.endGame(this.objectCoins, this.type.getSeedCostReduction());
     }
 
+    public FarmerType getType() {
+        return type;
+    }
+
 }
