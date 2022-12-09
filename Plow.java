@@ -7,7 +7,7 @@ public class Plow implements FarmTools{
         
     }
 
-    public double[] useTool(MyFarm farm, int tileIndex) {
+    public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.plowTile(tileIndex);
         return getToolCostAndYield();
     }

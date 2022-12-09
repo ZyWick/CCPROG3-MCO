@@ -81,7 +81,7 @@ public class Player {
      * @param tileIndex the tile index
      * @return an int representing the player's choice
      */
-    private int getToolChoice(Scanner sc, int tileIndex) {
+    private int getToolChoice(Scanner sc, Coordinates tileIndex) {
         int choice;
         System.out.println("\nWhich tool do you want to use?");
         farm.displayTools(tileIndex, this.objectCoins);
@@ -129,8 +129,8 @@ public class Player {
      * @param sc the Scanner to get input from
      */
     public void interactTile(Scanner sc) {
-        // int tileIndex = getTileIndex(sc);
-        int tileIndex = 0;
+        // Coordinates tileIndex = getTileIndex(sc);
+        /*Coordinates tileIndex = 0;
         farm.getGame().displayInteractionChoices();;
         int choice = sc.nextInt();
         switch (choice) {
@@ -143,7 +143,7 @@ public class Player {
             case 4: farm.displayTileStatus(tileIndex);
                     break;
             default: break;
-            }
+            }*/
     }
 
     /**
@@ -163,7 +163,7 @@ public class Player {
      * @param sc the Scanner to get input from
      * @param tileIndex the tile index
      */
-    private void useTool (Scanner sc, int tileIndex) {
+    /*private void useTool (Scanner sc, Coordinates tileIndex) {
         int choice = getToolChoice(sc, tileIndex);
         if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
             double[] yield = new double[2];
@@ -175,14 +175,14 @@ public class Player {
             System.out.println("| ObjectCoins expended: " + yield[0]);
             System.out.println("| Experience gained: " + yield[1]);
         }
-    }
+    }*/
 
     /**
      * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
      * @param sc the Scanner to get input from
      * @param tileIndex the tile index
      */
-    private void plantCrop (Scanner sc, int tileIndex) {
+    private void plantCrop (Scanner sc, Coordinates tileIndex) {
         if(farm.checkPlantInTile(tileIndex)) {
             int choice = getSeedChoice(sc);
 
@@ -199,7 +199,7 @@ public class Player {
      * Attempts to harvest a crop at a specific tile index
      * @param tileIndex the tile index
      */
-    private void harvestCrop (int tileIndex) {
+    private void harvestCrop (Coordinates tileIndex) {
         if (farm.checkHarvest(tileIndex)) {
             double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
             this.objectCoins += yield[0];

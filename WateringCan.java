@@ -7,7 +7,7 @@ public class WateringCan implements FarmTools{
         
     }
 
-    public double[] useTool(MyFarm farm, int tileIndex) {
+    public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.waterTile(tileIndex);
         return getToolCostAndYield();
     }

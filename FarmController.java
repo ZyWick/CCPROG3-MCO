@@ -59,8 +59,7 @@ public class FarmController {
 
             @Override
             public String requestTileStatus(Coordinates coordinates) {
-                System.out.println("fix me");
-                return farm.displayTileStatus(0);
+                return farm.displayTileStatus(coordinates);
             }
         });
 
