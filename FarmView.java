@@ -135,8 +135,6 @@ public class FarmView {
             }
         };
 
-        seeds[1] = "h";
-
         for(String seed : seeds) {
             JMenuItem menuEntry = new JMenuItem(seed);
             menuEntry.addActionListener(listener);
