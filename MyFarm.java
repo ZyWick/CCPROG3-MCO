@@ -128,6 +128,9 @@ public class MyFarm {
         lot.get(tileIndex).displayTileStatus();
    }
 
+   private int canUseTool(int tileIndex, int toolIndex, double objectCoins){
+        return 0;
+   }
     // /**
     //  * Checks if the tool can be used by the player on the specified tile
     //  * @param tileIndex   the index of the tool
