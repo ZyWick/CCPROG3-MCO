@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,14 +15,22 @@ public class MyFarm {
      * Creates a new MyFarm
      */
     public MyFarm() {
-        // TODO: load rock cfg from file
+        // load rock cfg from file
+        // format '0' if no rock, '1' if rock
+        String rockCfg = "0"; // failsafe 0
+        try {
+            Path rockCfgPath = Path.of("rocks.txt");
+            rockCfg = Files.readString(rockCfgPath);
+        } catch (IOException e) {
+            // silently fail
+        }
 
         Coordinates farmSize = new Coordinates(5, 10);
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
                 //if indicated
                 System.out.println(new Coordinates(y, x));
-                lot.put(new Coordinates(y, x), new Tile(false));
+                lot.put(new Coordinates(y, x), new Tile(rockCfg.charAt(y * farmSize.getRow() + x) == '1'));
                 //lot.add(new Tile(true));
             }
         }
