@@ -6,6 +6,8 @@ import java.awt.event.ComponentEvent;
 public class FarmSimulatorGUI{
     public static void main (String[] args) {
         FarmView farmView = new FarmView();
+        MyFarm farm = new MyFarm();
+        Player player = new Player(farm);
         farmView.setOnTileMessageListener(new OnTileMessageListener() {
             @Override
             public void onMessagePlant(Coordinates coordinates, String seedName) {
@@ -22,6 +24,8 @@ public class FarmSimulatorGUI{
                 System.out.println("Harvest at coordinate " + coordinates);
             }
         });
+
+        farmView.setPlayerStats(player.getPlayerStats());
     }
 
 }

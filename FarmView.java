@@ -76,4 +76,8 @@ public class FarmView {
     public void setOnTileMessageListener(OnTileMessageListener messageListener) {
         this.messageListener = messageListener;
     }
+
+    public void setPlayerStats(PlayerStats stats) {
+        statsPanel.setPlayerStats(stats);
+    }
 }
