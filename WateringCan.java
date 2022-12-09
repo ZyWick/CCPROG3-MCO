@@ -12,7 +12,7 @@ public class WateringCan implements FarmTools{
         return getToolCostAndYield();
     }
 
-    public int int getUsageCost() {
+    public int getUsageCost() {
         return this.usageCost;
     }
 
