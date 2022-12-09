@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class FarmSimulatorGUI{
     public static void main (String[] args) {
         FarmView farmView = new FarmView();
@@ -27,6 +29,11 @@ public class FarmSimulatorGUI{
                 } catch(Exception e) {
                     farmView.reportError(e);
                 }
+            }
+
+            @Override
+            public ArrayList<FarmSeeds> requestFarmSeedsWithBonuses() {
+                return null;
             }
         });
 
