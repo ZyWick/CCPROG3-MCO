@@ -46,6 +46,10 @@ public class Player {
                 System.out.println(" |");
         }
     }
+    public PlayerStats getPlayerStats() {
+        return new PlayerStats(type.getName(), this.objectCoins,
+                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay());
+    }
 
     /**
      * Displays the list of available game tasks and obtains the player's choice
