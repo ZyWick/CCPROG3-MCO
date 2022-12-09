@@ -1,14 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-
 public class FarmSimulatorGUI{
     public static void main (String[] args) {
         FarmView farmView = new FarmView();
         MyFarm farm = new MyFarm();
         Player player = new Player(farm);
-        farmView.setOnTileMessageListener(new OnTileMessageListener() {
+        farmView.setOnTileMessageListener(new OnViewMessageListener() {
             @Override
             public void onMessagePlant(Coordinates coordinates, String seedName) {
                 System.out.println("Plant " + seedName + " at coordinate " + coordinates);
