@@ -18,6 +18,11 @@ public class FarmSimulatorGUI{
             public void onMessageHarvestCrop(Coordinates coordinates) {
                 System.out.println("Harvest at coordinate " + coordinates);
             }
+
+            @Override
+            public void onMessageRegisterFarmer() {
+                System.out.println("Player wants to register");
+            }
         });
 
         farmView.setPlayerStats(player.getPlayerStats());
