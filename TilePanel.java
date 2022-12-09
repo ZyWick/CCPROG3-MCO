@@ -76,4 +76,36 @@ public class TilePanel extends JPanel {
             entry.getValue().setOnTileClickListener(onTileClickListener);
         }
     }
+
+    public void setTileStates(HashMap<Coordinates, TileState> states) {
+        for(Map.Entry<Coordinates, TileState> hashMapEntry : states.entrySet()) {
+            Coordinates targetTile = hashMapEntry.getKey();
+            TileState state = hashMapEntry.getValue();
+
+            TileView tileView = tileViews.get(targetTile);
+            if(tileView != null) {
+                // set image of tile
+                switch (state.getState()) {
+                    case TileState.ROCK:
+                        // set image to rock
+                        break;
+                    case TileState.UNPLOWED:
+                        // set image to unplowed
+                        break;
+                    case TileState.PLOWED:
+                        // set image to plowed
+                        break;
+                    case TileState.PLANTED:
+                        // set image to generic seed
+                        break;
+                    case TileState.READY:
+                        // set image to the seed name
+                        break;
+                    case TileState.WITHERED:
+                        // set image to dust
+                        break;
+                }
+            }
+        }
+    }
 }

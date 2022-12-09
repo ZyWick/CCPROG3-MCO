@@ -124,8 +124,8 @@ public class MyFarm {
      *
      * @param tileIndex the index of the tile
      */
-    public void displayTileStatus(int tileIndex) {
-        lot.get(tileIndex).displayTileStatus();
+    public String displayTileStatus(int tileIndex) {
+        return lot.get(tileIndex).displayTileStatus();
    }
 
    private int canUseTool(int tileIndex, int toolIndex, double objectCoins){

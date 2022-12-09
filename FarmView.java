@@ -83,7 +83,7 @@ public class FarmView {
 
         // LinkedHashMap preserves order of insertion
         LinkedHashMap<String, String> actions = new LinkedHashMap<>();
-
+        actions.put(messageListener.requestTileStatus(coordinates), "nothing");
         actions.put("<html>Plant<br>Hide this if cannot plant<html>", "plant");
         actions.put("Harvest", "harvest");
         actions.put("...", "idk");
@@ -159,6 +159,10 @@ public class FarmView {
 
     public void setPlayerStats(PlayerStats stats) {
         statsPanel.setPlayerStats(stats);
+    }
+
+    public void setTileStates(HashMap<Coordinates, TileState> states) {
+        tilePanel.setTileStates(states);
     }
 
     public void reportError(Exception e){

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FarmController {
     private FarmView farmView;
@@ -49,6 +50,12 @@ public class FarmController {
             public ArrayList<FarmSeeds> requestFarmSeedsWithBonuses() {
                 return null;
             }
+
+            @Override
+            public String requestTileStatus(Coordinates coordinates) {
+                System.out.println("fix me");
+                return farm.displayTileStatus(0);
+            }
         });
 
         updateFarmView();
@@ -58,5 +65,18 @@ public class FarmController {
     private void updateFarmView() {
         // get stuff from player
         farmView.setPlayerStats(player.getPlayerStats());
+
+        HashMap<Coordinates, TileState> states = new HashMap<>();
+        int row = 5;
+        int col = 10;
+        for (int i = 0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                // get tile condition
+
+                // TODO: replace this
+                states.put(new Coordinates(i, j), new TileState("", TileState.ROCK));
+            }
+        }
+        farmView.setTileStates(states);
     }
 }

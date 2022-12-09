@@ -30,17 +30,21 @@ public class Tile {
     /**
      * Prints information about the Tile
      */
-    public void displayTileStatus() {
-        System.out.println("\nAbout tile:");
-        System.out.println("rock: " + this.rock);
-        System.out.println("plowed: " + this.plowed);
+    public String displayTileStatus() {
+        String status = "<html><pre>";
+        status += "\nAbout tile:" + "\n";
+        status += "rock: " + this.rock + "\n";
+        status += "plowed: " + this.plowed + "\n";
         if (this.seeds != null) {
-            System.out.println("crop: " + this.seeds.getName());
-            System.out.println("Times Watered: " + this.waterTimes);
-            System.out.println("Times Fertilized: " + this.fertilizerTimes);
-            System.out.println("Age: " + this.age +" days");
+            status += "crop: " + this.seeds.getName() + "\n";
+            status += "Times Watered: " + this.waterTimes + "\n";
+            status += "Times Fertilized: " + this.fertilizerTimes + "\n";
+            status += "Age: " + this.age +" days" + "\n";
         } else
-            System.out.println("...no crop planted");
+            status += "...no crop planted" + "\n";
+
+        status += "</pre></html>";
+        return status;
     }
 
     /**

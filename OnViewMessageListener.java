@@ -6,4 +6,6 @@ public interface OnViewMessageListener {
     public void onMessageHarvestCrop(Coordinates coordinates);
     public void onMessageRegisterFarmer();
     public ArrayList<FarmSeeds> requestFarmSeedsWithBonuses();
+
+    public String requestTileStatus(Coordinates coordinates);
 }
