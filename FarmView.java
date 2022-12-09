@@ -69,14 +69,14 @@ public class FarmView {
             @Override
             public void onClick(Coordinates coordinates) {
                 System.out.println("Recv click from " + coordinates);
-                showTileMenu();
+                showTileMenu(coordinates);
             }
         };
 
         tilePanel.setOnTileClickListener(tileClickListener);
     }
 
-    private void showTileMenu() {
+    private void showTileMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
         String[] actions = {"Plant", "Harvest", "...", "....", "....."};
@@ -88,7 +88,7 @@ public class FarmView {
                     JMenuItem entry = (JMenuItem) actionEvent.getSource();
 
                     switch (entry.getText()) {
-                        case "Plant": showPlantMenu(); break;
+                        case "Plant": showPlantMenu(coordinates); break;
                     }
 
                 }
@@ -103,7 +103,7 @@ public class FarmView {
 
         showMenuAtCursor(menu);
     }
-    private void showPlantMenu() {
+    private void showPlantMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
         // TODO: get seed and seed cost from Player
@@ -118,7 +118,7 @@ public class FarmView {
                     String entryName = ((JMenuItem) actionEvent.getSource()).getText();
 
                     // TODO: translate entry name (with seed cost) to actual seed name using HashMap
-                    System.out.println("Tell controller to plant " + entryName);
+                    System.out.println("Tell controller to plant " + entryName + " at " + coordinates);
                 }
             }
         };
