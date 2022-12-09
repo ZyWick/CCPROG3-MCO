@@ -103,11 +103,11 @@ public class FarmView {
                         switch (action) {
                             case "plant": showPlantMenu(coordinates); break;
                             case "harvest":   messageListener.onMessageHarvestCrop(coordinates); break;
-                            case "plow":      messageListener.onMessageUseTool(coordinates, "plow");
-                            case "water":     messageListener.onMessageUseTool(coordinates, "water");
-                            case "fertilize": messageListener.onMessageUseTool(coordinates, "fertilize");
-                            case "pickaxe":   messageListener.onMessageUseTool(coordinates, "pickaxe");
-                            case "shovel":    messageListener.onMessageUseTool(coordinates, "shovel");
+                            case "plow":      messageListener.onMessageUseTool(coordinates, "plow"); break;
+                            case "water":     messageListener.onMessageUseTool(coordinates, "water"); break;
+                            case "fertilize": messageListener.onMessageUseTool(coordinates, "fertilize"); break;
+                            case "pickaxe":   messageListener.onMessageUseTool(coordinates, "pickaxe"); break;
+                            case "shovel":    messageListener.onMessageUseTool(coordinates, "shovel"); break;
                         }
                     }
                 }
