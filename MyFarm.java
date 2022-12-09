@@ -22,7 +22,7 @@ public class MyFarm {
             Path rockCfgPath = Path.of("rocks.txt");
             rockCfg = Files.readString(rockCfgPath);
         } catch (IOException e) {
-            // silently fail
+            System.out.println("Failed to read rocks.txt");
         }
 
         Coordinates farmSize = new Coordinates(5, 10);
