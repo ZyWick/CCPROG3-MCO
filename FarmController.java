@@ -46,7 +46,7 @@ public class FarmController {
                 try {
                     player.registerUp();
                 } catch(Exception e) {
-                    farmView.reportError(e);
+                    farmView.reportFeedback(e.getMessage());
                 }
 
                 updateFarmView();
@@ -64,7 +64,7 @@ public class FarmController {
         });
 
         updateFarmView();
-        //farmView.reportError(new Exception("this is a test error"));
+        farmView.reportFeedback("welcome");
     }
 
     private void updateFarmView() {

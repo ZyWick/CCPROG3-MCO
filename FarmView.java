@@ -13,7 +13,7 @@ public class FarmView {
     private JFrame frame;
     private JPanel baseCanvas;
 
-    private JLabel statsPanel;
+    private JLabel statsPanel, feedbackPanel;
     private TilePanel tilePanel;
     private OnViewMessageListener messageListener;
 
@@ -30,12 +30,13 @@ public class FarmView {
         GridBagConstraints c = new GridBagConstraints();
 
         statsPanel = new JLabel();
+        feedbackPanel = new JLabel();
 
         // (0, 0) with height of 1 row
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 1;
-        c.fill = GridBagConstraints.BOTH;
+        //c.fill = GridBagConstraints.BOTH;
         baseCanvas.add(statsPanel, c);
 
         tilePanel = new TilePanel(5, 10, new Dimension(1024, 768));
@@ -57,8 +58,15 @@ public class FarmView {
         c.gridx = 0;
         c.gridy = 1;
         c.gridheight = 1;
-        c.fill = GridBagConstraints.BOTH;
+        //c.fill = GridBagConstraints.BOTH;
         baseCanvas.add(tilePanel, c);
+
+        // (0, 2)
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridheight = 1;
+        //c.fill = GridBagConstraints.BOTH;
+        baseCanvas.add(feedbackPanel, c);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1024, 768));
@@ -176,8 +184,8 @@ public class FarmView {
         tilePanel.setTileStates(states);
     }
 
-    public void reportError(Exception e){
-        JOptionPane.showMessageDialog(frame, e.getMessage());
+    public void reportFeedback(String text){
+        feedbackPanel.setText("<html><span style=\"color: #ffffff\">" + text + "</span></html>");
     }
 
     /**
