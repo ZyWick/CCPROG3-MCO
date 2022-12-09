@@ -11,6 +11,8 @@ public class FarmView {
 
     private StatsPanel statsPanel;
     private TilePanel tilePanel;
+    private OnTileMessageListener messageListener;
+
     public FarmView() {
         frame = new JFrame("Farm");
 
@@ -69,5 +71,9 @@ public class FarmView {
         };
 
         tilePanel.setOnTileClickListener(listener);
+    }
+
+    public void setOnTileMessageListener(OnTileMessageListener messageListener) {
+        this.messageListener = messageListener;
     }
 }
