@@ -70,6 +70,26 @@ public class FarmView {
         //c.fill = GridBagConstraints.BOTH;
         baseCanvas.add(feedbackPanel, c);
 
+        // (0, 3)
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridheight = 1;
+        //c.fill = GridBagConstraints.BOTH;
+
+        JButton advanceDay = new JButton("Advance Day");
+        advanceDay.addActionListener(actionEvent -> messageListener.onMessageAdvanceDay());
+        baseCanvas.add(advanceDay, c);
+
+        // (0, 3)
+        c.gridx = 0;
+        c.gridy = 7;
+        c.gridheight = 1;
+        //c.fill = GridBagConstraints.BOTH;
+
+        JButton registerFarmer = new JButton("Register to superior farmer type");
+        registerFarmer.addActionListener(actionEvent -> messageListener.onMessageRegisterFarmer());
+        baseCanvas.add(registerFarmer, c);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1024, 768));
 
@@ -187,6 +207,7 @@ public class FarmView {
                 "<span style=\"color: #5A2729\"> Exp: " + stats.getExp() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Level: " + stats.getLevel() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Coins: " + stats.getObjectCoins() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> Day: " + stats.getDay() + "</span> <br>" +
                 "</html>");
     }
 

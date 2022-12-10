@@ -8,4 +8,6 @@ public interface OnViewMessageListener {
     public ArrayList<FarmSeeds> requestFarmSeedsWithBonuses();
 
     public String requestTileStatus(Coordinates coordinates);
+
+    public void onMessageAdvanceDay();
 }

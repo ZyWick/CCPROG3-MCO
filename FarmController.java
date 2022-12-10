@@ -129,6 +129,13 @@ public class FarmController {
             public String requestTileStatus(Coordinates coordinates) {
                 return farm.displayTileStatus(coordinates);
             }
+
+            @Override
+            public void onMessageAdvanceDay() {
+                player.advanceDay();
+
+                updateFarmView();
+            }
         });
 
         updateFarmView();
