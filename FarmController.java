@@ -163,10 +163,7 @@ public class FarmController {
         int col = 10;
         for (int i = 0; i<row; i++) {
             for (int j=0; j<col; j++) {
-                // get tile condition
-
-                // TODO: replace this
-                states.put(new Coordinates(i, j), new TileState("", TileState.ROCK));
+                states.put(new Coordinates(i, j), farm.getTileState(new Coordinates(i, j)));
             }
         }
         farmView.setTileStates(states);

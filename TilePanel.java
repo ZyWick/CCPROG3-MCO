@@ -88,21 +88,27 @@ public class TilePanel extends JPanel {
                 switch (state.getState()) {
                     case TileState.ROCK:
                         // set image to rock
+                        tileView.setText("rock");
                         break;
                     case TileState.UNPLOWED:
                         // set image to unplowed
+                        tileView.setText("unplowed");
                         break;
                     case TileState.PLOWED:
                         // set image to plowed
+                        tileView.setText("plowed");
                         break;
                     case TileState.PLANTED:
                         // set image to generic seed
+                        tileView.setText("planted " + state.getSeedName());
                         break;
                     case TileState.READY:
                         // set image to the seed name
+                        tileView.setText("ready " + state.getSeedName());
                         break;
                     case TileState.WITHERED:
                         // set image to dust
+                        tileView.setText("withered");
                         break;
                 }
             }
