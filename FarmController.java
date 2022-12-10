@@ -13,12 +13,15 @@ public class FarmController {
     private Coordinates farmSize;
 
     /**
-     * intantiates a FarmController
+     * constructor for FarmController
      */
     public FarmController() {
         init();
     }
 
+    /**
+     * initiates farm controller
+     */
     public void init() {
         int row, col;
         try {
