@@ -11,7 +11,7 @@ public class WateringCan implements FarmTools{
         return "Watering Can";
     }
 
-    public int canUseTool(MyFarm farm, Coordinates coordinates, double objectCoins) {
+    public int canUseTool(MyFarm farm, Coordinates coordinates) {
         int error = 3;
         if (farm.doesTileWorF(coordinates))
             error = 0;
