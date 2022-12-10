@@ -105,19 +105,21 @@ public class FarmController {
                 String result = "";
                 FarmerType zType = farm.getGame().getNextFarmerType(player.getType());
 
-                if(zType != null)
-                    if (player.checkLevelReq(zType))
-                        if(player.getObjectCoins() >= zType.getRegistrationFee()) {
+                if(zType != null) {
+                    if (player.checkLevelReq(zType)) {
+                        if (player.getObjectCoins() >= zType.getRegistrationFee()) {
                             player.registerUp();
                             result = "\n...you are now a " + player.getType().getName();
                             result += "| ObjectCoins expended: " + player.getType().getRegistrationFee();
+                        } else {
+                            result = farm.getGame().throwInsufficientObjectCoins();
                         }
-                        else
-                            result = farm.getGame().throwInsufficientObjectCoins();;
-                    else
+                    } else {
                         result = farm.getGame().throwRegisterError();
-                else
+                    }
+                } else {
                     result = farm.getGame().throwMaxFarmerTypeError();
+                }
 
                 farmView.reportFeedback(result);
 
@@ -169,6 +171,7 @@ public class FarmController {
             // game over
             if(farmView.endGame()){
                 // play again
+
                 init();
             } else {
                 // exit
