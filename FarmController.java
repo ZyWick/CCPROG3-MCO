@@ -35,16 +35,15 @@ public class FarmController {
                 
                 int error = farm.checkPlantInTile(coordinates);
                 if(error == 0) {
-                    FarmSeeds choice = null;
                     for (FarmSeeds seed : farm.getGame().getSeeds())
-                        if (seed.getName().equals(seedName))
-                            choice = seed;
-                           
+                        if (seed.getName().equals(seedName)) {
+                            FarmSeeds choice = seed;
+
                             if (choice != null) {
 
                                 if (player.canAffordSeed(choice.getSeedCost())) {
                                     if (choice instanceof FruitTree) {
-                                        if(farm.checkFreeAdjacentTile(coordinates))
+                                        if (farm.checkFreeAdjacentTile(coordinates))
                                             player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
                                         else
                                             error = 5;
@@ -54,6 +53,7 @@ public class FarmController {
                                     error = 3; //game.throwInsufficientObjectCoins();
                             } else
                                 error = 4; //game.throwOutOfBoundsError();
+                        }
                 } 
                 if (error != 0)
                     farmView.reportFeedback(farm.getGame().throwPlantError(error));
