@@ -25,9 +25,9 @@ public class Tile {
     public Tile(boolean rock) {
         this.rock = rock;
     }
-
-    /**
-     * Prints information about the Tile
+ 
+    /** gets the information about the tile
+     * @return the string of information about the tile
      */
     public String displayTileStatus() {
         String status = "<html><pre>";
@@ -65,7 +65,7 @@ public class Tile {
     /**
      * Checks if the tile can be plowed
      *
-     * @return int if the tile can be plowed, otherwise false
+     * @return 0 if the tile can be plowed,  otherwise, there is a specific error
      */
     public int canPlow() {
         int error = 0;
@@ -80,7 +80,7 @@ public class Tile {
     /**
      * Checks if the tile can be planted on
      *
-     * @return true if the tile can be planted on, otherwise false
+     * @return true if the tile can be planted on, otherwise, false
      */
     private boolean canPlant() {
         return this.isPlowed() && this.seeds == null;
@@ -89,7 +89,7 @@ public class Tile {
     /**
      * Checks if the tile can be watered or fertilized.
      *
-     * @return true if the tile can be watered/fertilized, otherwise false
+     * @return true if the tile can be watered/fertilized, otherwise, false
      */
     public boolean canWaterOrFertilize() {
         return (this.isPlowed() && this.seeds != null);
@@ -128,6 +128,9 @@ public class Tile {
         }
     }
 
+    /** adds the water status of the tile
+     * @return the string of the water status of the tile
+     */
     private String addWaterStatus() {
         String result = "";
         if (this.waterTimes >= seeds.getWaterNeeds()) {
@@ -140,6 +143,9 @@ public class Tile {
         return result;
     }
 
+    /** adds the fertilizer status of the tile
+     * @return the string of the fertilizer status of the tile
+     */
     private String addFertilizerStatus() {
         String result = "";
         if (this.fertilizerTimes >= seeds.getFertilizerNeeds()) {
@@ -153,7 +159,7 @@ public class Tile {
     }
 
     /**
-     * Remove rock from tile
+     * Removes rock from tile
      */
     public void removeRock() {
         this.rock = false;
@@ -161,7 +167,7 @@ public class Tile {
     }
 
     /**
-     * Add a day to the plant growing process
+     * Adds a day to the plant growing process
      */
     public void addDay() {
         this.age += 1;
@@ -197,7 +203,7 @@ public class Tile {
     }
 
     /**
-     * Sets the seeds.
+     * Sets the seeds to the tile.
      *
      * @param seeds the seed to plant
      */
@@ -213,9 +219,9 @@ public class Tile {
     }
 
     /**
-     * Checks if the tile is a rock
+     * Checks if the tile has a rock
      *
-     * @return true if the tile is a rock, otherwise false
+     * @return true if the tile has a rock, otherwise false
      */
     public boolean isRock() {
         return this.rock;
@@ -231,9 +237,9 @@ public class Tile {
     }
 
     /**
-     * Checks if the tile is planted
+     * Checks if the tile has a crop
      *
-     * @return true if the tile is planted, otherwise false
+     * @return true if the tile has a crop, otherwise false
      */
     public boolean isPlanted() {
         return this.seeds != null;
