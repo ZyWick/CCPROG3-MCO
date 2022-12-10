@@ -3,12 +3,11 @@ public class WateringCan implements FarmTools{
     final int usageCost = 0;
     final double expYield = 0.5;
 
+    /** Creates a Watering can
+     * 
+     */
     public WateringCan () {
         
-    }
-
-    public String getName() {
-        return "Watering Can";
     }
 
     public int canUseTool(MyFarm farm, Coordinates coordinates) {
@@ -23,15 +22,19 @@ public class WateringCan implements FarmTools{
         return getToolCostAndYield();
     }
 
-    public int getUsageCost() {
-        return this.usageCost;
-    }
-
     public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = getUsageCost();
         yield [1] = this.expYield;
 
         return yield;
+    }
+
+    public int getUsageCost() {
+        return this.usageCost;
+    } 
+
+    public String getName() {
+        return "Watering Can";
     }
 }

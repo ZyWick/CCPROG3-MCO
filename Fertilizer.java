@@ -3,12 +3,11 @@ public class Fertilizer implements FarmTools{
     final int usageCost = 10;
     final double expYield = 4;
 
+    /** Creates a Fertilizer
+     * 
+     */
     public Fertilizer () {
         
-    }
-
-    public String getName() {
-        return "Fertilizer";
     }
 
     public int canUseTool(MyFarm farm, Coordinates coordinates) {
@@ -22,16 +21,20 @@ public class Fertilizer implements FarmTools{
         farm.fertilizeTile(tileIndex);
         return getToolCostAndYield();
     }
-    
-    public int getUsageCost() {
-        return this.usageCost;
-    }
-
+ 
     public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = getUsageCost();
         yield [1] = this.expYield;
 
         return yield;
+    }
+       
+    public int getUsageCost() {
+        return this.usageCost;
+    }
+
+    public String getName() {
+        return "Fertilizer";
     }
 }
