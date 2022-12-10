@@ -17,9 +17,10 @@ public class FarmView {
     private TilePanel tilePanel;
     private OnViewMessageListener messageListener;
 
-    private ArrayList<String> tools;
+    private ArrayList<String> toolsList;
 
-    public FarmView(Coordinates farmSize) {
+    public FarmView(Coordinates farmSize, ArrayList<String> toolsList) {
+        this.toolsList = toolsList;
         frame = new JFrame("Farm");
 
         baseCanvas = new JPanel();
@@ -97,15 +98,22 @@ public class FarmView {
         frame.pack();
         frame.setVisible(true);
 
-        OnTileClickListener tileClickListener = new OnTileClickListener() {
+        ActionListener tileClickListener = new ActionListener() {
             @Override
-            public void onClick(Coordinates coordinates) {
-                System.out.println("Recv click from " + coordinates);
-                showTileMenu(coordinates);
+            public void actionPerformed(ActionEvent actionEvent) {
+                Object source = actionEvent.getSource();
+
+                if(source instanceof TileView) {
+                    Coordinates coordinates = ((TileView)source).getCoordinates();
+
+                    System.out.println("Recv click from " + coordinates);
+                    showTileMenu(coordinates);
+                }
+
             }
         };
 
-        tilePanel.setOnTileClickListener(tileClickListener);
+        tilePanel.addTileClickListener(tileClickListener);
     }
 
     /**
@@ -124,7 +132,7 @@ public class FarmView {
         actions.put("Harvest", "harvest");
 
         // add tools
-        for (String name : tools) {
+        for (String name : toolsList) {
             actions.put(name, name);
         }
 
@@ -171,8 +179,7 @@ public class FarmView {
 
         for (FarmSeeds seed : seeds) {
             String menuEntry = "<html>" +
-                    seed.getName() + "<br>" +
-                    //"type: " + seed.getCropType() + "<br>" +
+                    seed.getName() + " (" + seed.getCropType() + ")" + "<br>" +
                     "cost: " + seed.getSeedCost() + "<br>" +
                     "</html>";
             menuEntries.add(menuEntry);
@@ -208,10 +215,6 @@ public class FarmView {
         int y = (int) mouseLocation.getY();
 
         menu.show(frame, x, y);
-    }
-
-    public void setToolsList(ArrayList<String> tools) {
-        this.tools = tools;
     }
 
     public void setOnTileMessageListener(OnViewMessageListener messageListener) {

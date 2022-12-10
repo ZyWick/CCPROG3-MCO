@@ -30,21 +30,13 @@ public class MyFarm {
         this.farmSize = farmSize;
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
-                //if indicated
-                System.out.println(new Coordinates(y, x));
+                // add rocks if and only if the character at index mod string length is 1
                 lot.put(new Coordinates(y, x), new Tile(
                         rockCfg.charAt((y * farmSize.getRow() + x) % rockCfg.length()) == '1'));
-                //lot.add(new Tile(true));
             }
         }
 
             
-    }
-
-    /**
-     * Displays the farm
-     */
-    public void display () {
     }
 
     /**
@@ -56,12 +48,12 @@ public class MyFarm {
         return lot.get(coordinates).displayTileStatus();
    }
 
-    /** tests if player can use a certain tool on a tile
-     * @param coordinates the coordinates of the tile
-     * @param toolName the name of the tool
-     * @param usageCost the cost of usage of the tool
-     * @param objectCoins the amount of objectCoins the player has
-     * @return
+    /**
+     * Checks if the tool can be used by the player on the specified tile
+     * @param tileIndex   the index of the tool
+     * @param toolName    the name of the tool
+     * @param objectCoins the number of ObjectCoins the player has
+     * @return true if the player can use the tool on the tile, otherwise false
      */
     public int canUseTool(Coordinates coordinates, String toolName, int usageCost, double objectCoins) {
         Tile TheTile = lot.get(coordinates);
@@ -224,7 +216,7 @@ public class MyFarm {
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
         if(TheSeed instanceof Flower)
-            harvestTotal *= 1.1;   
+            harvestTotal *= ((Flower) TheSeed).getPremiumFactor();
 
         TheTile.reset();
         double[] yield = new double[3];
@@ -242,13 +234,13 @@ public class MyFarm {
      * Add a day to the plant growing process, and notifies if a plant has withered as a result
      */
     public void ageLot() {
-    game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-    for (Tile TheTile : lot.values())
-        if(TheTile.getSeeds() != null) {
-            TheTile.addDay();
-            if (TheTile.isWithered() != 0)
-                System.out.print("\n..." + TheTile.getSeeds().getName() + " has withered");
-        }
+        game.addDay();
+        for (Tile TheTile : lot.values())
+            if(TheTile.getSeeds() != null) {
+                TheTile.addDay();
+                if (TheTile.isWithered() != 0)
+                    System.out.print("\n..." + TheTile.getSeeds().getName() + " has withered");
+            }
     }
 
     /**

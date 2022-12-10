@@ -25,27 +25,6 @@ public class Player {
         tools.add(new Shovel());
     }
 
-    /**
-     * Prints the information about the player
-     */
-    public void displayPlayerStats() {
-        System.out.print("\n| " + type.getName());
-        System.out.print(" | ObjectCoins: " + this.objectCoins);
-        System.out.print(" | exp: " + this.experience.getExp());
-        System.out.print(" | level: " + this.experience.getLevel());
-        System.out.print(" | day: " + this.farm.getGame().getDay());
-
-        switch (canRegisterUp()) {
-            case REGISTER_UP_OK:
-            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                FarmerType zType = farm.getGame().getNextFarmerType(type);
-                System.out.println(" | can register to " + zType.getName() + " (cost: " + zType.getRegistrationFee() + " ObjectCoins)");
-                break;
-            default:
-                System.out.println(" |");
-        }
-    }
-
     /** gets stats of the player
      * @return PlayerStats of the player
      */
@@ -58,20 +37,6 @@ public class Player {
         }
         return new PlayerStats(type.getName(), this.objectCoins,
                 this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
-    }
-
-    /**
-     * Displays the player's farm
-     */
-    public void thisIsMyFarm () {
-        farm.display();
-    }
-
-    /**
-     * Displays a legend to explain the symbols shown in the player's farm by {@link #thisIsMyFarm()}
-     */
-    public void whatIsThat () {
-        farm.getGame().displayLotLegend();
     }
 
     /**

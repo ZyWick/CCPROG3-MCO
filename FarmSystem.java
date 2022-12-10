@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * FarmSystem contains the available items and helper methods
  */
 public class FarmSystem {
-    // private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
     private ArrayList<FarmSeeds> seeds = new ArrayList<FarmSeeds>();
     private ArrayList<FarmerType> type = new ArrayList<FarmerType>();
     private int day = 1;
@@ -13,12 +12,12 @@ public class FarmSystem {
      * Creates a new farm system
      */
     public FarmSystem () {
-        seeds.add(new FarmSeeds("Turnip", "Root Crop", 2, 1, 2, 0, 1, 1, 2, 5, 6, 5));
-        seeds.add(new FarmSeeds("Carrot", "Root Crop", 3, 1, 2, 0, 1, 1, 2, 10, 9, 7.5));
-        seeds.add(new FarmSeeds("Potato", "Root Crop", 5, 3, 4, 1, 2, 1, 10, 20, 3, 12.5));
-        seeds.add(new FarmSeeds("Rose", "Flower", 1, 1, 2, 0, 1, 1, 1, 5, 5, 2.5));
-        seeds.add(new FarmSeeds("Tulips", "Flower", 2, 2, 3, 0, 1, 1, 1, 10, 9, 5));
-        seeds.add(new FarmSeeds("Sunflower", "Flower", 3, 2, 3, 1, 2, 1, 1, 20, 19, 7.5));
+        seeds.add(new RootCrop("Turnip", 2, 1, 2, 0, 1, 1, 2, 5, 6, 5));
+        seeds.add(new RootCrop("Carrot", 3, 1, 2, 0, 1, 1, 2, 10, 9, 7.5));
+        seeds.add(new RootCrop("Potato", 5, 3, 4, 1, 2, 1, 10, 20, 3, 12.5));
+        seeds.add(new Flower("Rose", 1, 1, 2, 0, 1, 1, 1, 5, 5, 2.5));
+        seeds.add(new Flower("Tulips", 2, 2, 3, 0, 1, 1, 1, 10, 9, 5));
+        seeds.add(new Flower("Sunflower", 3, 2, 3, 1, 2, 1, 1, 20, 19, 7.5));
         seeds.add(new FruitTree("Mango", 10, 7, 7, 4, 4, 5, 15, 100, 8, 25));
         seeds.add(new FruitTree("Apple", 10, 7, 7, 5, 5, 10, 15, 200, 5, 25));
         type.add(new FarmerType("Farmer", 0, 0, 0, 0, 0, 0));
@@ -33,27 +32,6 @@ public class FarmSystem {
     public void addDay() {
         this.day += 1;
         System.out.print("\n...success, a day has passed");
-    }
-
-    /**
-     * Prints a prompt with the list of available game actions
-     */
-    public void displayGameMoves () {
-
-    }
-
-    /**
-     * Prints a prompt with the list of available tile actions
-     */
-    public void displayInteractionChoices () {
-
-    }
-
-    /**
-     * Prints a lot status legend
-     */
-    public void displayLotLegend () {
-
     }
 
     /**
@@ -131,15 +109,6 @@ public class FarmSystem {
     public String throwRegisterError() {
         return "Error: insufficient level";
     }
-
-    // /**
-    //  * Returns the list of tools that are available in the game
-    //  *
-    //  * @return the list of available tools
-    //  */
-    // public ArrayList<FarmTools> getTools() {
-    //     return this.tools;
-    // }
 
     /**
      * Returns the list of seeds that are available in the game

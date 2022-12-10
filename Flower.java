@@ -4,6 +4,8 @@ public class Flower extends FarmSeeds{
         super(name, "Flower", harvestTime, waterNeeds, waterLimit, fertilizerNeeds, fertilizerLimit, minProductsProduced, maxProductsProduced, seedCost, sellingPrice, expYield);
     }
 
-    
+    public double getPremiumFactor() {
+        return 1.1;
+    }
 
 }
