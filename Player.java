@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +45,10 @@ public class Player {
                 System.out.println(" |");
         }
     }
+
+    /** gets stats of the player
+     * @return PlayerStats of the player
+     */
     public PlayerStats getPlayerStats() {
         FarmerType zType = null;
         switch (canRegisterUp()) {
@@ -55,16 +58,6 @@ public class Player {
         }
         return new PlayerStats(type.getName(), this.objectCoins,
                 this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
-    }
-
-    /**
-     * Displays the list of available game tasks and obtains the player's choice
-     * @param sc the Scanner to get input from
-     * @return an int representing the player's choice
-     */
-    public int whatCanIDo(Scanner sc) {
-        farm.getGame().displayGameMoves();
-        return sc.nextInt();
     }
 
     /**
@@ -93,14 +86,17 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
+    /**Adds to objectCoins of the player.
+     * @param change amount of objectCoins to add
+     */
     private void addObjectCoins (double change) {
         this.objectCoins += change;
     }
 
-    /**
-     * Asks player to choose a tool, then uses it on the specific tile index.
-     * @param sc the Scanner to get input from
-     * @param tileIndex the tile index
+ 
+    /** lets the player use tools on the tiles of MyFarm and adds the yield of the tool to player stats
+     * @param coordinates the coordinates of the tile
+     * @param tool the chosen tool object 
      */
     public void useTool (Coordinates coordinates, FarmTools tool) {
         double[] yield = tool.useTool(farm, coordinates);
@@ -110,11 +106,10 @@ public class Player {
         System.out.println("| ObjectCoins expended: " + yield[0]);
         System.out.println("| Experience gained: " + yield[1]);
     }
-
-    /**
-     * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
-     * @param sc the Scanner to get input from
-     * @param tileIndex the tile index
+  
+    /** lets the player plant crops through MyFarm and deducts objectCoins from the chosen seed cost amount 
+     * @param coordinates the coordinates of the tile 
+     * @param seedIndex the index of the chosen seed 
      */
     public void plantCrop (Coordinates coordinates, int seedIndex) {
         int cost = farm.plantCrop(coordinates, seedIndex);
@@ -122,10 +117,9 @@ public class Player {
         System.out.println("| ObjectCoins expended: " + (cost + this.getType().getSeedCostReduction()));
     }
 
-    // /**
-    //  * Attempts to harvest a crop at a specific tile index
-    //  * @param tileIndex the tile index
-    //  */
+    /** harversts the crop on the tile
+     * @param coordinates the coordinates of the tile
+     */
     public void harvestCrop (Coordinates coordinates) {
             double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
             addObjectCoins(yield[0]);
@@ -141,6 +135,10 @@ public class Player {
         farm.ageLot();
     }
 
+    /** checks if the player can afford a seed
+     * @param seedCost the cost of a seed
+     * @return true if the player can afford the seed, otherwise, false
+     */
     public boolean canAffordSeed(int seedCost) {
         if (this.objectCoins >= seedCost + this.type.getSeedCostReduction())
             return true;
@@ -173,8 +171,8 @@ public class Player {
             return REGISTER_UP_ERR_MAX_LEVEL;
     }
 
-    /**
-     * Attempts to register up.
+    /** 
+     * @return string feedback
      */
     public String registerUp() {
         String result = "";
@@ -208,14 +206,24 @@ public class Player {
         return farm.endGame(this.objectCoins, this.type.getSeedCostReduction());
     }
 
+    /** gets the current farmer type of the player
+     * @return the current farmer type of the player
+     */
     public FarmerType getType() {
         return type;
     }
 
+
+    /** gets the amount of objectCoins the player has
+     * @return the amount of objectCoins the player has
+     */
     public double getObjectCoins(){
         return this.objectCoins;
     }
 
+    /** gets the tools of the player
+     * @return the list of tool of the player
+     */
     public ArrayList<FarmTools> getTools() {
         return this.tools;
     }
