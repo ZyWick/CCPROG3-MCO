@@ -70,7 +70,7 @@ public class FarmController {
 
                     if (error == 0) {
                         player.useTool(coordinates, choice);
-                        farmView.reportFeedback("");
+                        farmView.reportFeedback(toolName + " used successfully");
                     } else {
                         farmView.reportFeedback(farm.getGame().throwToolError(error));
                     }
