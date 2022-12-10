@@ -247,15 +247,14 @@ public class FarmView {
     }
 
     /**
-     * Shows the game over dialog
+     * Shows the game over dialog. The window will be destroyed regardless of the user's choice since the game is over.
      * @return true if user wants to play again, otherwise false
      */
     public boolean endGame() {
         int response = JOptionPane.showConfirmDialog(frame, "Game Over. Do you want to play again?",
                 "", JOptionPane.YES_NO_OPTION);
 
-        if(response == JOptionPane.YES_OPTION)
-            frame.dispose();
+        frame.dispose();
 
         return response == JOptionPane.YES_OPTION;
     }
