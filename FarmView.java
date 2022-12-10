@@ -178,8 +178,7 @@ public class FarmView {
 
         for (FarmSeeds seed : seeds) {
             String menuEntry = "<html>" +
-                    seed.getName() + "<br>" +
-                    //"type: " + seed.getCropType() + "<br>" +
+                    seed.getName() + " (" + seed.getCropType() + ")" + "<br>" +
                     "cost: " + seed.getSeedCost() + "<br>" +
                     "</html>";
             menuEntries.add(menuEntry);
