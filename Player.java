@@ -26,20 +26,6 @@ public class Player {
         tools.add(new Shovel());
     }
 
-    /** gets stats of the player
-     * @return PlayerStats of the player
-     */
-    public PlayerStats getPlayerStats() {
-        FarmerType zType = null;
-        switch (canRegisterUp()) {
-            case REGISTER_UP_OK:
-            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                zType = farm.getGame().getNextFarmerType(type);
-        }
-        return new PlayerStats(type.getName(), this.objectCoins,
-                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
-    }
-
     /**
      * Adds experience to the experience counter, then informs the player if the level changes
      * @param expToAdd amount of experience points to add
@@ -95,7 +81,7 @@ public class Player {
 
     /** harvests the crop on a tile
      * @param coordinates the coordinates of a tile
-     * @return TODO: idk
+     * @return the string of the result
      */
     public String harvestCrop (Coordinates coordinates) {
         int error = farm.checkHarvest(coordinates);
@@ -198,6 +184,20 @@ public class Player {
      */
     public ArrayList<FarmTools> getTools() {
         return this.tools;
+    }
+
+    /** gets stats of the player
+     * @return PlayerStats of the player
+     */
+    public PlayerStats getPlayerStats() {
+        FarmerType zType = null;
+        switch (canRegisterUp()) {
+            case REGISTER_UP_OK:
+            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
+                zType = farm.getGame().getNextFarmerType(type);
+        }
+        return new PlayerStats(type.getName(), this.objectCoins,
+                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
     }
 
 }
