@@ -31,7 +31,8 @@ public class MyFarm {
             for(int x = 0; x < farmSize.getCol(); x++) {
                 //if indicated
                 System.out.println(new Coordinates(y, x));
-                lot.put(new Coordinates(y, x), new Tile(rockCfg.charAt(y * farmSize.getRow() + x) == '1'));
+                lot.put(new Coordinates(y, x), new Tile(
+                        rockCfg.charAt((y * farmSize.getRow() + x) % rockCfg.length()) == '1'));
                 //lot.add(new Tile(true));
             }
         }
