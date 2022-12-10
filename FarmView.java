@@ -169,7 +169,11 @@ public class FarmView {
         HashMap<String, String> translateMenuStringToSeed = new HashMap<>();
 
         for (FarmSeeds seed : seeds) {
-            String menuEntry = seed.getName() + " (cost: " + seed.getSeedCost() + ")";
+            String menuEntry = "<html>" +
+                    seed.getName() + "<br>" +
+                    //"type: " + seed.getCropType() + "<br>" +
+                    "cost: " + seed.getSeedCost() + "<br>" +
+                    "</html>";
             menuEntries.add(menuEntry);
             translateMenuStringToSeed.put(menuEntry, seed.getName());
         }
