@@ -35,23 +35,26 @@ public class FarmSystem {
     }
 
     /**
-     * Prints an error indicating that the player does not have enough ObjectCoins
+     * gets the error indicating that the player does not have enough ObjectCoins
+     * @return the string of the error
      */
     public String throwInsufficientObjectCoins() {
         return "Error: not enough objectCoins";
     }
 
     /**
-     * Prints an error indicating that the player typed a number not among the choices
+     * get the error indicating that the player typed a number not among the choices
+     * @return the string of the error
      */
     public String throwOutOfBoundsError() {
         return "Error: no such choice";
     }
 
     /**
-     * Prints an error indicating that the tool cannot be used due to a specific reason
+     * gets the error indicating that the tool cannot be used due to a specific reason
      *
      * @param error an error code identifying the specific error
+     * @return the string of the error
      */
     public String throwToolError(int error) {
         switch (error) {
@@ -65,9 +68,10 @@ public class FarmSystem {
     }
 
     /**
-     * Prints an error indicating that the tile cannot be planted on due to a specific reason
+     * gets the error indicating that the tile cannot be planted on due to a specific reason
      *
      * @param error an error code identifying the specific error
+     * @return the string of the error
      */
     public String throwPlantError(int error) {
         switch (error) {
@@ -81,9 +85,10 @@ public class FarmSystem {
     }
 
     /**
-     * Prints an error indicating that the tile cannot be harvested due to a specific reason
+     * gets the error indicating that the tile cannot be harvested due to a specific reason
      *
      * @param error an error code identifying the specific error
+     * @return the string of the error
      */
     public String throwHarvestError(int error) {
         switch (error) {
@@ -97,42 +102,46 @@ public class FarmSystem {
     }
 
     /**
-     * Prints an error indicating that the player cannot register to higher type because they are already on the highest type
+     * gets the error indicating that the player cannot register to higher type because they are already on the highest type
+     * 
+     * @return the string of the error
      */
     public String throwMaxFarmerTypeError() {
         return "Error: you. are. already. legendary.";
     }
 
     /**
-     * Prints an error indicating that the player cannot register to higher type because they do not meet the level requirement for it
+     * gets the error indicating that the player cannot register to higher type because they do not meet the level requirement for it
+     * 
+     * @return the string of the error
      */
     public String throwRegisterError() {
         return "Error: insufficient level";
     }
 
     /**
-     * Returns the list of seeds that are available in the game
+     * gets the list of seeds that are available in the game
      *
-     * @return the list of available seeds
+     * @return the list of available FarmSeeds
      */
     public ArrayList<FarmSeeds> getSeeds() {
         return this.seeds;
     }
 
     /**
-     * Returns the list of farmer types that are available in the game
+     * gets the list of farmer types that are available in the game
      *
-     * @return the list of available farmer types
+     * @return the list of available FarmerType
      */
     public ArrayList<FarmerType> getType() {
         return this.type;
     }
 
     /**
-     * Returns the next available farmer type. Returns null if there is no such farmer type
+     * gets the next available farmer type. Returns null if there is no such farmer type
      *
      * @param TheType the current farmer type
-     * @return the next farmer type, can be null
+     * @return the next FarmerType, can be null
      */
     public FarmerType getNextFarmerType(FarmerType TheType) {
         int nextLevelIndex = type.indexOf(TheType) + 1;
@@ -144,12 +153,11 @@ public class FarmSystem {
     }
 
     /**
-     * Returns the current day
+     * gets the current day
      *
-     * @return the day
+     * @return an int indicating the current day
      */
     public int getDay() {
         return this.day;
     }
-
 }
