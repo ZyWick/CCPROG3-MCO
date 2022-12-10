@@ -166,6 +166,7 @@ public class FarmController {
             @Override
             public void onMessageAdvanceDay() {
                 player.advanceDay();
+                farmView.reportFeedback("...success, a day has passed");
 
                 updateFarmView();
             }
