@@ -172,7 +172,7 @@ public class Player {
     public void useTool (Coordinates coordinates, FarmTools tool) {
         double[] yield = tool.useTool(farm, coordinates);
             
-        addObjectCoins(yield[0]); 
+        addObjectCoins(-yield[0]);
         addExp(yield[1]);
         System.out.println("| ObjectCoins expended: " + yield[0]);
         System.out.println("| Experience gained: " + yield[1]);
