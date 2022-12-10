@@ -137,7 +137,7 @@ public class Player {
         FarmerType zType = this.farm.getGame().getNextFarmerType(this.type);
 
         if(zType != null)
-            if (experience.getLevel() >= zType.getLevelReq())
+            if (checkLevelReq(zType))
                 if(objectCoins >= zType.getRegistrationFee())
                     return REGISTER_UP_OK;
                 else
@@ -148,6 +148,10 @@ public class Player {
             return REGISTER_UP_ERR_MAX_LEVEL;
     }
 
+    /** tests if player level is sufficient to register up
+     * @param zType the farmer type next to the current type of the player
+     * @return
+     */
     public boolean checkLevelReq(FarmerType zType) {
         boolean result = false;
 
@@ -158,7 +162,7 @@ public class Player {
     }
 
     /** 
-     * @return string feedback
+     * registers up the player farmer type
      */
     public void registerUp() {
         this.type = farm.getGame().getNextFarmerType(this.type);

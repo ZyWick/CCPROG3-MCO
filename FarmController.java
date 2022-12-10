@@ -61,9 +61,8 @@ public class FarmController {
                                     error = 3; //game.throwInsufficientObjectCoins();
                             }
                         } else
-                            error = 4; //game.throwOutOfBoundsError();
+                            error = 4;
                     }
-
                 if (error != 0)
                     farmView.reportFeedback(farm.getGame().throwPlantError(error));
                 else
