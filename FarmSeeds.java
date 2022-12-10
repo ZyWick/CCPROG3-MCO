@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * FarmSeeds stores information about a particular seed
  */
@@ -16,7 +18,7 @@ public class FarmSeeds {
     private double expYield;
 
     /**
-     * Instantiates a new Farm seeds.
+     * Instantiates a new seed.
      *
      * @param name                the name
      * @param cropType            the crop type
@@ -109,7 +111,7 @@ public class FarmSeeds {
         return this.fertilizerLimit;
     }
 
-    /**
+/**
      * Returns minimum amount of products produced when harvesting the crop
      *
      * @return the minimum amount of products produced
@@ -125,6 +127,15 @@ public class FarmSeeds {
      */
     public int getMaxProductsProduced() {
         return this.maxProductsProduced;
+    }
+
+    /**
+     * Computes the amount of products produced from a tile
+     *
+     * @return the amount of products
+     */
+    public int computeProductsProduced() {
+        return ThreadLocalRandom.current().nextInt(this.minProductsProduced, this.maxProductsProduced + 1);
     }
 
     /**

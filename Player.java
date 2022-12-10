@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * The Player is the user that controls the farm
@@ -8,6 +8,7 @@ public class Player {
     private Experience experience;
     private MyFarm farm;
     private FarmerType type;
+    private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
 
     /**
      * Instantiates the Player.
@@ -18,122 +19,11 @@ public class Player {
         this.experience = new Experience();
         this.farm = farm;
         this.type = farm.getGame().getType().get(0);
-    }
-
-    /**
-     * Prints the information about the player
-     */
-    public void displayPlayerStats() {
-        System.out.print("\n| " + type.getName());
-        System.out.print(" | ObjectCoins: " + this.objectCoins);
-        System.out.print(" | exp: " + this.experience.getExp());
-        System.out.print(" | level: " + this.experience.getLevel());
-        System.out.print(" | day: " + this.farm.getGame().getDay());
-
-        switch (canRegisterUp()) {
-            case REGISTER_UP_OK:
-            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                FarmerType zType = farm.getGame().getNextFarmerType(type);
-                System.out.println(" | can register to " + zType.getName() + " (cost: " + zType.getRegistrationFee() + " ObjectCoins)");
-                break;
-            default:
-                System.out.println(" |");
-        }
-    }
-
-    /**
-     * Displays the list of available game tasks and obtains the player's choice
-     * @param sc the Scanner to get input from
-     * @return an int representing the player's choice
-     */
-    public int whatCanIDo(Scanner sc) {
-        farm.getGame().displayGameMoves();
-        return sc.nextInt();
-    }
-
-    /**
-     * Displays the player's farm
-     */
-    public void thisIsMyFarm () {
-        farm.display();
-    }
-
-    /**
-     * Displays a legend to explain the symbols shown in the player's farm by {@link #thisIsMyFarm()}
-     */
-    public void whatIsThat () {
-        farm.getGame().displayLotLegend();
-    }
-
-    /**
-     * Displays the list of eligible tools and asks the player to pick a tool
-     * @param sc the Scanner to get input from
-     * @param tileIndex the tile index
-     * @return an int representing the player's choice
-     */
-    private int getToolChoice(Scanner sc, int tileIndex) {
-        int choice;
-        System.out.println("\nWhich tool do you want to use?");
-        farm.displayTools(tileIndex, this.objectCoins);
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    /**
-     * Displays a list of seeds that are available and asks the player to pick from one of them
-     * @param sc the Scanner to get input from
-     * @return an int representing the player's choice
-     */
-    private int getSeedChoice(Scanner sc) {
-        int choice;
-        System.out.println("\nWhich seed do you want to plant?");
-        farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
-        System.out.print("Choice: ");
-        choice = sc.nextInt();
-
-        return choice;
-    }
-
-    /**
-     * Asks for tile coordinates from the player and returns it as an index
-     *
-     * @param sc the Scanner to get input from
-     * @return the tile index
-     */
-    public int getTileIndex (Scanner sc) {
-        int x, y, tileIndex;
-
-        System.out.print("\ninput tile coordinates: ");
-        x = sc.nextInt();
-        y = sc.nextInt();
-        tileIndex = (x - 1) * 10 + (y - 1) ;
-
-        return tileIndex;
-    }
-
-    /**
-     * Asks player to select a tile action
-     *
-     * @param sc the Scanner to get input from
-     */
-    public void interactTile(Scanner sc) {
-        // int tileIndex = getTileIndex(sc);
-        int tileIndex = 0;
-        farm.getGame().displayInteractionChoices();;
-        int choice = sc.nextInt();
-        switch (choice) {
-            case 1: useTool(sc, tileIndex);
-                    break;
-            case 2: plantCrop(sc, tileIndex);
-                    break;
-            case 3: harvestCrop(tileIndex); 
-                    break;
-            case 4: farm.displayTileStatus(tileIndex);
-                    break;
-            default: break;
-            }
+        tools.add(new Plow());
+        tools.add(new WateringCan());
+        tools.add(new Fertilizer());
+        tools.add(new Pickaxe());
+        tools.add(new Shovel());
     }
 
     /**
@@ -148,65 +38,72 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
-    /**
-     * Asks player to choose a tool, then uses it on the specific tile index.
-     * @param sc the Scanner to get input from
-     * @param tileIndex the tile index
+    /**Adds to objectCoins of the player.
+     * @param change amount of objectCoins to add
      */
-    private void useTool (Scanner sc, int tileIndex) {
-        int choice = getToolChoice(sc, tileIndex);
-        if (farm.checkUseTool(tileIndex, choice, this.objectCoins)) {
-            double[] yield = new double[2];
+    private void addObjectCoins (double change) {
+        this.objectCoins += change;
+    }
 
-            switch (choice) {
-                case 0: yield = farm.plowTile(tileIndex); break;
-                case 1: yield = farm.waterTile(tileIndex); break;
-                case 2: yield = farm.fertilizeTile(tileIndex); break;
-                case 3: yield = farm.removeRock(tileIndex); break;
-                case 4: yield = farm.useShovel(tileIndex); break;
-            }
+    /** checks if the player can afford a seed
+     * @param seedCost the cost of a seed
+     * @return true if the player can afford the seed, otherwise, false
+     */
+    public boolean canAffordSeed(int seedCost) {
+        if (this.objectCoins >= seedCost + this.type.getSeedCostReduction())
+            return true;
 
-            this.objectCoins -= yield[0];
-            this.addExp(yield[1]);
-            System.out.println("| ObjectCoins expended: " + yield[0]);
-            System.out.println("| Experience gained: " + yield[1]);
+        return false;
+    }
+
+    /** lets the player use tools on the tiles of MyFarm and adds the yield of the tool to player stats
+     * @param coordinates the coordinates of a tile
+     * @param tool the chosen tool object 
+     */
+    public void useTool (Coordinates coordinates, FarmTools tool) {
+        double[] yield = tool.useTool(farm, coordinates);
+            
+        addObjectCoins(yield[0] * -1);
+        addExp(yield[1]);
+        System.out.println("| ObjectCoins expended: " + yield[0]);
+        System.out.println("| Experience gained: " + yield[1]);
+    }
+  
+    /** lets the player plant crops through MyFarm and deducts objectCoins from the chosen seed cost amount 
+     * @param coordinates the coordinates of a tile 
+     * @param seed the chosen seed object
+     */
+    public void plantCrop (Coordinates coordinates, FarmSeeds seed) {
+        int cost = farm.plantCrop(coordinates, seed);
+        addObjectCoins((cost + this.type.getSeedCostReduction()) * -1); 
+        System.out.println("| ObjectCoins expended: " + (cost + this.getType().getSeedCostReduction()));
+    }
+
+    /** harvests the crop on a tile
+     * @param coordinates the coordinates of a tile
+     * @return the string of the result
+     */
+    public String harvestCrop (Coordinates coordinates) {
+        int error = farm.checkHarvest(coordinates);
+        String result = "";
+
+        if(error == 0) {
+            double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
+            addObjectCoins(yield[0]);
+            addExp(yield[1]);
+
+            result +=    "ObjectCoins gained: " + yield[0];
+            result += " | Experience gained: "  + yield[1];
+            result += " | Produce harvested: " + (int)yield[2];
+        } else {
+            result = farm.getGame().throwHarvestError(error);
         }
+
+        return result;
     }
 
     /**
-     * Prompts the player to pick a seed, then attempts to plant a crop at a specific tile index
-     * @param sc the Scanner to get input from
-     * @param tileIndex the tile index
-     */
-    private void plantCrop (Scanner sc, int tileIndex) {
-        if(farm.checkPlantInTile(tileIndex)) {
-            int choice = getSeedChoice(sc);
-
-            if (farm.checkPlantCrop(tileIndex, this.type.getSeedCostReduction(), choice, this.objectCoins)) {
-                int cost = farm.plantCrop(tileIndex, choice);
-
-                this.objectCoins -= cost + this.type.getSeedCostReduction();
-                System.out.println("| ObjectCoins expended: " + (cost + this.type.getSeedCostReduction()));
-            }
-        } 
-    }
-
-    /**
-     * Attempts to harvest a crop at a specific tile index
-     * @param tileIndex the tile index
-     */
-    private void harvestCrop (int tileIndex) {
-        if (farm.checkHarvest(tileIndex)) {
-            double[] yield = farm.harvestCrop(tileIndex, farm.getGame().getType().indexOf(this.type));
-            this.objectCoins += yield[0];
-            this.addExp(yield[1]);
-            System.out.println("| ObjectCoins gained: " + yield[0]);
-            System.out.println("| Experience gained: " + yield[1]);
-        }
-    }
-
-    /**
-     * Advance day.
+     * Advances day.
      */
     public void advanceDay() {
         farm.ageLot();
@@ -226,7 +123,7 @@ public class Player {
         FarmerType zType = this.farm.getGame().getNextFarmerType(this.type);
 
         if(zType != null)
-            if (experience.getLevel() >= zType.getLevelReq())
+            if (checkLevelReq(zType))
                 if(objectCoins >= zType.getRegistrationFee())
                     return REGISTER_UP_OK;
                 else
@@ -237,47 +134,70 @@ public class Player {
             return REGISTER_UP_ERR_MAX_LEVEL;
     }
 
-    /**
-     * Attempts to register up.
+    /** tests if player level is sufficient to register up
+     * 
+     * @param zType the farmer type next to the current type of the player
+     * @return true if the farmer can register up, otherwise, false
+     */
+    public boolean checkLevelReq(FarmerType zType) {
+        boolean result = false;
+
+        if (experience.getLevel() >= zType.getLevelReq())
+            result = true;
+
+        return result;
+    }
+
+    /** 
+     * registers up the player farmer type
      */
     public void registerUp() {
-        switch (canRegisterUp()) {
-            case REGISTER_UP_OK:
-                this.type = farm.getGame().getNextFarmerType(this.type);
-                this.objectCoins -= this.type.getRegistrationFee();
-                System.out.println("\n...you are now a " + this.type.getName());
-                System.out.println("| ObjectCoins expended: " + this.type.getRegistrationFee());
-                break;
-            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                farm.getGame().throwInsufficientObjectCoins();
-                break;
-            case REGISTER_UP_ERR_INSUFFICIENT_LEVEL:
-                farm.getGame().throwRegisterError();
-                break;
-            case REGISTER_UP_ERR_MAX_LEVEL:
-                farm.getGame().throwMaxFarmerTypeError();
-                break;
-        }
+        this.type = farm.getGame().getNextFarmerType(this.type);
+        this.objectCoins -= this.type.getRegistrationFee();
     }
 
     /**
-     * Checks if the game is over. If the game is over, the player is asked if it wants to play again
+     * Checks if the game is over.
      *
-     * @param sc the Scanner to get input from
-     * @return 0 if the game has not ended. Otherwise, a non-zero number from the player containing their response
+     * @return false if the game has not ended. Otherwise, true
      */
-    public int end(Scanner sc) {
-        if(farm.endGame(this.objectCoins, this.type.getSeedCostReduction())) {
-            int ENDD = 0;
+    public boolean endGame() {
+        return farm.endGame(this.objectCoins, this.type.getSeedCostReduction());
+    }
 
-            while (ENDD == 0) {
-                System.out.print("\n| input 1 to play again: ");
-                ENDD = sc.nextInt();
-            }
-            return ENDD;
+    /** gets the amount of objectCoins the player has
+     * @return the amount of objectCoins the player has
+     */
+    public double getObjectCoins(){
+        return this.objectCoins;
+    }
+
+    /** gets the current farmer type of the player
+     * @return the current farmer type of the player
+     */
+    public FarmerType getType() {
+        return type;
+    }
+
+    /** gets the tools of the player
+     * @return the list of tool of the player
+     */
+    public ArrayList<FarmTools> getTools() {
+        return this.tools;
+    }
+
+    /** gets stats of the player
+     * @return PlayerStats of the player
+     */
+    public PlayerStats getPlayerStats() {
+        FarmerType zType = null;
+        switch (canRegisterUp()) {
+            case REGISTER_UP_OK:
+            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
+                zType = farm.getGame().getNextFarmerType(type);
         }
-            
-        return 0;
+        return new PlayerStats(type.getName(), this.objectCoins,
+                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
     }
 
 }

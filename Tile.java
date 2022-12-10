@@ -1,4 +1,3 @@
-import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Math.min;
 
 /**
@@ -26,21 +25,28 @@ public class Tile {
     public Tile(boolean rock) {
         this.rock = rock;
     }
-
-    /**
-     * Prints information about the Tile
+ 
+    /** gets the information about the tile
+     * @return the string of information about the tile
      */
-    public void displayTileStatus() {
-        System.out.println("\nAbout tile:");
-        System.out.println("rock: " + this.rock);
-        System.out.println("plowed: " + this.plowed);
+    public String displayTileStatus() {
+        String status = "<html><pre>";
+        status += "\nAbout tile:" + "\n";
+        status += "rock: " + this.rock + "\n";
+        status += "plowed: " + this.plowed + "\n";
         if (this.seeds != null) {
-            System.out.println("crop: " + this.seeds.getName());
-            System.out.println("Times Watered: " + this.waterTimes);
-            System.out.println("Times Fertilized: " + this.fertilizerTimes);
-            System.out.println("Age: " + this.age +" days");
+            status += "crop: " + this.seeds.getName() + "\n";
+            status += "Times Watered: " + this.waterTimes + "\n";
+            status +=  addWaterStatus() + "\n";
+            status += "Times Fertilized: " + this.fertilizerTimes + "\n";
+            status += addFertilizerStatus() + "\n";
+            status += "Age: " + this.age +" days" + "\n";
+            status += "Harvest Time: day " + this.seeds.getHarvestTime() + "\n" ;
         } else
-            System.out.println("...no crop planted");
+            status += "...no crop planted" + "\n";
+
+        status += "</pre></html>";
+        return status;
     }
 
     /**
@@ -59,16 +65,22 @@ public class Tile {
     /**
      * Checks if the tile can be plowed
      *
-     * @return true if the tile can be plowed, otherwise false
+     * @return 0 if the tile can be plowed,  otherwise, there is a specific error
      */
-    public boolean canPlow() {
-        return !this.isPlowed() && !this.isRock();
+    public int canPlow() {
+        int error = 0;
+        if (this.isPlowed())
+                error = 1;
+        else if(this.isRock())
+                error = 2;
+        return error;
     }
+
 
     /**
      * Checks if the tile can be planted on
      *
-     * @return true if the tile can be planted on, otherwise false
+     * @return true if the tile can be planted on, otherwise, false
      */
     private boolean canPlant() {
         return this.isPlowed() && this.seeds == null;
@@ -77,7 +89,7 @@ public class Tile {
     /**
      * Checks if the tile can be watered or fertilized.
      *
-     * @return true if the tile can be watered/fertilized, otherwise false
+     * @return true if the tile can be watered/fertilized, otherwise, false
      */
     public boolean canWaterOrFertilize() {
         return (this.isPlowed() && this.seeds != null);
@@ -88,7 +100,7 @@ public class Tile {
      */
     public void plowTile() {
         // do not plow if plowing is not allowed
-        if(canPlow()) {
+        if(canPlow() == 0) {
             this.plowed = true;
             System.out.println("\n...tile successfully plowed");
         }
@@ -101,14 +113,7 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.waterTimes += 1;
             System.out.println("\n...success, total Times Watered: " + this.waterTimes);
-
-            if (this.waterTimes >= seeds.getWaterNeeds()) {
-                if (this.waterTimes == seeds.getWaterNeeds())
-                    System.out.println("...crop water needs reached");
-                if (this.waterTimes >= seeds.getWaterLimit())
-                    System.out.println("...crop water bonus limit reached");
-            } else
-                System.out.println("...crop needs to be watered " + (seeds.getWaterNeeds() - this.waterTimes) + " more times");
+            System.out.println(addWaterStatus());
         }
     }
 
@@ -119,19 +124,42 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.fertilizerTimes += 1;
             System.out.println("\n...success, total Times Fertilized: " + this.fertilizerTimes);
-
-            if (this.fertilizerTimes >= seeds.getFertilizerNeeds()) {
-                if (this.fertilizerTimes == seeds.getFertilizerNeeds())
-                    System.out.println("...crop fertilizer needs reached");
-                if (this.fertilizerTimes >= seeds.getFertilizerLimit())
-                    System.out.println("...crop fertilizer bonus limit reached");
-            } else
-                System.out.println("...crop needs to be fertilized " + (seeds.getFertilizerNeeds() - this.fertilizerTimes) + " more times");
+            System.out.println(addFertilizerStatus());
         }
     }
 
+    /** adds the water status of the tile
+     * @return the string of the water status of the tile
+     */
+    private String addWaterStatus() {
+        String result = "";
+        if (this.waterTimes >= seeds.getWaterNeeds()) {
+            if (this.waterTimes == seeds.getWaterNeeds())
+                result = "...crop water needs reached";
+            if (this.waterTimes >= seeds.getWaterLimit())
+                result = "...crop water bonus limit reached";
+        } else
+            result = "| water needs: " + seeds.getWaterNeeds();
+        return result;
+    }
+
+    /** adds the fertilizer status of the tile
+     * @return the string of the fertilizer status of the tile
+     */
+    private String addFertilizerStatus() {
+        String result = "";
+        if (this.fertilizerTimes >= seeds.getFertilizerNeeds()) {
+            if (this.fertilizerTimes == seeds.getFertilizerNeeds())
+                result = "...crop fertilizer needs reached";
+            if (this.fertilizerTimes >= seeds.getFertilizerLimit())
+                result = "...crop fertilizer bonus limit reached";
+        } else
+            result = "| fertilizer needs: " + seeds.getFertilizerNeeds();
+        return result;
+    }
+
     /**
-     * Remove rock from tile
+     * Removes rock from tile
      */
     public void removeRock() {
         this.rock = false;
@@ -139,7 +167,7 @@ public class Tile {
     }
 
     /**
-     * Add a day to the plant growing process
+     * Adds a day to the plant growing process
      */
     public void addDay() {
         this.age += 1;
@@ -148,10 +176,10 @@ public class Tile {
     /**
      * Computes the amount of products produced by tile
      *
-     * @return the amount of products
+     * @return the amount of products the crop produced
      */
     public int computeProductsProduced() {
-        return ThreadLocalRandom.current().nextInt(seeds.getMinProductsProduced(), seeds.getMaxProductsProduced() + 1);
+        return seeds.computeProductsProduced();
     }
 
     /**
@@ -175,7 +203,7 @@ public class Tile {
     }
 
     /**
-     * Sets the seeds.
+     * Sets the seeds to the tile.
      *
      * @param seeds the seed to plant
      */
@@ -191,9 +219,9 @@ public class Tile {
     }
 
     /**
-     * Checks if the tile is a rock
+     * Checks if the tile has a rock
      *
-     * @return true if the tile is a rock, otherwise false
+     * @return true if the tile has a rock, otherwise false
      */
     public boolean isRock() {
         return this.rock;
@@ -206,6 +234,15 @@ public class Tile {
      */
     public boolean isPlowed() {
         return this.plowed;
+    }
+
+    /**
+     * Checks if the tile has a crop
+     *
+     * @return true if the tile has a crop, otherwise false
+     */
+    public boolean isPlanted() {
+        return this.seeds != null;
     }
 
     /**
@@ -260,5 +297,32 @@ public class Tile {
      */
     public int getAge() {
         return this.age;
+    }
+
+    /** gets the state of the tile
+     * @return the TileState of the tile
+     */
+    public TileState getTileState() {
+        String seedName = "";
+        if(seeds != null)
+            seedName = seeds.getName();
+
+        int state = TileState.ROCK;
+        if(!isRock())
+            state = TileState.UNPLOWED;
+
+        if(isPlowed())
+            state = TileState.PLOWED;
+
+        if(seeds != null)
+            state = TileState.PLANTED;
+
+        if(seeds != null && age == seeds.getHarvestTime())
+            state = TileState.READY;
+
+        if(isWithered() != 0)
+            state = TileState.WITHERED;
+
+        return new TileState(seedName, state);
     }
 }
