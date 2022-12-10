@@ -113,7 +113,7 @@ public class TilePanel extends JPanel {
                         break;
                     case TileState.READY:
                         // set image to the seed name
-                        img = new ImageIcon(state.getSeedName() + ".png").getImage();
+                        img = new ImageIcon(state.getSeedName().toLowerCase() + ".png").getImage();
                         imgScaled = img.getScaledInstance(tileView.getWidth() / 2, tileView.getHeight() / 2, Image.SCALE_FAST);
                         tileView.setIcon(new ImageIcon(imgScaled));
                         tileView.setBackground(new Color(0x57412F));
