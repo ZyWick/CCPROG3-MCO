@@ -31,7 +31,7 @@ public class FarmController {
         }
         farmSize = new Coordinates(row, col);
 
-        farmView = new FarmView(farmSize);
+
         farm = new MyFarm(farmSize);
         player = new Player(farm);
 
@@ -39,7 +39,7 @@ public class FarmController {
         for (FarmTools tool : player.getTools()) {
             toolsList.add(tool.getName());
         }
-        farmView.setToolsList(toolsList);
+        farmView = new FarmView(farmSize, toolsList);
 
         // NOTE: actions that cause tiles/stats to change must call updateFarmView
         farmView.setOnTileMessageListener(new OnViewMessageListener() {

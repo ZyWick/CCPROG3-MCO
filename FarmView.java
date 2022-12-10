@@ -17,9 +17,10 @@ public class FarmView {
     private TilePanel tilePanel;
     private OnViewMessageListener messageListener;
 
-    private ArrayList<String> tools;
+    private ArrayList<String> toolsList;
 
-    public FarmView(Coordinates farmSize) {
+    public FarmView(Coordinates farmSize, ArrayList<String> toolsList) {
+        this.toolsList = toolsList;
         frame = new JFrame("Farm");
 
         baseCanvas = new JPanel();
@@ -131,7 +132,7 @@ public class FarmView {
         actions.put("Harvest", "harvest");
 
         // add tools
-        for (String name : tools) {
+        for (String name : toolsList) {
             actions.put(name, name);
         }
 
@@ -214,10 +215,6 @@ public class FarmView {
         int y = (int) mouseLocation.getY();
 
         menu.show(frame, x, y);
-    }
-
-    public void setToolsList(ArrayList<String> tools) {
-        this.tools = tools;
     }
 
     public void setOnTileMessageListener(OnViewMessageListener messageListener) {
