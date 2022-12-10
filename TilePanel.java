@@ -46,7 +46,7 @@ public class TilePanel extends JPanel {
      */
     public void rescale(Dimension windowDimensions){
         // original source of the resize algorithm
-        // https://codereview.stackexchange.com/questions/275971/function-to-resize-an-image-whilst-maintaining-aspect-ratio
+        // https://codereview.stackexchange.com/a/275975
 
         double original_width = (col * TileView.TILE_WIDTH) +
                 (col * (TileView.TILE_SPACING - 1));
