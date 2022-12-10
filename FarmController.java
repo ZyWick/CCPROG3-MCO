@@ -51,6 +51,8 @@ public class FarmController {
                 } 
                 if (error != 0)
                     farmView.reportFeedback(farm.getGame().throwPlantError(error));
+                else
+                    farmView.reportFeedback(seedName + " successfully planted");
 
                 updateFarmView();
             }
@@ -68,7 +70,7 @@ public class FarmController {
 
                     if (error == 0) {
                         player.useTool(coordinates, choice);
-
+                        farmView.reportFeedback("");
                     } else {
                         farmView.reportFeedback(farm.getGame().throwToolError(error));
                     }
