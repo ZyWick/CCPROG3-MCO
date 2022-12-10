@@ -108,15 +108,22 @@ public class FarmView {
         tilePanel.setOnTileClickListener(tileClickListener);
     }
 
+    /**
+     * Shows the tile menu for a tile
+     * @param coordinates coordinates of the tile
+     */
     private void showTileMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
         // LinkedHashMap preserves order of insertion
         LinkedHashMap<String, String> actions = new LinkedHashMap<>();
         actions.put(messageListener.requestTileStatus(coordinates), "nothing");
+
+        // add non-tools
         actions.put("Plant", "plant");
         actions.put("Harvest", "harvest");
 
+        // add tools
         for (String name : tools) {
             actions.put(name, name);
         }
@@ -148,6 +155,11 @@ public class FarmView {
 
         showMenuAtCursor(menu);
     }
+
+    /**
+     * Shows list of seeds available
+     * @param coordinates coordinates of the tile
+     */
     private void showPlantMenu(Coordinates coordinates) {
         JPopupMenu menu = new JPopupMenu();
 
