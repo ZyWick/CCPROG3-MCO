@@ -102,7 +102,23 @@ public class FarmController {
             @Override
             public void onMessageRegisterFarmer() {
                 System.out.println("Player wants to register");
-                String result = player.registerUp();
+                String result = "";
+                FarmerType zType = farm.getGame().getNextFarmerType(player.getType());
+
+                if(zType != null)
+                    if (player.checkLevelReq(zType))
+                        if(player.getObjectCoins() >= zType.getRegistrationFee()) {
+                            player.registerUp();
+                            result = "\n...you are now a " + player.getType().getName();
+                            result += "| ObjectCoins expended: " + player.getType().getRegistrationFee();
+                        }
+                        else
+                            result = farm.getGame().throwInsufficientObjectCoins();;
+                    else
+                        result = farm.getGame().throwRegisterError();
+                else
+                    result = farm.getGame().throwMaxFarmerTypeError();
+
                 farmView.reportFeedback(result);
 
                 updateFarmView();
