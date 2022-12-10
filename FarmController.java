@@ -171,7 +171,6 @@ public class FarmController {
             // game over
             if(farmView.endGame()){
                 // play again
-
                 init();
             } else {
                 // exit

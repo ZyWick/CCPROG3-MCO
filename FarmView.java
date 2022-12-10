@@ -251,6 +251,9 @@ public class FarmView {
         int response = JOptionPane.showConfirmDialog(frame, "Game Over. Do you want to play again?",
                 "", JOptionPane.YES_NO_OPTION);
 
+        if(response == JOptionPane.YES_OPTION)
+            frame.dispose();
+
         return response == JOptionPane.YES_OPTION;
     }
 }
