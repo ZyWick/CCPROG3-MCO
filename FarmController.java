@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,8 +17,19 @@ public class FarmController {
     }
 
     public void init() {
-        farmSize = new Coordinates(5, 10);
-        // farmSize = new Coordinates(1, 1);
+        int row, col;
+        try {
+            Path farmSizePath = Path.of("farmSize.txt");
+            String farmSize = Files.readString(farmSizePath);
+            String[] rc = farmSize.split(" ");
+            row = Integer.parseInt(rc[0]);
+            col = Integer.parseInt(rc[1]);
+        } catch (IOException e) {
+            System.out.println("Failed to read farmSize cfg");
+            row = 5;
+            col = 10;
+        }
+        farmSize = new Coordinates(row, col);
 
         farmView = new FarmView(farmSize);
         farm = new MyFarm(farmSize);
