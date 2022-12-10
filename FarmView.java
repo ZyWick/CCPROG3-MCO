@@ -110,7 +110,7 @@ public class FarmView {
                     String action = actions.get(entry.getText());
                     if(action != null) {
                         switch (action) {
-                            case "plant":
+                            case "plant":     showPlantMenu(coordinates); break;
                             case "harvest":   messageListener.onMessageHarvestCrop(coordinates); break;
                             default:          messageListener.onMessageUseTool(coordinates, action); break;
                         }
