@@ -117,7 +117,7 @@ public class FarmView {
 
         // LinkedHashMap preserves order of insertion
         LinkedHashMap<String, String> actions = new LinkedHashMap<>();
-        actions.put(messageListener.requestTileStatus(coordinates), "nothing");
+        actions.put(messageListener.requestTileStatus(coordinates), "info");
 
         // add non-tools
         actions.put("Plant", "plant");
@@ -137,6 +137,7 @@ public class FarmView {
                     String action = actions.get(entry.getText());
                     if(action != null) {
                         switch (action) {
+                            case "info":      break;
                             case "plant":     showPlantMenu(coordinates); break;
                             case "harvest":   messageListener.onMessageHarvestCrop(coordinates); break;
                             default:          messageListener.onMessageUseTool(coordinates, action); break;
