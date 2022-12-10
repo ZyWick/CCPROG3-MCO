@@ -7,6 +7,10 @@ public class Shovel implements FarmTools{
         
     }
 
+    public String getName() {
+        return "Shovel";
+    }
+
     public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.useShovel(tileIndex);
         return getToolCostAndYield();
@@ -16,7 +20,7 @@ public class Shovel implements FarmTools{
         return this.usageCost;
     }
 
-    private double[] getToolCostAndYield() {
+    public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = getUsageCost();
         yield [1] = this.expYield;

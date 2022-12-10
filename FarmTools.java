@@ -19,36 +19,25 @@ public interface FarmTools {
     //  * Returns the name of the tool
     //  * @return name of the tool
     //  */
-    // public String getName() {
-    //     return this.name;
-    // }
+    public String getName();
 
     // /**
     //  * Returns the cost of using the tool
     //  * @return cost of using the tool
     //  */
-    // public int getUsageCost() {
-    //     return this.usageCost;
-    // }
+    public int getUsageCost();
 
     // /**
     //  * Returns the amount of experience gained from using the tool
     //  * @return amount of experience gained
     //  */
-    // public double getExpYield() {
-    //     return this.expYield;
-    // }
+    // public double getExpYield();
 
     // /**
     //  * Returns the cost of using the tool and amount of experience gained from using the tool
     //  * @return an array containing {cost of using the tool, amount of experience gained}
     //  */
-    // public double[] getToolCostAndYield() {
-    //     double[] yield = new double[2]; 
-    //     yield [0] = this.getUsageCost();
-    //     yield [1] = this.getExpYield();
+    public double[] getToolCostAndYield();
 
-    //     return yield;
-    // }
         public double[] useTool(MyFarm farm, Coordinates tileIndex);
 }

@@ -7,6 +7,10 @@ public class Pickaxe implements FarmTools{
         
     }
 
+    public String getName() {
+        return "Pickaxe";
+    }
+
     public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.removeRock(tileIndex);
         return getToolCostAndYield();
@@ -17,7 +21,7 @@ public class Pickaxe implements FarmTools{
     }
     
 
-    private double[] getToolCostAndYield() {
+    public double[] getToolCostAndYield() {
         double[] yield = new double[2]; 
         yield [0] = getUsageCost();
         yield [1] = this.expYield;

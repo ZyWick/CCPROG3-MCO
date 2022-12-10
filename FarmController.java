@@ -104,7 +104,7 @@ public class FarmController {
                 System.out.println("TODO: modify the seed (check if modified)");
                 for(FarmSeeds seed : farm.getGame().getSeeds()) {
                     modifiedFarmSeeds.add(new FarmSeeds(seed.getName(),
-                                                     /*   seed.getCropType(), */
+                                                       seed.getCropType(),
                                                         seed.getHarvestTime(),
                                                         seed.getWaterNeeds(),
                                                         seed.getWaterLimit(),
