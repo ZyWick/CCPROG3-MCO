@@ -85,30 +85,45 @@ public class TilePanel extends JPanel {
             TileView tileView = tileViews.get(targetTile);
             if(tileView != null) {
                 // set image of tile
+                Image img, imgScaled;
                 switch (state.getState()) {
                     case TileState.ROCK:
                         // set image to rock
-                        tileView.setText("rock");
+                        img = new ImageIcon("rocks.png").getImage();
+                        imgScaled = img.getScaledInstance(tileView.getWidth() / 2, tileView.getHeight() / 2, Image.SCALE_FAST);
+                        tileView.setIcon(new ImageIcon(imgScaled));
+                        tileView.setBackground(new Color(0X9C7454));
                         break;
                     case TileState.UNPLOWED:
                         // set image to unplowed
-                        tileView.setText("unplowed");
+                        tileView.setIcon(null);
+                        tileView.setBackground(new Color(0X9C7454));
                         break;
                     case TileState.PLOWED:
                         // set image to plowed
-                        tileView.setText("plowed");
+                        tileView.setIcon(null);
+                        tileView.setBackground(new Color(0x57412F));
                         break;
                     case TileState.PLANTED:
                         // set image to generic seed
-                        tileView.setText("planted " + state.getSeedName());
+                        img = new ImageIcon("sprout.png").getImage();
+                        imgScaled = img.getScaledInstance(tileView.getWidth() / 2, tileView.getHeight() / 2, Image.SCALE_FAST);
+                        tileView.setIcon(new ImageIcon(imgScaled));
+                        tileView.setBackground(new Color(0x57412F));
                         break;
                     case TileState.READY:
                         // set image to the seed name
-                        tileView.setText("ready " + state.getSeedName());
+                        img = new ImageIcon(state.getSeedName() + ".png").getImage();
+                        imgScaled = img.getScaledInstance(tileView.getWidth() / 2, tileView.getHeight() / 2, Image.SCALE_FAST);
+                        tileView.setIcon(new ImageIcon(imgScaled));
+                        tileView.setBackground(new Color(0x57412F));
                         break;
                     case TileState.WITHERED:
                         // set image to dust
-                        tileView.setText("withered");
+                        img = new ImageIcon("withered.png").getImage();
+                        imgScaled = img.getScaledInstance(tileView.getWidth() / 2, tileView.getHeight() / 2, Image.SCALE_FAST);
+                        tileView.setIcon(new ImageIcon(imgScaled));
+                        tileView.setBackground(new Color(0X9C7454));
                         break;
                 }
             }

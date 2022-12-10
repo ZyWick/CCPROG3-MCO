@@ -15,7 +15,6 @@ public class TileView extends JButton {
         this.coordinates = coordinates;
 
         this.setPreferredSize(new Dimension(TILE_WIDTH, TILE_HEIGHT));
-        this.setBackground(new Color(0x57412F));
     }
 
     public Coordinates getCoordinates() {
