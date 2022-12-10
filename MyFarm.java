@@ -239,13 +239,13 @@ public class MyFarm {
      * Add a day to the plant growing process, and notifies if a plant has withered as a result
      */
     public void ageLot() {
-    game.addDay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-    for (Tile TheTile : lot.values())
-        if(TheTile.getSeeds() != null) {
-            TheTile.addDay();
-            if (TheTile.isWithered() != 0)
-                System.out.print("\n..." + TheTile.getSeeds().getName() + " has withered");
-        }
+        game.addDay();
+        for (Tile TheTile : lot.values())
+            if(TheTile.getSeeds() != null) {
+                TheTile.addDay();
+                if (TheTile.isWithered() != 0)
+                    System.out.print("\n..." + TheTile.getSeeds().getName() + " has withered");
+            }
     }
 
     /**
