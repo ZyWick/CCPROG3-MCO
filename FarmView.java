@@ -20,6 +20,11 @@ public class FarmView {
 
     private ArrayList<String> toolsList;
 
+    /**
+     * Instantiates a FarmView
+     * @param farmSize size of the farm
+     * @param toolsList list of tools the FarmView can display
+     */
     public FarmView(Coordinates farmSize, ArrayList<String> toolsList) {
         this.toolsList = toolsList;
         frame = new JFrame("Farm");
@@ -215,6 +220,10 @@ public class FarmView {
         showMenuAtCursor(menu);
     }
 
+    /**
+     * Shows a menu at the user's cursor location
+     * @param menu menu to show
+     */
     private void showMenuAtCursor(JPopupMenu menu) {
         Point mouseLocation = frame.getMousePosition();
         int x = (int) mouseLocation.getX();
@@ -223,10 +232,18 @@ public class FarmView {
         menu.show(frame, x, y);
     }
 
+    /**
+     * Sets the messageListener to use
+     * @param messageListener OnViewMessageListener created by the controller
+     */
     public void setOnTileMessageListener(OnViewMessageListener messageListener) {
         this.messageListener = messageListener;
     }
 
+    /**
+     * Updates the UI using the updated player stats
+     * @param stats updated player stats
+     */
     public void setPlayerStats(PlayerStats stats) {
         String playerTypeMsg = "";
 
@@ -248,16 +265,25 @@ public class FarmView {
                 "</html>");
     }
 
+    /**
+     * Change the UI of the tiles to account for the change of the tile states
+     * @param states the latest state of each tile
+     */
     public void updateTileStates(HashMap<Coordinates, TileState> states) {
         tilePanel.updateTileStates(states);
     }
 
+    /**
+     * Displays text on the UI
+     * @param text text to display, can have HTML formatting
+     */
     public void reportFeedback(String text){
         feedbackPanel.setText("<html><span style=\"color: #5A2729\">" + text + "</span></html>");
     }
 
     /**
-     * Shows the game over dialog. The window will be destroyed regardless of the user's choice since the game is over.
+     * Shows the game over dialog.
+     * Warning: The window will be closed regardless of the user's choice (since the game is over).
      * @return true if user wants to play again, otherwise false
      */
     public boolean endGame() {
