@@ -168,6 +168,11 @@ public class FarmController {
 
                 updateFarmView();
             }
+
+            @Override
+            public void requestViewUpdate() {
+                updateFarmView();
+            }
         });
 
         updateFarmView();

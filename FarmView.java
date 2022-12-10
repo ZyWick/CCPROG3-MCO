@@ -53,6 +53,11 @@ public class FarmView {
                 // update all views to account for the potential change in their sizes
                 // source: https://stackoverflow.com/a/7630604
                 SwingUtilities.updateComponentTreeUI(frame);
+
+                // icons need to be redrawn and rescaled when the scaling changes
+                // messageListener is null at the constructor
+                if(messageListener != null)
+                    messageListener.requestViewUpdate();
             }
 
         });

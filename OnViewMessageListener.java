@@ -10,4 +10,5 @@ public interface OnViewMessageListener {
     public String requestTileStatus(Coordinates coordinates);
 
     public void onMessageAdvanceDay();
+    public void requestViewUpdate();
 }
