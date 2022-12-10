@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * FarmSystem contains the available items and helper methods
  */
 public class FarmSystem {
-    // private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
     private ArrayList<FarmSeeds> seeds = new ArrayList<FarmSeeds>();
     private ArrayList<FarmerType> type = new ArrayList<FarmerType>();
     private int day = 1;
@@ -33,27 +32,6 @@ public class FarmSystem {
     public void addDay() {
         this.day += 1;
         System.out.print("\n...success, a day has passed");
-    }
-
-    /**
-     * Prints a prompt with the list of available game actions
-     */
-    public void displayGameMoves () {
-
-    }
-
-    /**
-     * Prints a prompt with the list of available tile actions
-     */
-    public void displayInteractionChoices () {
-
-    }
-
-    /**
-     * Prints a lot status legend
-     */
-    public void displayLotLegend () {
-
     }
 
     /**
@@ -131,15 +109,6 @@ public class FarmSystem {
     public String throwRegisterError() {
         return "Error: insufficient level";
     }
-
-    // /**
-    //  * Returns the list of tools that are available in the game
-    //  *
-    //  * @return the list of available tools
-    //  */
-    // public ArrayList<FarmTools> getTools() {
-    //     return this.tools;
-    // }
 
     /**
      * Returns the list of seeds that are available in the game
