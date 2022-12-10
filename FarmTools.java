@@ -14,7 +14,7 @@ public interface FarmTools {
     //     this.usageCost = usageCost;
     //     this.expYield = expYield;
     // }
-
+    public int canUseTool(MyFarm farm, Coordinates coordinates);
     // /**
     //  * Returns the name of the tool
     //  * @return name of the tool

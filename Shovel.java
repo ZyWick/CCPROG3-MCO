@@ -11,6 +11,11 @@ public class Shovel implements FarmTools{
         return "Shovel";
     }
 
+    public int canUseTool(MyFarm farm, Coordinates coordinates) {
+        int error = 0;
+        return error;
+    }
+
     public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.useShovel(tileIndex);
         return getToolCostAndYield();

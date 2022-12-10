@@ -11,6 +11,13 @@ public class Pickaxe implements FarmTools{
         return "Pickaxe";
     }
 
+    public int canUseTool(MyFarm farm, Coordinates coordinates) {
+        int error = 0;
+        if (farm.doesTileRock(coordinates) == false)
+            error = 5;
+        return error;
+    }
+
     public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.removeRock(tileIndex);
         return getToolCostAndYield();

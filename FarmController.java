@@ -80,7 +80,11 @@ public class FarmController {
                             choice = tool;
 
                 if (choice != null) {
-                    int error = farm.canUseTool(coordinates, toolName, choice.getUsageCost(), player.getObjectCoins());
+                    int error = 0;
+                    if (player.getObjectCoins() >= choice.getUsageCost())
+                        error = choice.canUseTool(farm, coordinates);
+                    else
+                        error = 6;
 
                     if (error == 0) {
                         player.useTool(coordinates, choice);
