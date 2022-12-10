@@ -1,7 +1,7 @@
 public class WateringCan implements FarmTools{
     
-    final int usageCost = 0;
-    final double expYield = 0.5;
+    private final int usageCost = 0;
+    private final double expYield = 0.5;
 
     /** Creates a Watering can
      * 

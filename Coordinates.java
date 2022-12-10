@@ -13,22 +13,6 @@ public class Coordinates {
     }
 
     /**
-     * Get the row value
-     * @return row
-     */
-    public int getRow() {
-        return row;
-    }
-
-    /**
-     * Get the column value
-     * @return column
-     */
-    public int getCol() {
-        return col;
-    }
-
-    /**
      * Check if two coordinates objects have the same row and col value
      * @param o other object
      * @return true if objects are considered equal, false if not
@@ -58,4 +42,21 @@ public class Coordinates {
     public String toString() {
         return "(row: " + row + " col: " + col + ")";
     }
+
+    /**
+     * Get the row value
+     * @return row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Get the column value
+     * @return column
+     */
+    public int getCol() {
+        return col;
+    }
+
 }

@@ -143,8 +143,8 @@ public class FarmSystem {
      * @param TheType the current farmer type
      * @return the next FarmerType, can be null
      */
-    public FarmerType getNextFarmerType(FarmerType TheType) {
-        int nextLevelIndex = type.indexOf(TheType) + 1;
+    public FarmerType getNextFarmerType(FarmerType currType) {
+        int nextLevelIndex = type.indexOf(currType) + 1;
 
         if(nextLevelIndex < type.size())
             return type.get(nextLevelIndex);

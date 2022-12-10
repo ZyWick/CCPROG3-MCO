@@ -1,7 +1,7 @@
 public class Pickaxe implements FarmTools{
     
-    final int usageCost = 50;
-    final double expYield = 15;
+    private final int usageCost = 50;
+    private final double expYield = 15;
 
     /** Creates a Pickaxe
      * 

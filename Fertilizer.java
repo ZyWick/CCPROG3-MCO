@@ -1,7 +1,7 @@
 public class Fertilizer implements FarmTools{
     
-    final int usageCost = 10;
-    final double expYield = 4;
+    private final int usageCost = 10;
+    private final double expYield = 4;
 
     /** Creates a Fertilizer
      * 

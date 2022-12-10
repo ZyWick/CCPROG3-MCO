@@ -1,7 +1,7 @@
 public class Shovel implements FarmTools{
     
-    final int usageCost = 7;
-    final double expYield = 2;
+    private final int usageCost = 7;
+    private final double expYield = 2;
 
     /** Creates a Shovel
      * 
