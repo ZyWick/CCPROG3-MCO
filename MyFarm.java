@@ -15,7 +15,7 @@ public class MyFarm {
     /**
      * Creates a new MyFarm
      */
-    public MyFarm() {
+    public MyFarm(Coordinates farmSize) {
         // load rock cfg from file
         // format '0' if no rock, '1' if rock
         String rockCfg = "0"; // failsafe 0
@@ -26,7 +26,7 @@ public class MyFarm {
             System.out.println("Failed to read rocks.txt");
         }
 
-        farmSize = new Coordinates(5, 10);
+        this.farmSize = farmSize;
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
                 //if indicated

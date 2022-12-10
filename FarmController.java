@@ -7,14 +7,18 @@ public class FarmController {
     private FarmView farmView;
     private MyFarm farm;
     private Player player;
+    private Coordinates farmSize;
 
     public FarmController() {
         init();
     }
 
     public void init() {
-        farmView = new FarmView();
-        farm = new MyFarm();
+        farmSize = new Coordinates(5, 10);
+        // farmSize = new Coordinates(1, 1);
+
+        farmView = new FarmView(farmSize);
+        farm = new MyFarm(farmSize);
         player = new Player(farm);
 
         ArrayList<String> toolsList = new ArrayList<>();
@@ -159,10 +163,8 @@ public class FarmController {
         farmView.setPlayerStats(player.getPlayerStats());
 
         HashMap<Coordinates, TileState> states = new HashMap<>();
-        int row = 5;
-        int col = 10;
-        for (int i = 0; i<row; i++) {
-            for (int j=0; j<col; j++) {
+        for (int i = 0; i<farmSize.getRow(); i++) {
+            for (int j=0; j<farmSize.getCol(); j++) {
                 states.put(new Coordinates(i, j), farm.getTileState(new Coordinates(i, j)));
             }
         }

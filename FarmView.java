@@ -19,7 +19,7 @@ public class FarmView {
 
     private ArrayList<String> tools;
 
-    public FarmView() {
+    public FarmView(Coordinates farmSize) {
         frame = new JFrame("Farm");
 
         baseCanvas = new JPanel();
@@ -41,7 +41,7 @@ public class FarmView {
         //c.fill = GridBagConstraints.BOTH;
         baseCanvas.add(statsPanel, c);
 
-        tilePanel = new TilePanel(5, 10, new Dimension(1024, 768));
+        tilePanel = new TilePanel(farmSize.getRow(), farmSize.getCol(), new Dimension(1024, 768));
 
         baseCanvas.addComponentListener(new ComponentAdapter() {
             @Override
