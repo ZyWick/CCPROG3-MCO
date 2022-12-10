@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,8 +9,6 @@ import java.util.HashMap;
 public class MyFarm {
     private HashMap<Coordinates, Tile> lot = new HashMap<>();
     private FarmSystem game = new FarmSystem();
-    private Coordinates farmSize;
-
    
     /** Creates a new MyFarm
      * 
@@ -28,7 +25,6 @@ public class MyFarm {
             System.out.println("Failed to read rocks.txt");
         }
 
-        this.farmSize = farmSize;
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
                 // add rocks if and only if the character at index mod string length is 1

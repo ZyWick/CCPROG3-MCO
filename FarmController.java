@@ -12,6 +12,9 @@ public class FarmController {
     private Player player;
     private Coordinates farmSize;
 
+    /**
+     * intantiates a FarmController
+     */
     public FarmController() {
         init();
     }
@@ -60,8 +63,7 @@ public class FarmController {
                                 else
                                     error = 3; //game.throwInsufficientObjectCoins();
                             }
-                        } else
-                            error = 4;
+                        } 
                     }
                 if (error != 0)
                     farmView.reportFeedback(farm.getGame().throwPlantError(error));
@@ -179,6 +181,9 @@ public class FarmController {
         farmView.reportFeedback("welcome");
     }
 
+    /**
+     * updates the view of the farm
+     */
     private void updateFarmView() {
         if(player.endGame()){
             // game over
