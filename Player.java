@@ -9,6 +9,7 @@ public class Player {
     private MyFarm farm;
     private FarmerType type;
     private ArrayList<FarmTools> tools = new ArrayList<FarmTools>();
+
     /**
      * Instantiates the Player.
      *
@@ -58,9 +59,19 @@ public class Player {
         this.objectCoins += change;
     }
 
- 
+    /** checks if the player can afford a seed
+     * @param seedCost the cost of a seed
+     * @return true if the player can afford the seed, otherwise, false
+     */
+    public boolean canAffordSeed(int seedCost) {
+        if (this.objectCoins >= seedCost + this.type.getSeedCostReduction())
+            return true;
+
+        return false;
+    }
+
     /** lets the player use tools on the tiles of MyFarm and adds the yield of the tool to player stats
-     * @param coordinates the coordinates of the tile
+     * @param coordinates the coordinates of a tile
      * @param tool the chosen tool object 
      */
     public void useTool (Coordinates coordinates, FarmTools tool) {
@@ -73,8 +84,8 @@ public class Player {
     }
   
     /** lets the player plant crops through MyFarm and deducts objectCoins from the chosen seed cost amount 
-     * @param coordinates the coordinates of the tile 
-     * @param seedIndex the index of the chosen seed 
+     * @param coordinates the coordinates of a tile 
+     * @param seed the chosen seed object
      */
     public void plantCrop (Coordinates coordinates, FarmSeeds seed) {
         int cost = farm.plantCrop(coordinates, seed);
@@ -82,45 +93,34 @@ public class Player {
         System.out.println("| ObjectCoins expended: " + (cost + this.getType().getSeedCostReduction()));
     }
 
-    /** harversts the crop on the tile
-     * @param coordinates the coordinates of the tile
+    /** harvests the crop on a tile
+     * @param coordinates the coordinates of a tile
+     * @return TODO: idk
      */
     public String harvestCrop (Coordinates coordinates) {
-            int error = farm.checkHarvest(coordinates);
-            String result = "";
+        int error = farm.checkHarvest(coordinates);
+        String result = "";
 
-            if(error == 0) {
-                double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
-                addObjectCoins(yield[0]);
-                addExp(yield[1]);
+        if(error == 0) {
+            double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
+            addObjectCoins(yield[0]);
+            addExp(yield[1]);
 
+            result +=    "ObjectCoins gained: " + yield[0];
+            result += " | Experience gained: "  + yield[1];
+            result += " | Produce harvested: " + (int)yield[2];
+        } else {
+            result = farm.getGame().throwHarvestError(error);
+        }
 
-                result +=    "ObjectCoins gained: " + yield[0];
-                result += " | Experience gained: "  + yield[1];
-                result += " | Produce harvested: " + (int)yield[2];
-            } else {
-                result = farm.getGame().throwHarvestError(error);
-            }
-
-            return result;
+        return result;
     }
 
     /**
-     * Advance day.
+     * Advances day.
      */
     public void advanceDay() {
         farm.ageLot();
-    }
-
-    /** checks if the player can afford a seed
-     * @param seedCost the cost of a seed
-     * @return true if the player can afford the seed, otherwise, false
-     */
-    public boolean canAffordSeed(int seedCost) {
-        if (this.objectCoins >= seedCost + this.type.getSeedCostReduction())
-            return true;
-
-        return false;
     }
 
     private static final int REGISTER_UP_OK = 0;
@@ -149,8 +149,9 @@ public class Player {
     }
 
     /** tests if player level is sufficient to register up
+     * 
      * @param zType the farmer type next to the current type of the player
-     * @return
+     * @return true if the farmer can register up, otherwise, false
      */
     public boolean checkLevelReq(FarmerType zType) {
         boolean result = false;
@@ -178,19 +179,18 @@ public class Player {
         return farm.endGame(this.objectCoins, this.type.getSeedCostReduction());
     }
 
-    /** gets the current farmer type of the player
-     * @return the current farmer type of the player
-     */
-    public FarmerType getType() {
-        return type;
-    }
-
-
     /** gets the amount of objectCoins the player has
      * @return the amount of objectCoins the player has
      */
     public double getObjectCoins(){
         return this.objectCoins;
+    }
+
+    /** gets the current farmer type of the player
+     * @return the current farmer type of the player
+     */
+    public FarmerType getType() {
+        return type;
     }
 
     /** gets the tools of the player

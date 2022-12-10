@@ -18,7 +18,7 @@ public class FarmSeeds {
     private double expYield;
 
     /**
-     * Instantiates a new Farm seeds.
+     * Instantiates a new seed.
      *
      * @param name                the name
      * @param cropType            the crop type
@@ -130,7 +130,7 @@ public class FarmSeeds {
     }
 
     /**
-     * Computes the amount of products produced by tile
+     * Computes the amount of products produced from a tile
      *
      * @return the amount of products
      */
