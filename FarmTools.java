@@ -23,14 +23,14 @@ public interface FarmTools {
      * @return an array containing {cost of using the tool, amount of experience gained}
      */
     public double[] getToolCostAndYield();
-   
-    /** gets the name of the tool
-     * @return name of the tool
-     */
-    public String getName();
 
     /** gets usage cost
      * @return cost of using the tool
      */
     public int getUsageCost();
+       
+    /** gets the name of the tool
+     * @return name of the tool
+     */
+    public String getName();
 }
