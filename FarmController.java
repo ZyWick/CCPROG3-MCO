@@ -62,7 +62,7 @@ public class FarmController {
                 System.out.println("Use " + toolName + " at coordinate " + coordinates);
                 FarmTools choice = null;
                 for (FarmTools tool : player.getTools())
-                        if (tool.getClass().getSimpleName().equals(toolName))
+                        if (tool.getName().equals(toolName))
                             choice = tool;
 
                 if (choice != null) {
