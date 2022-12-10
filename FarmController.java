@@ -50,7 +50,7 @@ public class FarmController {
                                 error = 4; //game.throwOutOfBoundsError();
                 } 
                 if (error != 0)
-                    farm.getGame().throwPlantError(error);
+                    farmView.reportFeedback(farm.getGame().throwPlantError(error));
 
                 updateFarmView();
             }
@@ -69,10 +69,11 @@ public class FarmController {
                     if (error == 0) {
                         player.useTool(coordinates, choice);
 
-                    } else 
-                        farm.getGame().throwToolError(error);
+                    } else {
+                        farmView.reportFeedback(farm.getGame().throwToolError(error));
+                    }
                 } else
-                    farm.getGame().throwOutOfBoundsError();
+                    farmView.reportFeedback(farm.getGame().throwOutOfBoundsError());
 
                 updateFarmView();
             }
@@ -84,8 +85,8 @@ public class FarmController {
                 int error = farm.checkHarvest(coordinates);
                 if (error == 0) {
                     player.harvestCrop(coordinates);
-                } else 
-                    farm.getGame().throwHarvestError(error);
+                } else
+                    farmView.reportFeedback(farm.getGame().throwHarvestError(error));
 
                 updateFarmView();
             }
@@ -93,11 +94,8 @@ public class FarmController {
             @Override
             public void onMessageRegisterFarmer() {
                 System.out.println("Player wants to register");
-                try {
-                    player.registerUp();
-                } catch(Exception e) {
-                    farmView.reportFeedback(e.getMessage());
-                }
+                String result = player.registerUp();
+                farmView.reportFeedback(result);
 
                 updateFarmView();
             }

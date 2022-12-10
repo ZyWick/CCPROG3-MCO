@@ -243,24 +243,27 @@ public class Player {
     /**
      * Attempts to register up.
      */
-    public void registerUp() {
+    public String registerUp() {
+        String result = "";
         switch (canRegisterUp()) {
             case REGISTER_UP_OK:
                 this.type = farm.getGame().getNextFarmerType(this.type);
                 this.objectCoins -= this.type.getRegistrationFee();
-                System.out.println("\n...you are now a " + this.type.getName());
-                System.out.println("| ObjectCoins expended: " + this.type.getRegistrationFee());
+                result = "\n...you are now a " + this.type.getName();
+                result += "| ObjectCoins expended: " + this.type.getRegistrationFee();
                 break;
             case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                farm.getGame().throwInsufficientObjectCoins();
+                result = farm.getGame().throwInsufficientObjectCoins();
                 break;
             case REGISTER_UP_ERR_INSUFFICIENT_LEVEL:
-                farm.getGame().throwRegisterError();
+                result = farm.getGame().throwRegisterError();
                 break;
             case REGISTER_UP_ERR_MAX_LEVEL:
-                farm.getGame().throwMaxFarmerTypeError();
+                result = farm.getGame().throwMaxFarmerTypeError();
                 break;
         }
+
+        return result;
     }
 
     /**
