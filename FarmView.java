@@ -15,6 +15,7 @@ public class FarmView {
 
     private JLabel statsPanel, feedbackPanel;
     private TilePanel tilePanel;
+    private JButton registerFarmer;
     private OnViewMessageListener messageListener;
 
     private ArrayList<String> toolsList;
@@ -92,7 +93,7 @@ public class FarmView {
         c.gridheight = 1;
         //c.fill = GridBagConstraints.BOTH;
 
-        JButton registerFarmer = new JButton("Register to superior farmer type");
+        registerFarmer = new JButton("Upgrade farmer type");
         registerFarmer.addActionListener(actionEvent -> messageListener.onMessageRegisterFarmer());
         baseCanvas.add(registerFarmer, c);
 
@@ -229,9 +230,13 @@ public class FarmView {
     public void setPlayerStats(PlayerStats stats) {
         String playerTypeMsg = "";
 
-        if(stats.getEligibleForPlayerType() != null)
+        if(stats.getEligibleForPlayerType() != null){
             playerTypeMsg = "can register to " + stats.getEligibleForPlayerType().getName() +
                     " (cost: " + stats.getEligibleForPlayerType().getRegistrationFee() + " ObjectCoins)";
+            registerFarmer.setVisible(true);
+        } else {
+            registerFarmer.setVisible(false);
+        }
 
         statsPanel.setText("<html>" +
                 "<span style=\"color: #5A2729\"> Type: " + stats.getType() + "</span> <br>" +
