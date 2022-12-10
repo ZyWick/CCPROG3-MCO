@@ -171,30 +171,21 @@ public class Player {
             return REGISTER_UP_ERR_MAX_LEVEL;
     }
 
+    public boolean checkLevelReq(FarmerType zType) {
+        boolean result = false;
+
+        if (experience.getLevel() >= zType.getLevelReq())
+            result = true;
+
+        return result;
+    }
+
     /** 
      * @return string feedback
      */
-    public String registerUp() {
-        String result = "";
-        switch (canRegisterUp()) {
-            case REGISTER_UP_OK:
-                this.type = farm.getGame().getNextFarmerType(this.type);
-                this.objectCoins -= this.type.getRegistrationFee();
-                result = "\n...you are now a " + this.type.getName();
-                result += "| ObjectCoins expended: " + this.type.getRegistrationFee();
-                break;
-            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
-                result = farm.getGame().throwInsufficientObjectCoins();
-                break;
-            case REGISTER_UP_ERR_INSUFFICIENT_LEVEL:
-                result = farm.getGame().throwRegisterError();
-                break;
-            case REGISTER_UP_ERR_MAX_LEVEL:
-                result = farm.getGame().throwMaxFarmerTypeError();
-                break;
-        }
-
-        return result;
+    public void registerUp() {
+        this.type = farm.getGame().getNextFarmerType(this.type);
+        this.objectCoins -= this.type.getRegistrationFee();
     }
 
     /**
