@@ -97,6 +97,7 @@ public class FarmSystem {
             case 2: return "Error: tile has a crop already";
             case 3: return throwInsufficientObjectCoins();
             case 4: return throwOutOfBoundsError();
+            case 5: return "Error: fruit tree cannot be planted here";
         }
         return "Unknown Error";
     }

@@ -40,8 +40,10 @@ public class FarmController {
 
                                 if (player.canAffordSeed(choice.getSeedCost())) {
                                     if (choice instanceof FruitTree) {
-                                        // if property checkFreeAdjacentTile()
+                                        if(farm.checkFreeAdjacentTile(coordinates))
                                             player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
+                                        else
+                                            error = 5;
                                     } else
                                         player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
                                 } else

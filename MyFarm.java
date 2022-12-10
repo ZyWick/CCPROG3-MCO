@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class MyFarm {
     private HashMap<Coordinates, Tile> lot = new HashMap<>();
     private FarmSystem game = new FarmSystem();
+    private Coordinates farmSize;
 
     /**
      * Creates a new MyFarm
@@ -25,7 +26,7 @@ public class MyFarm {
             System.out.println("Failed to read rocks.txt");
         }
 
-        Coordinates farmSize = new Coordinates(5, 10);
+        farmSize = new Coordinates(5, 10);
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
                 //if indicated
@@ -410,4 +411,21 @@ public class MyFarm {
     public FarmSystem getGame () {
         return this.game;
    }
+
+    public boolean checkFreeAdjacentTile(Coordinates coordinates) {
+        int row = coordinates.getRow();
+        int col = coordinates.getCol();
+        for(int r = row - 1; r <= row + 1; r++) {
+            for(int c = col - 1; r <= col + 1; col++) {
+                System.out.println(new Coordinates(r, c));
+                Tile checkTile = lot.get(new Coordinates(r, c));
+
+                // if out of bounds or contains something, return false
+                if(checkTile == null || checkTile.isRock() || checkTile.isPlanted()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

@@ -212,6 +212,15 @@ public class Tile {
     }
 
     /**
+     * Checks if the tile is planted
+     *
+     * @return true if the tile is planted, otherwise false
+     */
+    public boolean isPlanted() {
+        return this.seeds != null;
+    }
+
+    /**
      * Checks if the tile is withered
      *
      * @return a positive number if the tile is withered, otherwise 0
