@@ -106,7 +106,7 @@ public class FarmController {
 
                 int error = farm.checkHarvest(coordinates);
                 if (error == 0) {
-                    player.harvestCrop(coordinates);
+                    farmView.reportFeedback(player.harvestCrop(coordinates));
                 } else
                     farmView.reportFeedback(farm.getGame().throwHarvestError(error));
 

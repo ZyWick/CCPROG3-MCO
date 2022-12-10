@@ -211,7 +211,7 @@ public class MyFarm {
      *
      * @param tileIndex       the index of the tile
      * @param farmerTypeIndex the index of the player's farmer type
-     * @return an array containing the ObjectCoin yield and exp yield of the operation
+     * @return an array containing the ObjectCoin yield, exp yield, and products produced of the operation
      */
     public double[] harvestCrop(Coordinates tileIndex, int farmerTypeIndex){
         Tile TheTile = lot.get(tileIndex);
@@ -232,9 +232,10 @@ public class MyFarm {
             harvestTotal *= 1.1;   
 
         TheTile.reset();
-        double[] yield = new double[2];
+        double[] yield = new double[3];
         yield[0] = harvestTotal;
         yield[1] = TheSeed.getExpYield();
+        yield[2] = productsProduced;
         
         System.out.println("\n...crop harvested + tile has been reset");
         System.out.println("| " + TheSeed.getName() + " products produced: " + productsProduced);
