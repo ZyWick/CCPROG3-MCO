@@ -81,77 +81,6 @@ public class Player {
         farm.getGame().displayLotLegend();
     }
 
-    // /**
-    //  * Displays the list of eligible tools and asks the player to pick a tool
-    //  * @param sc the Scanner to get input from
-    //  * @param tileIndex the tile index
-    //  * @return an int representing the player's choice
-    //  */
-    // private int getToolChoice(Scanner sc, Coordinates tileIndex) {
-    //     int choice;
-    //     System.out.println("\nWhich tool do you want to use?");
-    //     farm.displayTools(tileIndex, this.objectCoins);
-    //     System.out.print("Choice: ");
-    //     choice = sc.nextInt();
-
-    //     return choice;
-    // }
-
-    // /**
-    //  * Displays a list of seeds that are available and asks the player to pick from one of them
-    //  * @param sc the Scanner to get input from
-    //  * @return an int representing the player's choice
-    //  */
-    // private int getSeedChoice(Scanner sc) {
-    //     int choice;
-    //     System.out.println("\nWhich seed do you want to plant?");
-    //     farm.displaySeeds(this.objectCoins, this.type.getSeedCostReduction());
-    //     System.out.print("Choice: ");
-    //     choice = sc.nextInt();
-
-    //     return choice;
-    // }
-
-    /**
-     * Asks for tile coordinates from the player and returns it as an index
-     *
-     * @param sc the Scanner to get input from
-     * @return the tile index
-     */
-    public int getTileIndex (Scanner sc) {
-        int x, y, tileIndex;
-
-        System.out.print("\ninput tile coordinates: ");
-        x = sc.nextInt();
-        y = sc.nextInt();
-        tileIndex = (x - 1) * 10 + (y - 1) ;
-
-        return tileIndex;
-    }
-
-    /**
-     * Asks player to select a tile action
-     *
-     * @param sc the Scanner to get input from
-     */
-    public void interactTile(Scanner sc) {
-        // Coordinates tileIndex = getTileIndex(sc);
-        /*Coordinates tileIndex = 0;
-        farm.getGame().displayInteractionChoices();;
-        int choice = sc.nextInt();
-        switch (choice) {
-            case 1: useTool(sc, tileIndex);
-                    break;
-            case 2: plantCrop(sc, tileIndex);
-                    break;
-            case 3: harvestCrop(tileIndex); 
-                    break;
-            case 4: farm.displayTileStatus(tileIndex);
-                    break;
-            default: break;
-            }*/
-    }
-
     /**
      * Adds experience to the experience counter, then informs the player if the level changes
      * @param expToAdd amount of experience points to add
@@ -164,11 +93,9 @@ public class Player {
             System.out.println("\n...player leveled up!");
     }
 
-
     private void addObjectCoins (double change) {
         this.objectCoins += change;
     }
-
 
     /**
      * Asks player to choose a tool, then uses it on the specific tile index.
