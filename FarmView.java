@@ -97,15 +97,22 @@ public class FarmView {
         frame.pack();
         frame.setVisible(true);
 
-        OnTileClickListener tileClickListener = new OnTileClickListener() {
+        ActionListener tileClickListener = new ActionListener() {
             @Override
-            public void onClick(Coordinates coordinates) {
-                System.out.println("Recv click from " + coordinates);
-                showTileMenu(coordinates);
+            public void actionPerformed(ActionEvent actionEvent) {
+                Object source = actionEvent.getSource();
+
+                if(source instanceof TileView) {
+                    Coordinates coordinates = ((TileView)source).getCoordinates();
+
+                    System.out.println("Recv click from " + coordinates);
+                    showTileMenu(coordinates);
+                }
+
             }
         };
 
-        tilePanel.setOnTileClickListener(tileClickListener);
+        tilePanel.addTileClickListener(tileClickListener);
     }
 
     /**
