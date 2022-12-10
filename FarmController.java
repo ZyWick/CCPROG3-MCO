@@ -65,7 +65,8 @@ public class FarmController {
                                         player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
                                 } else
                                     error = 3; //game.throwInsufficientObjectCoins();
-                            } 
+                            } else
+                                error = 4;
                         }
                 } 
                 if (error != 0)
@@ -93,7 +94,8 @@ public class FarmController {
                     } else {
                         farmView.reportFeedback(farm.getGame().throwToolError(error));
                     }
-                } 
+                } else
+                    farmView.reportFeedback(farm.getGame().throwOutOfBoundsError());
 
                 updateFarmView();
             }
