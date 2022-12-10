@@ -416,7 +416,7 @@ public class MyFarm {
         int row = coordinates.getRow();
         int col = coordinates.getCol();
         for(int r = row - 1; r <= row + 1; r++) {
-            for(int c = col - 1; r <= col + 1; c++) {
+            for(int c = col - 1; c <= col + 1; c++) {
                 System.out.println(new Coordinates(r, c));
                 Tile checkTile = lot.get(new Coordinates(r, c));
 
