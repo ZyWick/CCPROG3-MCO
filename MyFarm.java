@@ -41,12 +41,6 @@ public class MyFarm {
     }
 
     /**
-     * Displays the farm
-     */
-    public void display () {
-    }
-
-    /**
      * Display tile status.
      *
      * @param tileIndex the index of the tile
@@ -58,7 +52,7 @@ public class MyFarm {
     /**
      * Checks if the tool can be used by the player on the specified tile
      * @param tileIndex   the index of the tool
-     * @param toolIndex   the index of the tile
+     * @param toolName    the name of the tool
      * @param objectCoins the number of ObjectCoins the player has
      * @return true if the player can use the tool on the tile, otherwise false
      */
