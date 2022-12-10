@@ -37,8 +37,11 @@ public class Tile {
         if (this.seeds != null) {
             status += "crop: " + this.seeds.getName() + "\n";
             status += "Times Watered: " + this.waterTimes + "\n";
+            status +=  addWaterStatus() + "\n";
             status += "Times Fertilized: " + this.fertilizerTimes + "\n";
+            status += addFertilizerStatus() + "\n";
             status += "Age: " + this.age +" days" + "\n";
+            status += "Harvest Time: day " + this.seeds.getHarvestTime() + "\n" ;
         } else
             status += "...no crop planted" + "\n";
 
@@ -110,14 +113,7 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.waterTimes += 1;
             System.out.println("\n...success, total Times Watered: " + this.waterTimes);
-
-            if (this.waterTimes >= seeds.getWaterNeeds()) {
-                if (this.waterTimes == seeds.getWaterNeeds())
-                    System.out.println("...crop water needs reached");
-                if (this.waterTimes >= seeds.getWaterLimit())
-                    System.out.println("...crop water bonus limit reached");
-            } else
-                System.out.println("...crop needs to be watered " + (seeds.getWaterNeeds() - this.waterTimes) + " more times");
+            System.out.println(addWaterStatus());
         }
     }
 
@@ -128,15 +124,32 @@ public class Tile {
         if(this.canWaterOrFertilize()) {
             this.fertilizerTimes += 1;
             System.out.println("\n...success, total Times Fertilized: " + this.fertilizerTimes);
-
-            if (this.fertilizerTimes >= seeds.getFertilizerNeeds()) {
-                if (this.fertilizerTimes == seeds.getFertilizerNeeds())
-                    System.out.println("...crop fertilizer needs reached");
-                if (this.fertilizerTimes >= seeds.getFertilizerLimit())
-                    System.out.println("...crop fertilizer bonus limit reached");
-            } else
-                System.out.println("...crop needs to be fertilized " + (seeds.getFertilizerNeeds() - this.fertilizerTimes) + " more times");
+            System.out.println(addFertilizerStatus());
         }
+    }
+
+    private String addWaterStatus() {
+        String result = "";
+        if (this.waterTimes >= seeds.getWaterNeeds()) {
+            if (this.waterTimes == seeds.getWaterNeeds())
+                result = "...crop water needs reached";
+            if (this.waterTimes >= seeds.getWaterLimit())
+                result = "...crop water bonus limit reached";
+        } else
+            result = "| water needs: " + seeds.getWaterNeeds();
+        return result;
+    }
+
+    private String addFertilizerStatus() {
+        String result = "";
+        if (this.fertilizerTimes >= seeds.getFertilizerNeeds()) {
+            if (this.fertilizerTimes == seeds.getFertilizerNeeds())
+                result = "...crop fertilizer needs reached";
+            if (this.fertilizerTimes >= seeds.getFertilizerLimit())
+                result = "...crop fertilizer bonus limit reached";
+        } else
+            result = "| fertilizer needs: " + seeds.getFertilizerNeeds();
+        return result;
     }
 
     /**
