@@ -11,8 +11,13 @@ public class Plow implements FarmTools{
         return "Plow";
     }
 
-    public double[] useTool(MyFarm farm, Coordinates tileIndex) {
-        farm.plowTile(tileIndex);
+    public int canUseTool(MyFarm farm, Coordinates coordinates) {
+        int error = farm.doesTilePlow(coordinates);
+        return error;
+    }
+
+    public double[] useTool(MyFarm farm, Coordinates coordinates) {
+        farm.plowTile(coordinates);
         return getToolCostAndYield();
     }
     

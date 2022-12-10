@@ -11,6 +11,13 @@ public class Fertilizer implements FarmTools{
         return "Fertilizer";
     }
 
+    public int canUseTool(MyFarm farm, Coordinates coordinates) {
+        int error = 0;
+        if (farm.doesTileWorF(coordinates) == false)
+            error = 4;
+        return error;
+    }
+
     public double[] useTool(MyFarm farm, Coordinates tileIndex) {
         farm.fertilizeTile(tileIndex);
         return getToolCostAndYield();

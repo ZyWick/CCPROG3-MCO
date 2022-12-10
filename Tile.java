@@ -62,11 +62,17 @@ public class Tile {
     /**
      * Checks if the tile can be plowed
      *
-     * @return true if the tile can be plowed, otherwise false
+     * @return int if the tile can be plowed, otherwise false
      */
-    public boolean canPlow() {
-        return !this.isPlowed() && !this.isRock();
+    public int canPlow() {
+        int error = 0;
+        if (this.isPlowed())
+                error = 1;
+        else if(this.isRock())
+                error = 2;
+        return error;
     }
+
 
     /**
      * Checks if the tile can be planted on
@@ -91,7 +97,7 @@ public class Tile {
      */
     public void plowTile() {
         // do not plow if plowing is not allowed
-        if(canPlow()) {
+        if(canPlow() == 0) {
             this.plowed = true;
             System.out.println("\n...tile successfully plowed");
         }

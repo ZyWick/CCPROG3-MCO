@@ -47,35 +47,23 @@ public class MyFarm {
         return lot.get(tileIndex).displayTileStatus();
    }
 
-    /**
-     * Checks if the tool can be used by the player on the specified tile
-     * @param tileIndex   the index of the tool
-     * @param toolName    the name of the tool
-     * @param objectCoins the number of ObjectCoins the player has
-     * @return true if the player can use the tool on the tile, otherwise false
-     */
-    public int canUseTool(Coordinates tileIndex, String toolName, int usageCost, double objectCoins) {
-        Tile TheTile = lot.get(tileIndex);
-        int error = 0;
+    public boolean doesTileRock(Coordinates coordinates) {
+        boolean result = false;
+        if(lot.get(coordinates).isRock())
+            result = true;
+        return result;
+    }
 
-        if (objectCoins >= usageCost) {
-            if (toolName.equals("Plow") && TheTile.canPlow() == false)
-                if(TheTile.isRock())
-                    error = 2;
-                else
-                    error = 1;
-            else if (toolName.equals("Watering Can") && TheTile.canWaterOrFertilize() == false)
-                error = 3;
-            else if (toolName.equals("Fertilizer") && TheTile.canWaterOrFertilize() == false) 
-                error = 4;
-            else if (toolName.equals("Pickaxe") && TheTile.isRock() == false)
-                error = 5;
-            else if (toolName.equals("Shovel"))
-                error = 0;
-        } else
-            error = 6;      
-    
+    public int doesTilePlow(Coordinates coordinates) {
+        int error = lot.get(coordinates).canPlow();
         return error;
+    }
+
+    public boolean doesTileWorF(Coordinates coordinates) {
+        boolean result = false;
+        if(lot.get(coordinates).canWaterOrFertilize())
+            result = true;
+        return result;
     }
 
     /**
