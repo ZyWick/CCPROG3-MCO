@@ -103,12 +103,7 @@ public class FarmController {
             @Override
             public void onMessageHarvestCrop(Coordinates coordinates) {
                 System.out.println("Harvest at coordinate " + coordinates);
-
-                int error = farm.checkHarvest(coordinates);
-                if (error == 0) {
-                    farmView.reportFeedback(player.harvestCrop(coordinates));
-                } else
-                    farmView.reportFeedback(farm.getGame().throwHarvestError(error));
+                farmView.reportFeedback(player.harvestCrop(coordinates));
 
                 updateFarmView();
             }

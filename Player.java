@@ -121,14 +121,21 @@ public class Player {
      * @param coordinates the coordinates of the tile
      */
     public String harvestCrop (Coordinates coordinates) {
-            double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
-            addObjectCoins(yield[0]);
-            addExp(yield[1]);
-
+            int error = farm.checkHarvest(coordinates);
             String result = "";
-            result +=    "ObjectCoins gained: " + yield[0];
-            result += " | Experience gained: "  + yield[1];
-            result += " | Produce harvested: " + (int)yield[2];
+
+            if(error == 0) {
+                double[] yield = farm.harvestCrop(coordinates, farm.getGame().getType().indexOf(this.getType()));
+                addObjectCoins(yield[0]);
+                addExp(yield[1]);
+
+
+                result +=    "ObjectCoins gained: " + yield[0];
+                result += " | Experience gained: "  + yield[1];
+                result += " | Produce harvested: " + (int)yield[2];
+            } else {
+                result = farm.getGame().throwHarvestError(error);
+            }
 
             return result;
     }
