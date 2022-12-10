@@ -98,9 +98,11 @@ public class MyFarm {
      * @param tileIndex   the index of the tile
      * @return true if a new seed can be planted, otherwise false
      */
-    public int checkPlantInTile (Coordinates tileIndex) {
+    public int checkPlantInTile (Coordinates tileIndex, FarmSeeds seed) {
         int result = 0;
 
+        if (seed instanceof FruitTree && !checkFreeAdjacentTile(tileIndex))
+            result = 5;
         if (lot.get(tileIndex).isPlowed() == false) 
             result = 1;
         if (lot.get(tileIndex).getSeeds() != null) 
@@ -193,9 +195,14 @@ public class MyFarm {
      * @param seedIndex the index of the seed
      * @return the cost of the operation
      */
-    public int plantCrop(Coordinates tileIndex, int seedIndex) {
-        lot.get(tileIndex).setSeeds(game.getSeeds().get(seedIndex));
-        return game.getSeeds().get(seedIndex).getSeedCost();
+    public int plantCrop(Coordinates tileIndex, FarmSeeds seed) {
+        if(checkPlantInTile(tileIndex, seed) == 0) {
+            lot.get(tileIndex).setSeeds(seed);
+            return seed.getSeedCost();
+        }
+
+        // planting failure
+        return 0;
    }
 
     /**
@@ -290,7 +297,7 @@ public class MyFarm {
         return this.game;
    }
 
-    public boolean checkFreeAdjacentTile(Coordinates coordinates) {
+    private boolean checkFreeAdjacentTile(Coordinates coordinates) {
         int row = coordinates.getRow();
         int col = coordinates.getCol();
         for(int r = row - 1; r <= row + 1; r++) {
