@@ -312,4 +312,8 @@ public class MyFarm {
         }
         return true;
     }
+
+    public TileState getTileState(Coordinates coordinates) {
+        return lot.get(coordinates).getTileState();
+    }
 }

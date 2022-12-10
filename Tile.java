@@ -273,4 +273,28 @@ public class Tile {
     public int getAge() {
         return this.age;
     }
+
+    public TileState getTileState() {
+        String seedName = "";
+        if(seeds != null)
+            seedName = seeds.getName();
+
+        int state = TileState.ROCK;
+        if(!isRock())
+            state = TileState.UNPLOWED;
+
+        if(isPlowed())
+            state = TileState.PLOWED;
+
+        if(seeds != null)
+            state = TileState.PLANTED;
+
+        if(seeds != null && age == seeds.getHarvestTime())
+            state = TileState.READY;
+
+        if(isWithered() != 0)
+            state = TileState.WITHERED;
+
+        return new TileState(seedName, state);
+    }
 }
