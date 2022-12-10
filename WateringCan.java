@@ -12,9 +12,9 @@ public class WateringCan implements FarmTools{
     }
 
     public int canUseTool(MyFarm farm, Coordinates coordinates) {
-        int error = 3;
-        if (farm.doesTileWorF(coordinates))
-            error = 0;
+        int error = 0;
+        if (farm.doesTileWorF(coordinates) == false)
+            error = 3;
         return error;
     }
 

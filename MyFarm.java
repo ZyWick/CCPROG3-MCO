@@ -70,11 +70,11 @@ public class MyFarm {
      * Checks if the seed can be purchased by the player
      * @param objectCoins          the number of ObjectCoins the player has
      * @param seedCost             cost of the seed in ObjectCoins
-     * @param farmerSeedReduction  discount on seed cost given by the player's farmer type
+     * @param farmerSeedCostReduction  discount on seed cost given by the player's farmer type
      * @return true if the player can purchase the seed, otherwise false
      */
-    private boolean canAffordSeed(double objectCoins, int seedCost, int farmerSeedReduction) {
-        if (objectCoins >= seedCost + farmerSeedReduction)
+    private boolean canAffordSeed(double objectCoins, int seedCost, int farmerSeedCostReduction) {
+        if (objectCoins >= seedCost + farmerSeedCostReduction)
             return true;
 
         return false;
