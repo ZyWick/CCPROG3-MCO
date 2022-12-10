@@ -223,7 +223,7 @@ public class MyFarm {
         harvestTotal = harvestTotal + waterBonus + fertilizerBonus;
 
         if(TheSeed instanceof Flower)
-            harvestTotal *= 1.1;   
+            harvestTotal *= ((Flower) TheSeed).getPremiumFactor();
 
         TheTile.reset();
         double[] yield = new double[3];
