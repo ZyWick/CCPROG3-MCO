@@ -17,6 +17,8 @@ public class FarmView {
     private TilePanel tilePanel;
     private OnViewMessageListener messageListener;
 
+    private ArrayList<String> tools;
+
     public FarmView() {
         frame = new JFrame("Farm");
 
@@ -94,11 +96,10 @@ public class FarmView {
         actions.put(messageListener.requestTileStatus(coordinates), "nothing");
         actions.put("Plant", "plant");
         actions.put("Harvest", "harvest");
-        actions.put("Plow", "plow");
-        actions.put("Water", "water");
-        actions.put("Fertilize", "fertilize");
-        actions.put("Pickaxe", "pickaxe");
-        actions.put("Shovel", "shovel");
+
+        for (String name : tools) {
+            actions.put(name, name);
+        }
 
         ActionListener listener = new ActionListener() {
             @Override
@@ -109,13 +110,9 @@ public class FarmView {
                     String action = actions.get(entry.getText());
                     if(action != null) {
                         switch (action) {
-                            case "plant": showPlantMenu(coordinates); break;
+                            case "plant":
                             case "harvest":   messageListener.onMessageHarvestCrop(coordinates); break;
-                            case "plow":      messageListener.onMessageUseTool(coordinates, "plow"); break;
-                            case "water":     messageListener.onMessageUseTool(coordinates, "water"); break;
-                            case "fertilize": messageListener.onMessageUseTool(coordinates, "fertilize"); break;
-                            case "pickaxe":   messageListener.onMessageUseTool(coordinates, "pickaxe"); break;
-                            case "shovel":    messageListener.onMessageUseTool(coordinates, "shovel"); break;
+                            default:          messageListener.onMessageUseTool(coordinates, action); break;
                         }
                     }
                 }
@@ -175,6 +172,11 @@ public class FarmView {
 
         menu.show(frame, x, y);
     }
+
+    public void setToolsList(ArrayList<String> tools) {
+        this.tools = tools;
+    }
+
     public void setOnTileMessageListener(OnViewMessageListener messageListener) {
         this.messageListener = messageListener;
     }

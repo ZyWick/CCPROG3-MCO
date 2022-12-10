@@ -17,6 +17,12 @@ public class FarmController {
         farm = new MyFarm();
         player = new Player(farm);
 
+        ArrayList<String> toolsList = new ArrayList<>();
+        for (FarmTools tool : player.getTools()) {
+            toolsList.add(tool.getName());
+        }
+        farmView.setToolsList(toolsList);
+
         // NOTE: actions that cause tiles/stats to change must call updateFarmView
         farmView.setOnTileMessageListener(new OnViewMessageListener() {
             @Override
