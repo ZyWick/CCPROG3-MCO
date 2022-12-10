@@ -40,76 +40,10 @@ public class MyFarm {
     }
 
     /**
-     * Checks the state of a specific tile and uses a character to represent it
-     * @param tileIndex the index of the tile
-     * @return a character representing the tile's state
-     */
-    /*private char whatToPrint(Coordinates tileIndex) {
-        Tile TheTile = lot.get(tileIndex);
-        if (TheTile.isPlowed()) {
-            if (TheTile.getSeeds() != null) {
-                int age = TheTile.getAge();
-                int harvestTime = TheTile.getSeeds().getHarvestTime();
-
-                if (age == harvestTime)
-                    return '$';
-                if (age <= 1)
-                    return ',';
-                if (age <= harvestTime/3)
-                    return 's';
-                if (age < harvestTime)
-                    return 'S';
-                if (TheTile.isWithered() != 0 || age > harvestTime)
-                    return 'X';
-            } else
-                return '#';
-        } else if (TheTile.isRock())
-            return '*';
-
-        return '=';
-    }*/
-
-    /**
      * Displays the farm
      */
     public void display () {
     }
-
-    // /**
-    //  * Displays the tools that can and cannot be used on a specific tile
-    //  *
-    //  * @param tileIndex   the index of the tile
-    //  * @param objectCoins the number of ObjectCoins the player has
-    //  */
-    // public void displayTools (Coordinates tileIndex, double objectCoins) {
-    //     for (FarmTools tool : game.getTools()) {
-    //         int toolIndex = game.getTools().indexOf(tool);
-
-    //         if(canUseTool(tileIndex, toolIndex, objectCoins) == 0)
-    //             System.out.print("| / | ");
-    //         else
-    //             System.out.print("| x | ");
-
-    //         System.out.println(toolIndex + " - " + tool.getClass());
-    //     }
-    // }
-
-    // /**
-    //  * Displays the seeds that can and cannot be planted by the player
-    //  *
-    //  * @param objectCoins the number of ObjectCoins the player has
-    //  * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
-    //  */
-    // public void displaySeeds (double objectCoins, int farmerSeedCostReduction) {
-    //     for (FarmSeeds seed : game.getSeeds()) {
-    //         if(canAffordSeed(objectCoins, seed.getSeedCost(), farmerSeedCostReduction))
-    //             System.out.print("| / | ");
-    //         else
-    //             System.out.print("| x | ");
-
-    //         System.out.println(game.getSeeds().indexOf(seed) + " - " + seed.getName());
-    //     }
-    // }
 
     /**
      * Display tile status.
@@ -165,30 +99,6 @@ public class MyFarm {
         return false;
     }
 
-    // /**
-    //  * Checks if a tool can be used on the tile
-    //  *
-    //  * @param tileIndex   the index of the tile
-    //  * @param toolIndex   the index of the tool
-    //  * @param objectCoins the number of ObjectCoins the player has
-    //  * @return true if the tool can be used, otherwise false
-    //  */
-    // public boolean checkUseTool (Coordinates tileIndex, int toolIndex, double objectCoins) {
-    //     boolean result = false;
-
-    //     if (toolIndex >= 0 && toolIndex < game.getTools().size()) {
-    //         int error = canUseTool(tileIndex, toolIndex, objectCoins);
-
-    //         if (error == 0) {
-    //             result = true;   
-    //         } else 
-    //             game.throwToolError(error);
-    //     } else
-    //         game.throwOutOfBoundsError();
-        
-    //     return result;
-    // }
-
     /**
      * Checks if a new seed can be planted on the tile
      *
@@ -205,32 +115,6 @@ public class MyFarm {
         
         return result;
     }
-
-    // /**
-    //  * Checks if a specific seed can be planted on the tile
-    //  *
-    //  * @param tileIndex               the index of the tile
-    //  * @param farmerSeedCostReduction discount on seed cost given by the player's farmer type
-    //  * @param seedIndex               the index of the seed
-    //  * @param objectCoins             the number of ObjectCoins the player has
-    //  * @return true if the specific seed can be planted, otherwise false
-    //  */
-    // public int checkPlantCrop (Coordinates tileIndex, int farmerSeedCostReduction, int seedIndex, double objectCoins) {
-    //     int result = 0;
-
-    //     if (seedIndex >= 0 && seedIndex < game.getSeeds().size()) {
-
-    //         if (canAffordSeed(objectCoins, game.getSeeds().get(seedIndex).getSeedCost(), farmerSeedCostReduction)) {
-    //             if (game.getSeeds().get(seedIndex) instanceof FruitTree) {
-
-    //             }
-    //         } else
-    //             result = 3; //game.throwInsufficientObjectCoins();
-    //     } else
-    //         result = 4; //game.throwOutOfBoundsError();
-
-    //     return result;
-    // }
 
     /**
      * Check if the tile can be harvested
