@@ -4,13 +4,15 @@ public class PlayerStats {
     private double exp;
     private int level;
     private int day;
+    private FarmerType eligibleForPlayerType;
 
-    public PlayerStats(String type, double objectCoins, double exp, int level, int day) {
+    public PlayerStats(String type, double objectCoins, double exp, int level, int day, FarmerType eligibleForPlayerType) {
         this.type = type;
         this.objectCoins = objectCoins;
         this.exp = exp;
         this.level = level;
         this.day = day;
+        this.eligibleForPlayerType = eligibleForPlayerType;
     }
 
     public String getType() {
@@ -33,5 +35,8 @@ public class PlayerStats {
         return day;
     }
 
+    public FarmerType getEligibleForPlayerType() {
+        return eligibleForPlayerType;
+    }
 
 }

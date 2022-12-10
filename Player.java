@@ -47,8 +47,14 @@ public class Player {
         }
     }
     public PlayerStats getPlayerStats() {
+        FarmerType zType = null;
+        switch (canRegisterUp()) {
+            case REGISTER_UP_OK:
+            case REGISTER_UP_ERR_INSUFFICIENT_OBJECTCOINS:
+                zType = farm.getGame().getNextFarmerType(type);
+        }
         return new PlayerStats(type.getName(), this.objectCoins,
-                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay());
+                this.experience.getExp(), this.experience.getLevel(), this.farm.getGame().getDay(), zType);
     }
 
     /**

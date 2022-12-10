@@ -218,12 +218,19 @@ public class FarmView {
     }
 
     public void setPlayerStats(PlayerStats stats) {
+        String playerTypeMsg = "";
+
+        if(stats.getEligibleForPlayerType() != null)
+            playerTypeMsg = "can register to " + stats.getEligibleForPlayerType().getName() +
+                    " (cost: " + stats.getEligibleForPlayerType().getRegistrationFee() + " ObjectCoins)";
+
         statsPanel.setText("<html>" +
                 "<span style=\"color: #5A2729\"> Type: " + stats.getType() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Exp: " + stats.getExp() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Level: " + stats.getLevel() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Coins: " + stats.getObjectCoins() + "</span> <br>" +
                 "<span style=\"color: #5A2729\"> Day: " + stats.getDay() + "</span> <br>" +
+                "<span style=\"color: #5A2729\"> " + playerTypeMsg + "</span> <br>" +
                 "</html>");
     }
 
