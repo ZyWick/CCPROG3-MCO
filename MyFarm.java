@@ -12,8 +12,9 @@ public class MyFarm {
     private FarmSystem game = new FarmSystem();
     private Coordinates farmSize;
 
-    /**
-     * Creates a new MyFarm
+   
+    /** Creates a new MyFarm
+     * @param farmSize the size of the farm
      */
     public MyFarm(Coordinates farmSize) {
         // load rock cfg from file
@@ -49,21 +50,21 @@ public class MyFarm {
     /**
      * Display tile status.
      *
-     * @param tileIndex the index of the tile
+     * @param coordiantes the coordinates of the tile
      */
-    public String displayTileStatus(Coordinates tileIndex) {
-        return lot.get(tileIndex).displayTileStatus();
+    public String displayTileStatus(Coordinates coordinates) {
+        return lot.get(coordinates).displayTileStatus();
    }
 
-    /**
-     * Checks if the tool can be used by the player on the specified tile
-     * @param tileIndex   the index of the tool
-     * @param toolIndex   the index of the tile
-     * @param objectCoins the number of ObjectCoins the player has
-     * @return true if the player can use the tool on the tile, otherwise false
+    /** tests if player can use a certain tool on a tile
+     * @param coordinates the coordinates of the tile
+     * @param toolName the name of the tool
+     * @param usageCost the cost of usage of the tool
+     * @param objectCoins the amount of objectCoins the player has
+     * @return
      */
-    public int canUseTool(Coordinates tileIndex, String toolName, int usageCost, double objectCoins) {
-        Tile TheTile = lot.get(tileIndex);
+    public int canUseTool(Coordinates coordinates, String toolName, int usageCost, double objectCoins) {
+        Tile TheTile = lot.get(coordinates);
         int error = 0;
 
         if (objectCoins >= usageCost) {
@@ -86,12 +87,11 @@ public class MyFarm {
         return error;
     }
 
-    /**
-     * Checks if the seed can be purchased by the player
-     * @param objectCoins          the number of ObjectCoins the player has
-     * @param seedCost             cost of the seed in ObjectCoins
-     * @param farmerSeedReduction  discount on seed cost given by the player's farmer type
-     * @return true if the player can purchase the seed, otherwise false
+    /** tests if the player can afford a seed
+     * @param objectCoins the amount of objectCoins the player has
+     * @param seedCost the cost of the seed
+     * @param farmerSeedReduction the bonus seed reduction from the farmer type of the player
+     * @return
      */
     private boolean canAffordSeed(double objectCoins, int seedCost, int farmerSeedReduction) {
         if (objectCoins >= seedCost + farmerSeedReduction)
@@ -103,29 +103,29 @@ public class MyFarm {
     /**
      * Checks if a new seed can be planted on the tile
      *
-     * @param tileIndex   the index of the tile
-     * @return true if a new seed can be planted, otherwise false
+     * @param coordinates   the coordinates of the tile
+     * @return int determining the type of error that occurred or none
      */
-    public int checkPlantInTile (Coordinates tileIndex) {
-        int result = 0;
+    public int checkPlantInTile (Coordinates coordinates) {
+        int error = 0;
 
-        if (lot.get(tileIndex).isPlowed() == false) 
-            result = 1;
-        if (lot.get(tileIndex).getSeeds() != null) 
-            result = 2;
+        if (lot.get(coordinates).isPlowed() == false) 
+            error = 1;
+        if (lot.get(coordinates).getSeeds() != null) 
+            error = 2;
         
-        return result;
+        return error;
     }
 
     /**
-     * Check if the tile can be harvested
+     * Checks if the tile can be harvested
      *
-     * @param tileIndex the index of the tile
-     * @return true if the tile can be harvested, otherwise false
+     * @param coordinates the coordinates of the tile
+     * @return int determining the type of error that occurred or none
      */
-    public int checkHarvest(Coordinates tileIndex) {
+    public int checkHarvest(Coordinates coordinates) {
         int error;
-        Tile TheTile = lot.get(tileIndex);
+        Tile TheTile = lot.get(coordinates);
 
         if (TheTile.getSeeds() == null) 
             error = 5;
@@ -140,51 +140,46 @@ public class MyFarm {
     /**
      * Plows a tile
      *
-     * @param tileIndex the index of the tile
-     * @return an array containing the cost and exp yield of the operation
+     * @param coordinates the coordinates of the tile
      */
-    public void plowTile(Coordinates tileIndex) {
-        lot.get(tileIndex).plowTile();
+    public void plowTile(Coordinates coordinates) {
+        lot.get(coordinates).plowTile();
     }
 
     /**
      * Waters a tile
      *
-     * @param tileIndex the index of the tile
-     * @return an array containing the cost and exp yield of the operation
+     * @param coordinates the coordinates of the tile
      */
-    public void waterTile(Coordinates tileIndex) {
-        lot.get(tileIndex).addWaterTimes();
+    public void waterTile(Coordinates coordinates) {
+        lot.get(coordinates).addWaterTimes();
     }
 
     /**
      * Fertilizes a tile
      *
-     * @param tileIndex the index of the tile
-     * @return an array containing the cost and exp yield of the operation
+     * @param coordinates the coordinates of the tile
      */
-    public void fertilizeTile(Coordinates tileIndex) {
-        lot.get(tileIndex).addFertilizerTimes();   
+    public void fertilizeTile(Coordinates coordinates) {
+        lot.get(coordinates).addFertilizerTimes();   
     }
 
     /**
      * Removes a rock from a tile
      *
-     * @param tileIndex the index of the tile
-     * @return an array containing the cost and exp yield of the operation
+     * @param coordinates the coordinates of the tile
      */
-    public void removeRock(Coordinates tileIndex) {
-        lot.get(tileIndex).removeRock();
+    public void removeRock(Coordinates coordinates) {
+        lot.get(coordinates).removeRock();
     }
 
     /**
      * Shovels a tile
      *
-     * @param tileIndex the index of the tile
-     * @return an array containing the cost and exp yield of the operation
+     * @param coordinates the coordinates of the tile
      */
-    public void useShovel (Coordinates tileIndex) {
-        Tile TheTile = lot.get(tileIndex);
+    public void useShovel (Coordinates coordinates) {
+        Tile TheTile = lot.get(coordinates);
         
         if (TheTile.isPlowed() == false || TheTile.isRock() == true)
             System.out.println("\n...nothing happened");
@@ -197,24 +192,24 @@ public class MyFarm {
     /**
      * Plants a crop on a tile
      *
-     * @param tileIndex the index of the tile
+     * @param coordinates the coordinates of the tile
      * @param seedIndex the index of the seed
      * @return the cost of the operation
      */
-    public int plantCrop(Coordinates tileIndex, int seedIndex) {
-        lot.get(tileIndex).setSeeds(game.getSeeds().get(seedIndex));
+    public int plantCrop(Coordinates coordinates, int seedIndex) {
+        lot.get(coordinates).setSeeds(game.getSeeds().get(seedIndex));
         return game.getSeeds().get(seedIndex).getSeedCost();
    }
 
     /**
      * Harvests a crop from the tile
      *
-     * @param tileIndex       the index of the tile
+     * @param coordinates the coordinates of the tile
      * @param farmerTypeIndex the index of the player's farmer type
      * @return an array containing the ObjectCoin yield, exp yield, and products produced of the operation
      */
-    public double[] harvestCrop(Coordinates tileIndex, int farmerTypeIndex){
-        Tile TheTile = lot.get(tileIndex);
+    public double[] harvestCrop(Coordinates coordinates, int farmerTypeIndex){
+        Tile TheTile = lot.get(coordinates);
         FarmSeeds TheSeed = TheTile.getSeeds();
         double harvestTotal, waterBonus, fertilizerBonus;      
         FarmerType TheType = game.getType().get(farmerTypeIndex);
@@ -298,6 +293,11 @@ public class MyFarm {
         return this.game;
    }
 
+    /** tests if the adjacent tiles of a tile are free
+     * 
+     * @param coordinates the coordinates of the tile
+     * @return true if the adjacent tiles are free, otherwise, false
+     */
     public boolean checkFreeAdjacentTile(Coordinates coordinates) {
         int row = coordinates.getRow();
         int col = coordinates.getCol();
@@ -315,6 +315,11 @@ public class MyFarm {
         return true;
     }
 
+    
+    /** gets the state of a tile
+     * @param coordinates the coordinates of the tile
+     * @return TileState of the tile
+     */
     public TileState getTileState(Coordinates coordinates) {
         return lot.get(coordinates).getTileState();
     }

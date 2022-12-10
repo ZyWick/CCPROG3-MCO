@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * FarmSimulator is the driver class which contains the main method
  */
