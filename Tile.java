@@ -157,7 +157,7 @@ public class Tile {
     /**
      * Computes the amount of products produced by tile
      *
-     * @return the amount of products
+     * @return the amount of products the crop produced
      */
     public int computeProductsProduced() {
         return seeds.computeProductsProduced();
@@ -280,6 +280,9 @@ public class Tile {
         return this.age;
     }
 
+    /** gets the state of the tile
+     * @return the TileState of the tile
+     */
     public TileState getTileState() {
         String seedName = "";
         if(seeds != null)
