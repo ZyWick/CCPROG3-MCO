@@ -29,11 +29,9 @@ public class MyFarm {
         this.farmSize = farmSize;
         for(int y = 0; y < farmSize.getRow(); y++) {
             for(int x = 0; x < farmSize.getCol(); x++) {
-                //if indicated
-                System.out.println(new Coordinates(y, x));
+                // add rocks if and only if the character at index mod string length is 1
                 lot.put(new Coordinates(y, x), new Tile(
                         rockCfg.charAt((y * farmSize.getRow() + x) % rockCfg.length()) == '1'));
-                //lot.add(new Tile(true));
             }
         }
 
