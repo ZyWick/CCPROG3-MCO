@@ -47,28 +47,23 @@ public class FarmController {
             public void onMessagePlant(Coordinates coordinates, String seedName) {
                 System.out.println("Plant " + seedName + " at coordinate " + coordinates);
                 
-                int error = farm.checkPlantInTile(coordinates);
-                if(error == 0) {
-                    for (FarmSeeds seed : farm.getGame().getSeeds())
-                        if (seed.getName().equals(seedName)) {
-                            FarmSeeds choice = seed;
+                int error = 0;
+                for (FarmSeeds seed : farm.getGame().getSeeds())
+                    if (seed.getName().equals(seedName)) {
+                        FarmSeeds choice = seed;
 
-                            if (choice != null) {
-
-                                if (player.canAffordSeed(choice.getSeedCost())) {
-                                    if (choice instanceof FruitTree) {
-                                        if (farm.checkFreeAdjacentTile(coordinates))
-                                            player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
-                                        else
-                                            error = 5;
-                                    } else
-                                        player.plantCrop(coordinates, farm.getGame().getSeeds().indexOf(choice));
-                                } else
+                        if (choice != null) {
+                            error = farm.checkPlantInTile(coordinates, choice);
+                            if(error == 0){
+                                if (player.canAffordSeed(choice.getSeedCost()))
+                                    player.plantCrop(coordinates, choice);
+                                else
                                     error = 3; //game.throwInsufficientObjectCoins();
-                            } else
-                                error = 4; //game.throwOutOfBoundsError();
-                        }
-                } 
+                            }
+                        } else
+                            error = 4; //game.throwOutOfBoundsError();
+                    }
+
                 if (error != 0)
                     farmView.reportFeedback(farm.getGame().throwPlantError(error));
                 else

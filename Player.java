@@ -76,8 +76,8 @@ public class Player {
      * @param coordinates the coordinates of the tile 
      * @param seedIndex the index of the chosen seed 
      */
-    public void plantCrop (Coordinates coordinates, int seedIndex) {
-        int cost = farm.plantCrop(coordinates, seedIndex);
+    public void plantCrop (Coordinates coordinates, FarmSeeds seed) {
+        int cost = farm.plantCrop(coordinates, seed);
         addObjectCoins((cost + this.type.getSeedCostReduction()) * -1); 
         System.out.println("| ObjectCoins expended: " + (cost + this.getType().getSeedCostReduction()));
     }
