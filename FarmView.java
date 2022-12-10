@@ -248,8 +248,8 @@ public class FarmView {
                 "</html>");
     }
 
-    public void setTileStates(HashMap<Coordinates, TileState> states) {
-        tilePanel.setTileStates(states);
+    public void updateTileStates(HashMap<Coordinates, TileState> states) {
+        tilePanel.updateTileStates(states);
     }
 
     public void reportFeedback(String text){

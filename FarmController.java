@@ -199,6 +199,6 @@ public class FarmController {
                 states.put(new Coordinates(i, j), farm.getTileState(new Coordinates(i, j)));
             }
         }
-        farmView.setTileStates(states);
+        farmView.updateTileStates(states);
     }
 }

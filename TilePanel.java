@@ -1,16 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class TilePanel extends JPanel {
     private HashMap<Coordinates, TileView> tileViews;
     private int row, col;
 
+    /**
+     * Creates a new TilePanel
+     * @param row number of rows
+     * @param col number of columns
+     * @param windowDimensions initial window size
+     */
     public TilePanel(int row, int col, Dimension windowDimensions) {
         super();
 
@@ -37,8 +40,14 @@ public class TilePanel extends JPanel {
         }
     }
 
-    // source: https://codereview.stackexchange.com/questions/275971/function-to-resize-an-image-whilst-maintaining-aspect-ratio
+    /**
+     * Change the size of the panel to account for a change in the size of the window
+     * @param windowDimensions the new size of the window
+     */
     public void rescale(Dimension windowDimensions){
+        // original source of the resize algorithm
+        // https://codereview.stackexchange.com/questions/275971/function-to-resize-an-image-whilst-maintaining-aspect-ratio
+
         double original_width = (col * TileView.TILE_WIDTH) +
                 (col * (TileView.TILE_SPACING - 1));
 
@@ -50,7 +59,7 @@ public class TilePanel extends JPanel {
 
         double new_width, new_height;
 
-        System.out.println("Orginal size: " + new Dimension((int)original_width, (int)original_height));
+        //System.out.println("Orginal size: " + new Dimension((int)original_width, (int)original_height));
 
         if(target_width / target_height > original_width / original_height) {
             new_width = target_height * original_width / original_height;
@@ -61,15 +70,17 @@ public class TilePanel extends JPanel {
         }
 
         Dimension d = new Dimension((int)new_width, (int)new_height);
-        System.out.println("New size: " + d);
+
+        //System.out.println("New size: " + d);
 
         this.setMinimumSize(d);
         this.setPreferredSize(d);
         this.setMaximumSize(d);
     }
 
-    /*
-    In this case, we want to add the listener to the tiles it holds
+    /**
+     * Adds an ActionListener to all tiles held by TilePanel
+     * @param listener the ActionListener to add
      */
     public void addTileClickListener(ActionListener listener) {
         for(Map.Entry<Coordinates, TileView> entry : tileViews.entrySet()) {
@@ -77,7 +88,11 @@ public class TilePanel extends JPanel {
         }
     }
 
-    public void setTileStates(HashMap<Coordinates, TileState> states) {
+    /**
+     * Change the UI of the tiles to account for the change of the tile states
+     * @param states the latest state of each tile
+     */
+    public void updateTileStates(HashMap<Coordinates, TileState> states) {
         for(Map.Entry<Coordinates, TileState> hashMapEntry : states.entrySet()) {
             Coordinates targetTile = hashMapEntry.getKey();
             TileState state = hashMapEntry.getValue();
